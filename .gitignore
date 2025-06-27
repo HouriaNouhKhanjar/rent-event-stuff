@@ -1,0 +1,22 @@
+core.Microsoft*
+core.mongo*
+core.python*
+*sqlite3
+env.py
+__pycache__/
+*.py[cod]
+node_modules/
+.github/
+venv/
+.env/
+**/site-packages/
+# Coverage reports
+coverage/
+htmlcov/
+*.cover
+*.coverage
+*.cov
+*.gcov
+.cache/
+nosetests.xml
+coverage.xml
