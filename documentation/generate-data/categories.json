@@ -1,0 +1,308 @@
+[
+  {
+    "pk": 1,
+    "model": "supplies.category",
+    "fields": {
+      "name": "Event Appropriate Furniture",
+      "slug": "event-appropriate-furniture",
+      "parent": null
+    }
+  },
+  {
+    "pk": 2,
+    "model": "supplies.category",
+    "fields": {
+      "name": "Chairs",
+      "slug": "chairs",
+      "parent": 1
+    }
+  },
+  {
+    "pk": 3,
+    "model": "supplies.category",
+    "fields": {
+      "name": "Chairs & Sofas",
+      "slug": "chairs-and-sofas",
+      "parent": 1
+    }
+  },
+  {
+    "pk": 4,
+    "model": "supplies.category",
+    "fields": {
+      "name": "Folding Chairs",
+      "slug": "folding-chairs",
+      "parent": 1
+    }
+  },
+  {
+    "pk": 5,
+    "model": "supplies.category",
+    "fields": {
+      "name": "Folding Tables",
+      "slug": "folding-tables",
+      "parent": 1
+    }
+  },
+  {
+    "pk": 6,
+    "model": "supplies.category",
+    "fields": {
+      "name": "Folding Tables & Chairs",
+      "slug": "folding-tables-and-chairs",
+      "parent": 1
+    }
+  },
+  {
+    "pk": 7,
+    "model": "supplies.category",
+    "fields": {
+      "name": "Ottomans",
+      "slug": "ottomans",
+      "parent": 1
+    }
+  },
+  {
+    "pk": 8,
+    "model": "supplies.category",
+    "fields": {
+      "name": "Poufs",
+      "slug": "poufs",
+      "parent": 1
+    }
+  },
+  {
+    "pk": 9,
+    "model": "supplies.category",
+    "fields": {
+      "name": "Sofas & Couches",
+      "slug": "sofas-and-couches",
+      "parent": 1
+    }
+  },
+  {
+    "pk": 10,
+    "model": "supplies.category",
+    "fields": {
+      "name": "Table & Chair Sets",
+      "slug": "table-and-chair-sets",
+      "parent": 1
+    }
+  },
+  {
+    "pk": 11,
+    "model": "supplies.category",
+    "fields": {
+      "name": "Tables",
+      "slug": "tables",
+      "parent": 1
+    }
+  },
+  {
+    "pk": 12,
+    "model": "supplies.category",
+    "fields": {
+      "name": "Tables & Chairs",
+      "slug": "tables-and-chairs",
+      "parent": 1
+    }
+  },
+  {
+    "pk": 13,
+    "model": "supplies.category",
+    "fields": {
+      "name": "Nesting Tables",
+      "slug": "nesting-tables",
+      "parent": 1
+    }
+  },
+  {
+    "pk": 14,
+    "model": "supplies.category",
+    "fields": {
+      "name": "TV Trays",
+      "slug": "tv-trays",
+      "parent": 1
+    }
+  },
+  {
+    "pk": 15,
+    "model": "supplies.category",
+    "fields": {
+      "name": "Outdoor & Patio",
+      "slug": "outdoor-and-patio",
+      "parent": null
+    }
+  },
+  {
+    "pk": 16,
+    "model": "supplies.category",
+    "fields": {
+      "name": "Patio Furniture & Accessories",
+      "slug": "patio-furniture-and-accessories",
+      "parent": 15
+    }
+  },
+  {
+    "pk": 17,
+    "model": "supplies.category",
+    "fields": {
+      "name": "Patio Seating",
+      "slug": "patio-seating",
+      "parent": 15
+    }
+  },
+  {
+    "pk": 18,
+    "model": "supplies.category",
+    "fields": {
+      "name": "Bar & Entertainment",
+      "slug": "bar-and-entertainment",
+      "parent": null
+    }
+  },
+  {
+    "pk": 19,
+    "model": "supplies.category",
+    "fields": {
+      "name": "Bar & Serving Carts",
+      "slug": "bar-and-serving-carts",
+      "parent": 18
+    }
+  },
+  {
+    "pk": 20,
+    "model": "supplies.category",
+    "fields": {
+      "name": "Bars & Wine Cabinets",
+      "slug": "bars-and-wine-cabinets",
+      "parent": 18
+    }
+  },
+  {
+    "pk": 21,
+    "model": "supplies.category",
+    "fields": {
+      "name": "Freestanding Wine Racks & Cabinets",
+      "slug": "freestanding-wine-racks-and-cabinets",
+      "parent": 18
+    }
+  },
+  {
+    "pk": 22,
+    "model": "supplies.category",
+    "fields": {
+      "name": "Wine Cabinets",
+      "slug": "wine-cabinets",
+      "parent": 18
+    }
+  },
+  {
+    "pk": 23,
+    "model": "supplies.category",
+    "fields": {
+      "name": "Wine Racks & Cabinets",
+      "slug": "wine-racksand-and-cabinets",
+      "parent": 18
+    }
+  },
+  {
+    "pk": 24,
+    "model": "supplies.category",
+    "fields": {
+      "name": "Bar Cabinets",
+      "slug": "bar-cabinets",
+      "parent": 18
+    }
+  },
+  {
+    "pk": 25,
+    "model": "supplies.category",
+    "fields": {
+      "name": "Barstools",
+      "slug": "barstools",
+      "parent": 18
+    }
+  },
+  {
+    "pk": 26,
+    "model": "supplies.category",
+    "fields": {
+      "name": "Décor & Accessories",
+      "slug": "décor-and-accessories",
+      "parent": null
+    }
+  },
+  {
+    "pk": 27,
+    "model": "supplies.category",
+    "fields": {
+      "name": "Makeup Mirrors",
+      "slug": "makeup-mirrors",
+      "parent": 26
+    }
+  },
+  {
+    "pk": 28,
+    "model": "supplies.category",
+    "fields": {
+      "name": "Vanities & Vanity Benches",
+      "slug": "vanities-and-vanity-benches",
+      "parent": 26
+    }
+  },
+  {
+    "pk": 29,
+    "model": "supplies.category",
+    "fields": {
+      "name": "Wall-Mounted Mirrors",
+      "slug": "wall-mounted-mirrors",
+      "parent": 26
+    }
+  },
+  {
+    "pk": 30,
+    "model": "supplies.category",
+    "fields": {
+      "name": "Wall-Mounted Vanity Mirrors",
+      "slug": "wall-mounted-vanity-mirrors",
+      "parent": 26
+    }
+  },
+  {
+    "pk": 31,
+    "model": "supplies.category",
+    "fields": {
+      "name": "Storage & Utility",
+      "slug": "storage-and-utility",
+      "parent": null
+    }
+  },
+  {
+    "pk": 32,
+    "model": "supplies.category",
+    "fields": {
+      "name": "Storage Carts",
+      "slug": "storage-carts",
+      "parent": 31
+    }
+  },
+  {
+    "pk": 33,
+    "model": "supplies.category",
+    "fields": {
+      "name": "Storage Trunks & Chests",
+      "slug": "storage-trunks-and-chests",
+      "parent": 31
+    }
+  },
+  {
+    "pk": 34,
+    "model": "supplies.category",
+    "fields": {
+      "name": "Storage Cabinets",
+      "slug": "storage-cabinets",
+      "parent": 31
+    }
+  }
+]
