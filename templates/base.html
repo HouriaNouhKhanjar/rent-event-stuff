@@ -13,18 +13,27 @@
 
     {% block extra_meta %}
     {% endblock %}
+    
+    <!-- favicon -->
+    <link rel="apple-touch-icon" sizes="180x180" href="{{ MEDIA_URL }}apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="{{ MEDIA_URL }}favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="{{ MEDIA_URL }}favicon-16x16.png">
 
     {% block corecss %}
         <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+        <link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&family=Open+Sans:ital,wdth,wght@0,75..100,300..800;1,75..100,300..800&display=swap" rel="stylesheet">
+        <link rel="stylesheet" href="{% static 'css/style.css' %}">
     {% endblock %}
 
     {% block extra_css %}
     {% endblock %}
 
     {% block corejs %}
+        <script src="https://kit.fontawesome.com/1e3f59fece.js" crossorigin="anonymous"></script>
         <script src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.min.js" integrity="sha256-9/aliU8dGd2tb6OSsuzixeV4y/faTqgFtohetphbbj0=" crossorigin="anonymous"></script>
         <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
         <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
+        <script src="{% static 'js/main.js' %}"></script>
     {% endblock %}
 
     {% block extra_js %}
@@ -33,7 +42,79 @@
     <title>Rent Event Stuff {% block extra_title %}{% endblock %}</title>
   </head>
   <body>
-    <header class="container-fluid fixed-top"></header>
+    <header class="container-fluid fixed-top">
+      <div id="topnav" class="row bg-white pt-lg-2 d-none d-lg-flex">
+        <div class="col-12 col-lg-4 my-auto py-1 py-lg-0 text-center text-lg-left">
+          <a href="{% url 'home' %}" class="nav-link">
+            <h2 class="primary-font display-5 text-black my-0"> 
+              <img src="{{ MEDIA_URL }}logo.png" alt="Rent Event Stuff Logo" width="75">
+            </h2>
+          </a>
+        </div>
+        <div class="col-12 col-lg-8 my-auto py-1 py-lg-0">
+          <ul class="list-inline list-unstyled d-flex  justify-content-end align-items-center my-0">
+            <li class="list-inline-item w-25">
+              <form method="GET" action="">
+                <div class="input-group w-100">
+                  <input class="form-control border border-primary rounded-0" type="text" name="q"
+                        placeholder="Search our site">
+                  <div class="input-group-append">
+                    <button class="form-control btn border border-primary rounded-0" 
+                            type="submit"
+                            data-toggle="tooltip"
+                            data-placement="bottom"
+                            title="Click to search">
+                      <span class="icon">
+                        <i class="fas fa-search text-primary"></i>
+                      </span>
+                    </button>
+                  </div>
+                </div>
+              </form>
+            </li>
+            <li class="list-inline-item dropdown">
+              <a class="text-black nav-link"
+                 href="#"
+                 id="user-options" data-toggle="dropdown"
+                 aria-haspopup="true"
+                 data-toggle="tooltip"
+                 title="My Account"
+                 aria-expanded="false">
+                <div class="text-center" >
+                  <i class="fa-solid fa-circle-user fa-lg text-primary"></i>
+                </div>
+              </a>
+              <div class="dropdown-menu border-0" aria-labelledby="user-options">
+                {% if request.user.is_authenticated %}
+                  {% if request.user.is_superuser %}
+                    <a href="" class="dropdown-item">Product Management</a>
+                  {% endif %}
+                      <a href="" class="dropdown-item">My Profile</a>
+                      <a href="{% url 'account_logout' %}" class="dropdown-item">Logout</a>
+                  {% else %}
+                      <a href="{% url 'account_signup' %}" class="dropdown-item">Register</a>
+                      <a href="{% url 'account_login' %}" class="dropdown-item">Login</a>
+                {% endif %}
+              </div>
+            </li>
+            <li class="list-inline-item">
+              <a class="{% if grand_total %}text-info font-weight-bold{% else %}text-primary{% endif %} nav-link" href="">
+                <div class="text-center">
+                    <i class="fa-solid fa-cart-shopping fa-lg text-primary"></i>
+                    <span class="text-primary pt-2">
+                      {% if grand_total %}
+                         ${{ grand_total|floatformat:2 }}
+                      {% else %}
+                         $0.00
+                      {% endif %}
+                    </span>
+                </div>
+              </a>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </header>
 
     {% if messages %}
         <div class="message-container"></div>

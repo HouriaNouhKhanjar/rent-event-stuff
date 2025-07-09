@@ -1,0 +1,121 @@
+/* Global Variables */
+:root {
+  --primary-font: "Montserrat", sans-serif;
+  --secondary-font: "Open Sans", sans-serif;
+  --primary-color: #FF6B6B;
+  /* Coral */
+  --secondary-color: #4ECDC4;
+  /* Teal */
+  --highlight-color: #F7F1E3;
+  /* Light Beige */
+  --highlight-color-light: #fff;
+  /* White */
+  --dark-color: #0a0e11;
+  /* black */
+}
+
+/* Global styles */
+html {
+    height: 100%;
+}
+
+body {
+  font-family: var(--secondary-font, sans-serif), sans-serif;
+  color: var(--dark-color);
+}
+
+h1,
+h2,
+h3 {
+  font-family: var(--primary-font, sans-serif), sans-serif;
+  color: var(--primary-color);
+}
+
+.lead {
+  font-weight: 600;
+  font-size: 1rem;
+}
+
+.action-button {
+  background-color: var(--primary-color);
+  color: var(--dark-color);
+  border: 2px solid var(--primary-color);
+  border-radius: 0;
+  font-weight: 600;
+}
+
+.action-button-secondary {
+  background-color: var(--secondary-color);
+  color: var(--dark-color);
+  border: 2px solid var(--secondary-color);
+  border-radius: 0;
+}
+
+.action-button:hover {
+  color: var(--primary-color) !important;
+  background-color: transparent;
+}
+
+.action-button-secondary:hover {
+  color: var(--primary-color);
+  background-color: var(--highlight-color-light);
+}
+
+.hide {
+  display: none;
+}
+
+.text-primary {
+  color: var(--primary-color) !important;
+}
+
+.text-accent {
+  color: var(--secondary-color);
+}
+
+.border-primary {
+  border-color: var(--primary-color) !important;
+}
+
+/* from Bulma */
+.icon {
+    align-items: center;
+    display: inline-flex;
+    justify-content: center;
+    height: 1.5rem;
+    width: 1.5rem;
+}
+
+.main-logo-link {
+    width: fit-content;
+}
+
+/* Homepage */
+
+#hero {
+    background-color: var(--highlight-color);
+}
+
+/* Media Queries */
+
+/* Slightly larger container on xl screens */
+@media (min-width: 1200px) {
+  .container {
+    max-width: 80%;
+  }
+}
+
+/* fixed top navbar only on medium and up */
+@media (min-width: 992px) {
+    .fixed-top-desktop-only {
+        position: fixed;
+        top: 0;
+        right: 0;
+        left: 0;
+        z-index: 1030;
+    }
+
+    .header-container {
+        padding-top: 164px;
+    }
+}
