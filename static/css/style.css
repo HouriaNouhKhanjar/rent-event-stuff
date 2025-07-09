@@ -2,15 +2,15 @@
 :root {
   --primary-font: "Montserrat", sans-serif;
   --secondary-font: "Open Sans", sans-serif;
-  --primary-color: #FF6B6B;
-  /* Coral */
-  --secondary-color: #4ECDC4;
+  --primary-color: #4ECDC4;
   /* Teal */
+  --secondary-color: #FF6B6B;
+  /* Coral */
   --highlight-color: #F7F1E3;
   /* Light Beige */
   --highlight-color-light: #fff;
   /* White */
-  --dark-color: #0a0e11;
+  --dark-color: #292f34;
   /* black */
 }
 
@@ -29,26 +29,35 @@ h2,
 h3 {
   font-family: var(--primary-font, sans-serif), sans-serif;
   color: var(--primary-color);
+  font-size: large;
 }
 
 .lead {
-  font-weight: 600;
-  font-size: 1rem;
+  color: var(--primary-color);
 }
 
 .action-button {
   background-color: var(--primary-color);
   color: var(--dark-color);
   border: 2px solid var(--primary-color);
+  font-size: medium;
   border-radius: 0;
-  font-weight: 600;
+  -webkit-border-radius: 0;
+  -moz-border-radius: 0;
+  -ms-border-radius: 0;
+  -o-border-radius: 0;
 }
 
 .action-button-secondary {
-  background-color: var(--secondary-color);
-  color: var(--dark-color);
+  background-color: transparent;
+  color: var(--secondary-color);
   border: 2px solid var(--secondary-color);
   border-radius: 0;
+  font-size: medium;
+  -webkit-border-radius: 0;
+  -moz-border-radius: 0;
+  -ms-border-radius: 0;
+  -o-border-radius: 0;
 }
 
 .action-button:hover {
@@ -57,8 +66,8 @@ h3 {
 }
 
 .action-button-secondary:hover {
-  color: var(--primary-color);
-  background-color: var(--highlight-color-light);
+  color: var(--highlight-color-light);
+  background-color: var(--secondary-color);
 }
 
 .hide {
@@ -73,8 +82,49 @@ h3 {
   color: var(--secondary-color);
 }
 
-.border-primary {
-  border-color: var(--primary-color) !important;
+.border-accent {
+  border-color: var(--secondary-color) !important;
+}
+
+.border-light {
+  border-color: var(--highlight-color) !important;
+}
+
+.bg-light {
+    background-color: var(--highlight-color) !important;
+}
+
+.bg-dark {
+    background-color: var(--dark-color) !important;
+}
+
+.input-dark,
+.input-dark:focus {
+    background: transparent;
+    color: var(--highlight-color-light) !important;
+}
+
+.input-dark::placeholder {
+  color: var(--highlight-color-light);
+  opacity: 1; /* Firefox */
+}
+
+.input-dark::-ms-input-placeholder { /* Edge 12-18 */
+  color: var(--highlight-color-light);
+}
+
+.underline {
+  position: relative;
+}
+
+.underline::after {
+  content: "";
+  position: absolute;
+  bottom: -4px;
+  left: 0;
+  width: 11%;
+  height: 2px;
+  background-color: var(--primary-color);
 }
 
 /* from Bulma */
@@ -86,27 +136,32 @@ h3 {
     width: 1.5rem;
 }
 
-.main-logo-link {
-    width: fit-content;
+/* footer */
+.social-media .text-accent:hover {
+    color: var(--primary-color);
 }
 
 /* Homepage */
-
 #hero {
-    background-color: var(--highlight-color);
+    background: linear-gradient(179deg, rgb(3 3 3 / 15%), rgb(0 0 0 / 85%)), url(/media/rent-event-stuff-baner.gif);
+    background-size: cover;
+    background-position: center bottom;
+    height: 80vh;
 }
 
 /* Media Queries */
-
-/* Slightly larger container on xl screens */
-@media (min-width: 1200px) {
-  .container {
-    max-width: 80%;
-  }
-}
-
-/* fixed top navbar only on medium and up */
+/* medium screen and up */
 @media (min-width: 992px) {
+    /* global variables */
+    h1 {
+        font-size: xx-large;
+    }
+
+    .lead{
+        font-size: larger;
+    }
+
+    /* header */
     .fixed-top-desktop-only {
         position: fixed;
         top: 0;

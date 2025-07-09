@@ -43,29 +43,28 @@
   </head>
   <body>
     <header class="container-fluid fixed-top">
-      <div id="topnav" class="row bg-white pt-lg-2 d-none d-lg-flex">
+      <div id="topnav" class="row bg-dark pt-lg-2 d-none d-lg-flex">
         <div class="col-12 col-lg-4 my-auto py-1 py-lg-0 text-center text-lg-left">
           <a href="{% url 'home' %}" class="nav-link">
-            <h2 class="primary-font display-5 text-black my-0"> 
-              <img src="{{ MEDIA_URL }}logo.png" alt="Rent Event Stuff Logo" width="75">
-            </h2>
+            <img src="{{ MEDIA_URL }}logo.png" alt="Rent Event Stuff Logo" width="50">
           </a>
         </div>
         <div class="col-12 col-lg-8 my-auto py-1 py-lg-0">
           <ul class="list-inline list-unstyled d-flex  justify-content-end align-items-center my-0">
-            <li class="list-inline-item w-25">
+            <li class="list-inline-item">
               <form method="GET" action="">
                 <div class="input-group w-100">
-                  <input class="form-control border border-primary rounded-0" type="text" name="q"
-                        placeholder="Search our site">
+                  <input class="form-control border border-accent input-dark rounded-0" type="text" name="q"
+                        placeholder="Search..">
                   <div class="input-group-append">
-                    <button class="form-control btn border border-primary rounded-0" 
+                    <button class="form-control btn action-button-secondary" 
                             type="submit"
+                            aria-label="Search for event supply for renting"
                             data-toggle="tooltip"
                             data-placement="bottom"
                             title="Click to search">
                       <span class="icon">
-                        <i class="fas fa-search text-primary"></i>
+                        <i class="fas fa-search"></i>
                       </span>
                     </button>
                   </div>
@@ -84,7 +83,7 @@
                   <i class="fa-solid fa-circle-user fa-lg text-primary"></i>
                 </div>
               </a>
-              <div class="dropdown-menu border-0" aria-labelledby="user-options">
+              <div class="dropdown-menu border-light rounded-0 bg-light" aria-labelledby="user-options">
                 {% if request.user.is_authenticated %}
                   {% if request.user.is_superuser %}
                     <a href="" class="dropdown-item">Product Management</a>
@@ -128,6 +127,76 @@
     
     {% block postloadjs %}
     {% endblock %}
+
+    <footer class="footer bg-dark">
+      <div class="container-fluid py-5 text-white">
+          <div class="row">
+            <div class="d-none d-xl-inline-block col-xl-5 footer-section text-center">
+               <a href="{% url 'home' %}" class="nav-link">
+                <img src="{{ MEDIA_URL }}logo.png" alt="Rent Event Stuff Logo" width="150">
+              </a>
+            </div>
+            <div class="col-md-6 col-xl-3 py-3 px-5 p-xl-0 footer-section">
+              <h2 class="underline">Newsletter</h3>
+              <div class="p-3">
+                <p class="footer-about">Subscribe to our newsletter for updates, news, and exclusive offers.</p>
+                <div class="footer-newsletter">
+                  <form method="GET" action="">
+                    <div class="input-group w-100">
+                      <input class="form-control border border-accent input-dark rounded-0"
+                      type="email" placeholder="Enter your email">
+                      <div class="input-group-append">
+                        <button class="form-control btn action-button-secondary" aria-label="Subscribe now">
+                          <span class="icon">
+                              <i class="fas fa-paper-plane"></i>
+                          </span>
+                        </button>
+                      </div>
+                    </div>
+                  </form>
+                </div>
+              </div>
+            </div>
+
+            <div class="col-md-6 col-xl-3 py-3 px-5 p-xl-0 pl-xl-3 footer-section">
+              <h2 class="underline">Contacts</h3>
+              <div class="p-3">
+                <p>Phone Number:<a href="tel:+491722641331" title="Call customer service at +49 1722641331"
+                 aria-label="Dial +49 1722641331" class="text-white" target="_blank"
+                 rel="noopener noreferrer">+49 1722641331</a>
+                </p>
+                <p>Fax: <a href="fax:+491854236978" title="Send a fax to +49 1854236978"
+                  aria-label="Send a fax to +49 1854236978" class="text-white" target="_blank"
+                  rel="noopener noreferrer">+49 1854236978</a>
+                </p>
+                <p>Email: <a href="mailto:info@rent-event-stuff.de" title="Send a email to info@rent-event-stuff.de"
+                  aria-label="Send a email to info@rent-event-stuff.de" class="text-white" target="_blank"
+                  rel="noopener noreferrer">info@rent-event-stuff.de</a>
+                </p>
+                <div class="social-media">
+                  <a href="https://www.instagram.com" target="_blank" class="px-2"
+                    aria-label="Visit our Instagram page (opens in a new tab)" rel="noopener">
+                    <i class="fa-brands fa-instagram fa-lg text-accent"></i>
+                  </a>
+                  <a href="https://www.facebook.com" target="_blank" class="px-2"
+                      aria-label="Visit our Facebook page (opens in a new tab)" rel="noopener">
+                      <i class="fa-brands fa-square-facebook fa-lg text-accent"></i>
+                  </a>
+                  <a href="https://www.x.com" target="_blank" class="px-2"
+                    aria-label="Visit our X feed (opens in a new tab)"
+                    rel="noopener">
+                    <i class="fa-brands fa-x-twitter fa-lg text-accent"></i>
+                  </a>
+                </div>
+              </div>
+            </div>
+          </div>
+          <hr class="border-white w-75 mx-auto mb-0 mt-5">
+          <div class="footer-bottom text-center pt-3">
+              <p>© 2024 Rent Event Stuff. All rights reserved.</p>
+          </div>
+      </div>
+    </footer>
     
   </body>
 </html>
