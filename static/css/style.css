@@ -2,11 +2,11 @@
 :root {
   --primary-font: "Montserrat", sans-serif;
   --secondary-font: "Open Sans", sans-serif;
-  --primary-color: #4ECDC4;
+  --primary-color: #4ecdc4;
   /* Teal */
-  --secondary-color: #FF6B6B;
+  --secondary-color: #ff6b6b;
   /* Coral */
-  --highlight-color: #F7F1E3;
+  --highlight-color: #f7f1e3;
   /* Light Beige */
   --highlight-color-light: #fff;
   /* White */
@@ -16,7 +16,7 @@
 
 /* Global styles */
 html {
-    height: 100%;
+  height: 100%;
 }
 
 body {
@@ -91,17 +91,21 @@ h3 {
 }
 
 .bg-light {
-    background-color: var(--highlight-color) !important;
+  background-color: var(--highlight-color) !important;
 }
 
 .bg-dark {
-    background-color: var(--dark-color) !important;
+  background-color: var(--dark-color) !important;
+}
+
+.bg-accent {
+  background-color: var(--secondary-color) !important;
 }
 
 .input-dark,
 .input-dark:focus {
-    background: transparent;
-    color: var(--highlight-color-light) !important;
+  background: transparent;
+  color: var(--highlight-color-light) !important;
 }
 
 .input-dark::placeholder {
@@ -109,7 +113,8 @@ h3 {
   opacity: 1; /* Firefox */
 }
 
-.input-dark::-ms-input-placeholder { /* Edge 12-18 */
+.input-dark::-ms-input-placeholder {
+  /* Edge 12-18 */
   color: var(--highlight-color-light);
 }
 
@@ -129,48 +134,102 @@ h3 {
 
 /* from Bulma */
 .icon {
-    align-items: center;
-    display: inline-flex;
-    justify-content: center;
-    height: 1.5rem;
-    width: 1.5rem;
+  align-items: center;
+  display: inline-flex;
+  justify-content: center;
+  height: 1.5rem;
+  width: 1.5rem;
 }
+
+/* navbar */
+.navbar-container {
+  background-color: var(--dark-color);
+  color: var(--highlight-color-light);
+}
+
+.navbar-container .navbar {
+    align-items: baseline;
+    padding-top: 1rem;
+}
+
+.navbar-toggler,
+.navbar-toggler:focus {
+  outline: unset !important;
+  flex-grow: 2;
+  text-align: left;
+}
+
+#main-nav .nav-item .nav-link {
+  color: var(--highlight-color-light);
+}
+
+#main-nav .nav-item .nav-link:hover {
+  text-decoration-line: underline;
+  text-decoration-color: var(--secondary-color);
+  text-decoration-thickness: 4px;
+}
+
+#main-nav .nav-item .dropdown-menu {
+  background-color: var(--dark-color);
+}
+
+#main-nav .nav-item .dropdown-item {
+    color: var(--highlight-color-light);
+}
+
+/* header */
 
 /* footer */
 .social-media .text-accent:hover {
-    color: var(--primary-color);
+  color: var(--primary-color);
 }
 
 /* Homepage */
 #hero {
-    background: linear-gradient(179deg, rgb(3 3 3 / 15%), rgb(0 0 0 / 85%)), url(/media/rent-event-stuff-baner.gif);
-    background-size: cover;
-    background-position: center bottom;
-    height: 80vh;
+  background: linear-gradient(179deg, rgb(3 3 3 / 15%), rgb(0 0 0 / 85%)),
+    url(/media/rent-event-stuff-baner.gif);
+  background-size: cover;
+  background-position: center bottom;
+  height: 80vh;
 }
 
 /* Media Queries */
 /* medium screen and up */
 @media (min-width: 992px) {
-    /* global variables */
-    h1 {
-        font-size: xx-large;
-    }
+  /* global variables */
+  h1 {
+    font-size: xx-large;
+  }
 
-    .lead{
-        font-size: larger;
-    }
+  .lead {
+    font-size: larger;
+  }
 
-    /* header */
-    .fixed-top-desktop-only {
-        position: fixed;
-        top: 0;
-        right: 0;
-        left: 0;
-        z-index: 1030;
-    }
+  /* navbar */
+  .navbar-container {
+    background-color: var(--highlight-color);
+    color: var(--dark-color);
+  }
+  #main-nav .nav-item .nav-link {
+    color: var(--dark-color);
+  }
 
-    .header-container {
-        padding-top: 164px;
-    }
+  #main-nav .nav-item .dropdown-menu {
+    background-color: var(--highlight-color);
+  }
+  #main-nav .nav-item .dropdown-item {
+    color: var(--dark-color); 
+   }
+  /* header */
+  .fixed-top-desktop-only {
+    position: fixed;
+    top: 0;
+    right: 0;
+    left: 0;
+    z-index: 1030;
+  }
+
+  .header-container {
+    padding-top: 130px;
+  }
 }
