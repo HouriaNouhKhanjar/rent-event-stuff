@@ -100,7 +100,6 @@ LOGIN_REDIRECT_URL = '/'
 
 WSGI_APPLICATION = 'rent_event_stuff.wsgi.application'
 
-
 # Database
 # https://docs.djangoproject.com/en/3.2/ref/settings/#databases
 
@@ -153,6 +152,26 @@ STATICFILES_DIRS = (os.path.join(BASE_DIR, 'static'),)
 
 MEDIA_URL = '/media/'
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
+
+# dashbord
+JAZZMIN_SETTINGS = {
+    "site_title": "Rent Event Stuff Admin",
+    "site_header": "Rent Event Stuff Admin",
+    "site_brand": "Rent Event Stuff",
+    "welcome_sign": "Welcome to Rent Event Stuff Admin Panel",
+    "site_logo": "images/logo.png",
+    
+    "site_icon": "images/favicon.ico", 
+     # Copyright on the footer
+    "copyright": "<a href='/' target='_blank'>Rent Event Stuff &copy; 2025</a>",
+
+    # Additional links to include in the user menu on the top right
+    "usermenu_links": [
+        {"name": "View Site", "url": "/", "icon": 'fas fa-chart-bar'},
+    ],
+    
+    "theme": "cyborg",
+}
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/3.2/ref/settings/#default-auto-field
