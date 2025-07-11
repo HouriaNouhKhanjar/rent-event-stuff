@@ -1,49 +1,61 @@
-
 {% load static %}
 
 <!doctype html>
 <html lang="en">
-  <head>
 
-    {% block meta %}
-        <meta http-equiv="X-UA-Compatible" content="ie=edge">
-        <meta charset="utf-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-        <meta name="description" content="Rent premium event supplies including decor, furniture, and equipment. Fast delivery, secure payment, and great service.">
-        <meta name="keywords" content="event rentals, party supplies, rent decor, rent furniture, wedding equipment rental, party setup, event planning supplies, event supply rentals, wedding decor rental, furniture rental for events">
-    {% endblock %}
+<head>
 
-    {% block extra_meta %}
-    {% endblock %}
-    
-    <!-- favicon -->
-    <link rel="apple-touch-icon" sizes="180x180" href="{{ MEDIA_URL }}apple-touch-icon.png">
-    <link rel="icon" type="image/png" sizes="32x32" href="{{ MEDIA_URL }}favicon-32x32.png">
-    <link rel="icon" type="image/png" sizes="16x16" href="{{ MEDIA_URL }}favicon-16x16.png">
+  {% block meta %}
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta name="description"
+    content="Rent premium event supplies including decor, furniture, and equipment. Fast delivery, secure payment, and great service.">
+  <meta name="keywords"
+    content="event rentals, party supplies, rent decor, rent furniture, wedding equipment rental, party setup, event planning supplies, event supply rentals, wedding decor rental, furniture rental for events">
+  {% endblock %}
 
-    {% block corecss %}
-        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
-        <link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&family=Open+Sans:ital,wdth,wght@0,75..100,300..800;1,75..100,300..800&display=swap" rel="stylesheet">
-        <link rel="stylesheet" href="{% static 'css/style.css' %}">
-    {% endblock %}
+  {% block extra_meta %}
+  {% endblock %}
 
-    {% block extra_css %}
-    {% endblock %}
+  <!-- favicon -->
+  <link rel="apple-touch-icon" sizes="180x180" href="{{ MEDIA_URL }}apple-touch-icon.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="{{ MEDIA_URL }}favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="{{ MEDIA_URL }}favicon-16x16.png">
 
-    {% block corejs %}
-        <script src="https://kit.fontawesome.com/1e3f59fece.js" crossorigin="anonymous"></script>
-        <script src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.min.js" integrity="sha256-9/aliU8dGd2tb6OSsuzixeV4y/faTqgFtohetphbbj0=" crossorigin="anonymous"></script>
-        <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
-        <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
-        <script src="{% static 'js/main.js' %}"></script>
-    {% endblock %}
+  {% block corecss %}
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
+    integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+  <link
+    href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&family=Open+Sans:ital,wdth,wght@0,75..100,300..800;1,75..100,300..800&display=swap"
+    rel="stylesheet">
+  <link rel="stylesheet" href="{% static 'css/style.css' %}">
+  {% endblock %}
 
-    {% block extra_js %}
-    {% endblock %}
+  {% block extra_css %}
+  {% endblock %}
 
-    <title>Rent Event Stuff {% block extra_title %}{% endblock %}</title>
-  </head>
-  <body>
+  {% block corejs %}
+  <script src="https://kit.fontawesome.com/1e3f59fece.js" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.min.js"
+    integrity="sha256-9/aliU8dGd2tb6OSsuzixeV4y/faTqgFtohetphbbj0=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"
+    integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo"
+    crossorigin="anonymous"></script>
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"
+    integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6"
+    crossorigin="anonymous"></script>
+  <script src="{% static 'js/main.js' %}"></script>
+  {% endblock %}
+
+  {% block extra_js %}
+  {% endblock %}
+
+  <title>Rent Event Stuff {% block extra_title %}{% endblock %}</title>
+</head>
+
+<body>
+  <div class="page-wrapper">
     <header class="container-fluid fixed-top">
       <div id="topnav" class="row bg-dark pt-lg-2 d-none d-lg-flex">
         <div class="col-12 col-lg-4 my-auto py-1 py-lg-0 text-center text-lg-left">
@@ -57,14 +69,11 @@
               <form method="GET" action="">
                 <div class="input-group w-100">
                   <input class="form-control border border-accent input-dark rounded-0" type="text" name="q"
-                        placeholder="Search..">
+                    placeholder="Search..">
                   <div class="input-group-append">
-                    <button class="form-control btn action-button-secondary" 
-                            type="submit"
-                            aria-label="Search for event supply for renting"
-                            data-toggle="tooltip"
-                            data-placement="bottom"
-                            title="Click to search">
+                    <button class="form-control btn action-button-secondary" type="submit"
+                      aria-label="Search for event supply for renting" data-toggle="tooltip" data-placement="bottom"
+                      title="Click to search">
                       <span class="icon">
                         <i class="fas fa-search"></i>
                       </span>
@@ -74,44 +83,42 @@
               </form>
             </li>
             <li class="list-inline-item dropdown">
-              <a class="text-black nav-link"
-                 href="#"
-                 id="user-options" data-toggle="dropdown"
-                 aria-haspopup="true"
-                 data-toggle="tooltip"
-                 title="My Account"
-                 aria-expanded="false">
-                <div class="text-center" >
+              <a class="text-black nav-link" href="#" id="user-options" data-toggle="dropdown" aria-haspopup="true"
+                data-toggle="tooltip" title="My Account" aria-expanded="false">
+                <div class="text-center">
                   <i class="fa-solid fa-circle-user fa-lg text-primary"></i>
                 </div>
               </a>
-              <div class="dropdown-menu border-0 rounded-0 bg-light" aria-labelledby="user-options">
+              <div class="dropdown-menu border-0 rounded-0 bg-light accounts-menu" aria-labelledby="user-options">
                 {% if request.user.is_authenticated %}
-                  {% if request.user.is_superuser %}
-                    <a href="" class="dropdown-item">Supplies Management</a>
-                    <div class="dropdown-divider"></div>
-                  {% endif %}
-                      <a href="" class="dropdown-item">My Profile</a>
-                      <div class="dropdown-divider"></div>
-                      <a href="{% url 'account_logout' %}" class="dropdown-item">Logout</a>
-                  {% else %}
-                      <a href="{% url 'account_signup' %}" class="dropdown-item">Register</a>
-                      <div class="dropdown-divider"></div>
-                      <a href="{% url 'account_login' %}" class="dropdown-item">Login</a>
+                {% if request.user.is_superuser %}
+                <a href="" class="dropdown-item">Supplies Management</a>
+                <div class="dropdown-divider"></div>
+                <a href="{% url 'admin:index' %}" class="dropdown-item">Admin Panel</a>
+                <div class="dropdown-divider"></div>
+                {% endif %}
+                <a href="" class="dropdown-item">My Profile</a>
+                <div class="dropdown-divider"></div>
+                <a href="{% url 'account_logout' %}" class="dropdown-item">Logout</a>
+                {% else %}
+                <a href="{% url 'account_signup' %}" class="dropdown-item">Register</a>
+                <div class="dropdown-divider"></div>
+                <a href="{% url 'account_login' %}" class="dropdown-item">Login</a>
                 {% endif %}
               </div>
             </li>
             <li class="list-inline-item">
-              <a class="{% if grand_total %}text-info font-weight-bold{% else %}text-primary{% endif %} nav-link" href="">
+              <a class="{% if grand_total %}text-info font-weight-bold{% else %}text-primary{% endif %} nav-link"
+                href="">
                 <div class="text-center">
-                    <i class="fa-solid fa-cart-shopping fa-lg text-primary"></i>
-                    <span class="text-primary pt-2">
-                      {% if grand_total %}
-                         ${{ grand_total|floatformat:2 }}
-                      {% else %}
-                         $0.00
-                      {% endif %}
-                    </span>
+                  <i class="fa-solid fa-cart-shopping fa-lg text-primary"></i>
+                  <span class="text-primary pt-2">
+                    {% if grand_total %}
+                    ${{ grand_total|floatformat:2 }}
+                    {% else %}
+                    $0.00
+                    {% endif %}
+                  </span>
                 </div>
               </a>
             </li>
@@ -131,40 +138,42 @@
     </header>
 
     {% if messages %}
-        <div class="message-container"></div>
+    <div class="message-container"></div>
     {% endif %}
-    
-     {% block page_header %}
+
+    {% block page_header %}
     {% endblock %}
 
-    {% block content %}
-    {% endblock %}
-    
+    <div id="main-content">
+      {% block content %}
+      {% endblock %}
+    </div>
+
     {% block postloadjs %}
     {% endblock %}
 
     <footer class="footer bg-dark">
       <div class="container-fluid py-5 text-white">
-          <div class="row">
-            <div class="d-none d-md-inline-block col-md-1 d-xl-none"></div>
-            <div class="d-none d-lg-inline-block col-lg-2 col-xl-5 footer-section text-center">
-               <a href="{% url 'home' %}" class="nav-link">
-                <img src="{{ MEDIA_URL }}logo.png" alt="Rent Event Stuff Logo" width="150">
-              </a>
-            </div>
-            <div class="col-md-5 col-lg-4 col-xl-3 py-3 px-4 p-xl-0 footer-section">
-              <h2 class="underline">Newsletter</h3>
+        <div class="row">
+          <div class="d-none d-md-inline-block col-md-1 d-xl-none"></div>
+          <div class="d-none d-lg-inline-block col-lg-2 col-xl-5 footer-section text-center">
+            <a href="{% url 'home' %}" class="nav-link">
+              <img src="{{ MEDIA_URL }}logo.png" alt="Rent Event Stuff Logo" width="150">
+            </a>
+          </div>
+          <div class="col-md-5 col-lg-4 col-xl-3 py-3 px-4 p-xl-0 footer-section">
+            <h2 class="underline">Newsletter</h3>
               <div class="p-3">
                 <p class="footer-about">Subscribe to our newsletter for updates, news, and exclusive offers.</p>
                 <div class="footer-newsletter">
                   <form method="GET" action="">
                     <div class="input-group w-100">
-                      <input class="form-control border border-accent input-dark rounded-0"
-                      type="email" placeholder="Enter your email">
+                      <input class="form-control border border-accent input-dark rounded-0" type="email"
+                        placeholder="Enter your email">
                       <div class="input-group-append">
                         <button class="form-control btn action-button-secondary" aria-label="Subscribe now">
                           <span class="icon">
-                              <i class="fas fa-paper-plane"></i>
+                            <i class="fas fa-paper-plane"></i>
                           </span>
                         </button>
                       </div>
@@ -172,22 +181,22 @@
                   </form>
                 </div>
               </div>
-            </div>
+          </div>
 
-            <div class="col-md-5 col-lg-4 col-xl-3 py-3 px-4 p-xl-0 pl-xl-3 footer-section">
-              <h2 class="underline">Contacts</h3>
+          <div class="col-md-5 col-lg-4 col-xl-3 py-3 px-4 p-xl-0 pl-xl-3 footer-section">
+            <h2 class="underline">Contacts</h3>
               <div class="p-3">
                 <p>Phone Number:<a href="tel:+491722641331" title="Call customer service at +49 1722641331"
-                 aria-label="Dial +49 1722641331" class="text-white" target="_blank"
-                 rel="noopener noreferrer">+49 1722641331</a>
+                    aria-label="Dial +49 1722641331" class="text-white" target="_blank" rel="noopener noreferrer">+49
+                    1722641331</a>
                 </p>
                 <p>Fax: <a href="fax:+491854236978" title="Send a fax to +49 1854236978"
-                  aria-label="Send a fax to +49 1854236978" class="text-white" target="_blank"
-                  rel="noopener noreferrer">+49 1854236978</a>
+                    aria-label="Send a fax to +49 1854236978" class="text-white" target="_blank"
+                    rel="noopener noreferrer">+49 1854236978</a>
                 </p>
                 <p>Email: <a href="mailto:info@rent-event-stuff.de" title="Send a email to info@rent-event-stuff.de"
-                  aria-label="Send a email to info@rent-event-stuff.de" class="text-white" target="_blank"
-                  rel="noopener noreferrer">info@rent-event-stuff.de</a>
+                    aria-label="Send a email to info@rent-event-stuff.de" class="text-white" target="_blank"
+                    rel="noopener noreferrer">info@rent-event-stuff.de</a>
                 </p>
                 <div class="social-media">
                   <a href="https://www.instagram.com" target="_blank" class="px-2"
@@ -195,24 +204,24 @@
                     <i class="fa-brands fa-instagram fa-lg text-accent"></i>
                   </a>
                   <a href="https://www.facebook.com" target="_blank" class="px-2"
-                      aria-label="Visit our Facebook page (opens in a new tab)" rel="noopener">
-                      <i class="fa-brands fa-square-facebook fa-lg text-accent"></i>
+                    aria-label="Visit our Facebook page (opens in a new tab)" rel="noopener">
+                    <i class="fa-brands fa-square-facebook fa-lg text-accent"></i>
                   </a>
                   <a href="https://www.x.com" target="_blank" class="px-2"
-                    aria-label="Visit our X feed (opens in a new tab)"
-                    rel="noopener">
+                    aria-label="Visit our X feed (opens in a new tab)" rel="noopener">
                     <i class="fa-brands fa-x-twitter fa-lg text-accent"></i>
                   </a>
                 </div>
               </div>
-            </div>
           </div>
-          <hr class="border-white w-75 mx-auto mb-0 mt-5">
-          <div class="footer-bottom text-center pt-3">
-              <p>© 2025 Rent Event Stuff. All rights reserved.</p>
-          </div>
+        </div>
+        <hr class="border-white w-75 mx-auto mb-0 mt-5">
+        <div class="footer-bottom text-center pt-3">
+          <p>© 2025 Rent Event Stuff. All rights reserved.</p>
+        </div>
       </div>
     </footer>
-    
-  </body>
+  </div>
+</body>
+
 </html>

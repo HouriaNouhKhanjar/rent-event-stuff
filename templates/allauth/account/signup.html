@@ -1,21 +1,43 @@
-{% extends "account/base.html" %}
+{% extends "base.html" %}
 
 {% load i18n %}
 
-{% block head_title %}{% trans "Signup" %}{% endblock %}
+{% block extra_title %} | Signup {% endblock %}
 
+{% load static %}
+
+{% block page_header %}
+<div class="container-fluid header-container mt-5 mt-lg-2">
+  <div class="row">
+    <div class="col"></div>
+  </div>
+</div>
+{% endblock %}
 {% block content %}
-<h1>{% trans "Sign Up" %}</h1>
+<div class="container-fluid">
+  <div class="row text-center">
+    <div class="col-12 py-5">
+      <div class="accounts-container py-4">
+        <h1 class="p-3">Sign Up</h1>
 
-<p>{% blocktrans %}Already have an account? Then please <a href="{{ login_url }}">sign in</a>.{% endblocktrans %}</p>
+        <form class="accounts-form" id="signup_form" method="post" action="{% url 'account_signup' %}">
+          {% csrf_token %}
+          {{ form.as_p }}
+          {% if redirect_field_value %}
+          <input type="hidden" name="{{ redirect_field_name }}" value="{{ redirect_field_value }}" />
+          {% endif %}
+          <button type="submit" class="w-75 btn btn-lg action-button">Sign Up</button>
+        </form>
+        <div class="py-2">
+          <p class="text-accent"><strong> Or </strong></p>
+          <p><button class="w-75 btn btn-lg action-button">Register with Facebook</button></p>
+          <p><button class="w-75 btn btn-lg action-button-secondary">Register with Google</button></p>
+        </div>
 
-<form class="signup" id="signup_form" method="post" action="{% url 'account_signup' %}">
-  {% csrf_token %}
-  {{ form.as_p }}
-  {% if redirect_field_value %}
-  <input type="hidden" name="{{ redirect_field_name }}" value="{{ redirect_field_value }}" />
-  {% endif %}
-  <button type="submit">{% trans "Sign Up" %} &raquo;</button>
-</form>
+         <p class="w-75 mx-auto">Already have an account? Then please <a href="{% url 'account_login' %}" class="text-primary"><strong>sign in</strong></a>.</p>
+      </div>
+    </div>
+  </div>
+</div>
 
 {% endblock %}
