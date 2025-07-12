@@ -26,7 +26,10 @@ SECRET_KEY = 'django-insecure-u=98tg#^uq5nb_@htu(si)=v-^#1z^v@3te8twwtm_xfq+evbv
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = [
+    'localhost',
+    '127.0.0.1',
+]
 
 
 # Application definition
@@ -43,6 +46,7 @@ INSTALLED_APPS = [
     'allauth',
     'allauth.account',
     'allauth.socialaccount',
+    'allauth.socialaccount.providers.google',
     'home',
 ]
 
@@ -160,16 +164,16 @@ JAZZMIN_SETTINGS = {
     "site_brand": "Rent Event Stuff",
     "welcome_sign": "Welcome to Rent Event Stuff Admin Panel",
     "site_logo": "images/logo.png",
-    
-    "site_icon": "images/favicon.ico", 
-     # Copyright on the footer
+
+    "site_icon": "images/favicon.ico",
+    # Copyright on the footer
     "copyright": "<a href='/' target='_blank'>Rent Event Stuff &copy; 2025</a>",
 
     # Additional links to include in the user menu on the top right
     "usermenu_links": [
         {"name": "View Site", "url": "/", "icon": 'fas fa-chart-bar'},
     ],
-    
+
     "theme": "cyborg",
 }
 

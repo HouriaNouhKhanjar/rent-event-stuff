@@ -79,7 +79,7 @@ h3 {
 }
 
 .action-button-secondary:hover {
-  color: var(--highlight-color-light);
+  color: var(--highlight-color-light)!important;
   background-color: var(--secondary-color);
 }
 

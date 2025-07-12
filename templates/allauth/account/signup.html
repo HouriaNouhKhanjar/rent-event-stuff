@@ -28,12 +28,7 @@
           {% endif %}
           <button type="submit" class="w-75 btn btn-lg action-button">Sign Up</button>
         </form>
-        <div class="py-2">
-          <p class="text-accent"><strong> Or </strong></p>
-          <p><button class="w-75 btn btn-lg action-button">Register with Facebook</button></p>
-          <p><button class="w-75 btn btn-lg action-button-secondary">Register with Google</button></p>
-        </div>
-
+        {% include "socialaccount/snippets/provider_list.html" %}
          <p class="w-75 mx-auto">Already have an account? Then please <a href="{% url 'account_login' %}" class="text-primary"><strong>sign in</strong></a>.</p>
       </div>
     </div>
