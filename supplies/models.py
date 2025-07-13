@@ -1,3 +1,4 @@
+from functools import cached_property
 from django.db import models
 from django.utils.text import slugify
 
@@ -43,6 +44,14 @@ class Supply(models.Model):
 
     def __str__(self):
         return self.name
+
+    @cached_property
+    def image_url(self):
+        # Returns the first image URL if available
+        first_image = self.images.first()
+        if first_image:
+            return first_image.image.url
+        return '/media/placeholder.jpg'
 
     class Meta:
         verbose_name_plural = "Supplies"
