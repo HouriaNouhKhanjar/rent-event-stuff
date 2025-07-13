@@ -176,6 +176,11 @@ JAZZMIN_SETTINGS = {
     ],
 
     "theme": "cyborg",
+    "order_with_respect_to": [
+        "supplies",
+        "auth.User",
+        "rent_event_stuff",
+    ],
 }
 
 # Default primary key field type
