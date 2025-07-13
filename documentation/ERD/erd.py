@@ -35,7 +35,7 @@ entities = {
     ],
     "Supply Image": [
         "id (PK, INT)", "supply_id (FK, INT)",
-        "image_url (Filefield)", "created (DATETIME)"
+        "image_url (Urlfield)", "image (ImageField)", "created (DATETIME)"
     ],
     "Order": [
         "id (PK, INT)", "user_id (FK, INT)",
