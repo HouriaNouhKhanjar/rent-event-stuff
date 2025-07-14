@@ -2,6 +2,9 @@ from django.shortcuts import render
 
 
 def index(request):
-    """ A view to return the index page """
+    """ A view to return the Home page """
 
-    return render(request, 'home/index.html')
+    context = {
+        'search_term': ''
+    }
+    return render(request, 'home/index.html', context)

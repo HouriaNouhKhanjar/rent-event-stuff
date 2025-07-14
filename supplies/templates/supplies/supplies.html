@@ -69,6 +69,9 @@
                 </div>
                 {% endif %}
                 {% endfor %}
+                {% if not supplies %}
+                <div class="w-100 text-center"><strong>There are no Supplies matching your Queries...</strong></div>
+                {% endif %}
             </div>
         </div>
     </div>

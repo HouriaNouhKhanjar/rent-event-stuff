@@ -66,10 +66,10 @@
         <div class="col-12 col-lg-8 my-auto py-1 py-lg-0">
           <ul class="list-inline list-unstyled d-flex  justify-content-end align-items-center my-0">
             <li class="list-inline-item">
-              <form method="GET" action="">
+              <form method="GET" action="{% url 'supplies' %}">
                 <div class="input-group w-100">
                   <input class="form-control border border-accent input-dark rounded-0" type="text" name="q"
-                    placeholder="Search..">
+                    value="{{search_term}}" placeholder="Search..">
                   <div class="input-group-append">
                     <button class="form-control btn action-button-secondary" type="submit"
                       aria-label="Search for event supply for renting" data-toggle="tooltip" data-placement="bottom"
