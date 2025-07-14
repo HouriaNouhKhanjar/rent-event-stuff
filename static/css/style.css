@@ -159,6 +159,18 @@ h3 {
   width: 1.5rem;
 }
 
+.top-button-container {
+    height: 42px;
+    width: 42px;
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+}
+
+.btn-top {
+    cursor: pointer;
+}
+
 #main-content {
   flex: 1;
 }
