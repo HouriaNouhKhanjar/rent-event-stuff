@@ -1,4 +1,5 @@
 from django.shortcuts import render, redirect, reverse, get_object_or_404
+from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from django.contrib import messages
 from django.db.models import Q
 from django.db.models.functions import Lower
@@ -10,7 +11,8 @@ def all_supplies(request):
 
     supplies = Supply.objects.all()
     query = ''
-    categories = None
+    category = None
+    category_slug = ''
     sort = None
     direction = None
 
@@ -40,12 +42,12 @@ def all_supplies(request):
             # Get all subcategories and the main category itself
             subcategories = category.subcategories.all()
             supplies = Supply.objects.filter(category__in=[category] + list(subcategories))
-            categories = [category, list(subcategories)]
-         
+
         else:
             # Subcategory: just filter supplies by this category
             supplies = Supply.objects.filter(category=category)
-            categories = category
+            
+        category_slug = category.get_slug()
 
     if request.GET:
         if 'q' in request.GET:
@@ -60,11 +62,25 @@ def all_supplies(request):
 
     current_sorting = f'{sort}_{direction}'
 
+    paginator = Paginator(supplies, 24)
+
+    page_number = request.GET.get('page')
+
+    try:
+        page_obj = paginator.get_page(page_number)
+    except PageNotAnInteger:
+        page_obj = paginator.page(1)
+    except EmptyPage:
+        page_obj = paginator.page(paginator.num_pages)
+
     context = {
-        'supplies': supplies,
+        'supplies_count': len(supplies),
+        'supplies': page_obj.object_list,
         'search_term': query,
-        'current_categories': categories,
+        'selected_category': category,
+        'category_slug': category_slug,
         'current_sorting': current_sorting,
+        'page_obj': page_obj
     }
 
     return render(request, 'supplies/supplies.html', context)
