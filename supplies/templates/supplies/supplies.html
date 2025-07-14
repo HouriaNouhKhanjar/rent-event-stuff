@@ -21,14 +21,15 @@
         </div>
     </div>
     <div class="row">
-        <div class="supply-container col-10 offset-1">
+        <div class="supply-container col-10 pb-4 offset-1">
             <div class="row mt-1 mb-2"></div>
             <div class="row">
                 {% for supply in supplies %}
                 <div class="col-sm-6 col-md-6 col-lg-4 col-xl-3">
                     <div class="card h-100 border-0">
                         <a href="{% url 'supply_detail' supply.id %}">
-                            <img class="card-img-top img-fluid" src="{{ supply.image_url }}" alt="Rent Event {{ supply.name }}">
+                            <img class="card-img-top img-fluid" src="{{ supply.image_url }}"
+                                alt="Rent Event {{ supply.name }}">
                         </a>
                         <div class="card-body pb-0">
                             <p class="mb-0">{{ supply.name }}</p>
@@ -48,6 +49,7 @@
                         </div>
                     </div>
                 </div>
+                {% if not forloop.last %}
                 {% if forloop.counter|divisibleby:1 %}
                 <div class="col-12 d-sm-none mb-5">
                     <hr>
@@ -67,6 +69,8 @@
                 <div class="col-12 d-none d-xl-block mb-5">
                     <hr>
                 </div>
+                {% endif %}
+
                 {% endif %}
                 {% endfor %}
                 {% if not supplies %}

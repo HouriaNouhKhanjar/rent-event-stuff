@@ -209,6 +209,10 @@ h3 {
   padding-top: 70px;
 }
 
+.other-categories-menu ul {
+  list-style: none;
+}
+
 /* footer */
 .social-media .text-accent:hover {
   color: var(--primary-color);
@@ -282,6 +286,7 @@ h3 {
     background-color: var(--highlight-color);
     color: var(--dark-color);
   }
+
   #main-nav .nav-item .nav-link {
     color: var(--dark-color);
   }
@@ -289,16 +294,22 @@ h3 {
   #main-nav .nav-item .dropdown-menu {
     background-color: var(--highlight-color);
   }
+
   #main-nav .nav-item .dropdown-item {
     color: var(--dark-color);
   }
+
   #main-nav .nav-item .dropdown-item:hover {
     background-color: var(--secondary-color);
     color: var(--highlight-color-light);
   }
+
   /* header */
   .header-container {
     padding-top: 130px;
+  }
+  .other-categories-menu .dropdown-divider {
+    border-color: var(--dark-color)!important;
   }
   /* accounts */
   .accounts-container {

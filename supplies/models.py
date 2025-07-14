@@ -9,12 +9,19 @@ class Category(models.Model):
     """
     name = models.CharField(max_length=254, unique=True)
     slug = models.SlugField(max_length=200, unique=True, blank=True)
-    parent = models.ForeignKey('Category', null=True, blank=True,
-                               on_delete=models.SET_NULL)
+    parent = models.ForeignKey('self',
+                               related_name='subcategories',
+                               on_delete=models.CASCADE,
+                               null=True,
+                               blank=True)
     created_on = models.DateTimeField(auto_now_add=True)
 
     def __str__(self):
         return self.name
+
+    @property
+    def is_main(self):
+        return self.parent is None
 
     def get_slug(self):
         return self.slug
