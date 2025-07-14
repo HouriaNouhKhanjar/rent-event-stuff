@@ -15,16 +15,17 @@
 
         {% for cat in top_categories %}
         <li class="nav-item dropdown mr-0 mr-lg-1">
-            <a class="font-weight-bold nav-link" href="#" id="{{ cat.slug }}-link" data-toggle="dropdown"
+            <a class="font-weight-bold nav-link"
+            id="{{ cat.slug }}-link" data-toggle="dropdown"
                 aria-haspopup="true" aria-expanded="false">
                 {{ cat.name }}
             </a>
             <div class="dropdown-menu border-0" aria-labelledby="{{ cat.slug }}-link">
                 {% for sub in cat.subcategories.all %}
-                <a href="" class="dropdown-item">{{ sub.name }}</a>
+                <a href="{% url 'supplies' %}?category={{ sub.slug }}" class="dropdown-item">{{ sub.name }}</a>
                 {% endfor %}
                 
-                <a href="" class="dropdown-item">All {{ cat.name }}</a>
+                <a  href="{% url 'supplies' %}?category={{ cat.slug }}" class="dropdown-item">All {{ cat.name }}</a>
             </div>
         </li>
         {% endfor %}
@@ -36,13 +37,17 @@
             </a>
             <div class="dropdown-menu border-0 other-categories-menu" aria-labelledby="other-link">
                     {% for cat in other_categories %}
-                        <a href="" class="dropdown-item"><strong>{{ cat.name }}</strong></a>
+                        <a  href="{% url 'supplies' %}?category={{ cat.slug }}"
+                         class="dropdown-item">
+                         <strong>{{ cat.name }}</strong>
+                        </a>
                         {% if cat.subcategories.all %}
                             <ul>
                                 {% for sub in cat.subcategories.all %}
                                     {% if sub.supply_set.count > 0 %}
                                         <li class="nave-item">
-                                            <a href="#" class="nav-link">{{ sub.name }}</a>
+                                            <a  href="{% url 'supplies' %}?category={{ sub.slug }}"
+                                             class="nav-link">{{ sub.name }}</a>
                                         </li>
                                     {% endif %}
                                {% endfor %}

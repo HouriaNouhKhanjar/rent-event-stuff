@@ -145,6 +145,11 @@ h3 {
   background-color: var(--primary-color);
 }
 
+.nav-item,
+.nav-link {
+  cursor: pointer;
+}
+
 /* from Bulma */
 .icon {
   align-items: center;
