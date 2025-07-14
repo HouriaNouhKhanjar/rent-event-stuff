@@ -205,6 +205,9 @@ h3 {
 }
 
 /* header */
+.header-container {
+  padding-top: 70px;
+}
 
 /* footer */
 .social-media .text-accent:hover {
@@ -294,14 +297,6 @@ h3 {
     color: var(--highlight-color-light);
   }
   /* header */
-  .fixed-top-desktop-only {
-    position: fixed;
-    top: 0;
-    right: 0;
-    left: 0;
-    z-index: 1030;
-  }
-
   .header-container {
     padding-top: 130px;
   }

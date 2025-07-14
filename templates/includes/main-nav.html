@@ -1,19 +1,21 @@
 <div class="collapse navbar-collapse justify-content-between px-3" id="main-nav">
     <ul class="navbar-nav w-auto">
         <li class="nav-item dropdown">
-            <a class="font-weight-bold nav-link mr-5" href="#" id="all-supplies-link" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            <a class="font-weight-bold nav-link mr-5" href="#" id="all-supplies-link" data-toggle="dropdown"
+                aria-haspopup="true" aria-expanded="false">
                 All Supplies
             </a>
             <div class="dropdown-menu border-0" aria-labelledby="all-supplies-link">
                 <a href="" class="dropdown-item">By Price</a>
                 <a href="" class="dropdown-item ">By Rating</a>
                 <a href="" class="dropdown-item ">By Category</a>
-                <a href="" class="dropdown-item">All Supplies</a>
+                <a href="{% url 'supplies' %}" class="dropdown-item">All Supplies</a>
             </div>
         </li>
 
         <li class="nav-item dropdown">
-            <a class="font-weight-bold nav-link mr-5" href="#" id="furniture-link" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            <a class="font-weight-bold nav-link mr-5" href="#" id="furniture-link" data-toggle="dropdown"
+                aria-haspopup="true" aria-expanded="false">
                 Event-Appropriate Furniture
             </a>
             <div class="dropdown-menu border-0" aria-labelledby="furniture-link">
@@ -26,7 +28,8 @@
         </li>
 
         <li class="nav-item dropdown">
-            <a class="font-weight-bold nav-link mr-5" href="#" id="outdooor-link" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            <a class="font-weight-bold nav-link mr-5" href="#" id="outdooor-link" data-toggle="dropdown"
+                aria-haspopup="true" aria-expanded="false">
                 Outdoor & Patio
             </a>
             <div class="dropdown-menu border-0" aria-labelledby="outdooor-link">
@@ -35,8 +38,13 @@
                 <a href="" class="dropdown-item">All Patio</a>
             </div>
         </li>
+        <li class="nav-item d-block d-lg-none">
+            <a class="font-weight-bold nav-link mr-5" href="{% url 'home' %}">
+                Home
+            </a>
+        </li>
     </ul>
-    <div class="d-block d-lg-inline-block text-center">
-         <h3 class="display-6 text-accent my-1 pr-3">Free delivery on orders over ${{ free_shipping_threshold }}!</h3>
+    <div class="d-block d-lg-inline-block">
+        <h3 class="display-6 text-accent my-1 pr-3">Free delivery on orders over ${{ free_shipping_threshold }}!</h3>
     </div>
 </div>

@@ -1,0 +1,39 @@
+{% extends "base.html" %}
+
+{% load static %}
+
+{% block extra_title %} | Supply Detail {% endblock %}
+
+{% block page_header %}
+<div class="container-fluid header-container">
+    <div class="row">
+        <div class="col"></div>
+    </div>
+</div>
+{% endblock %}
+
+{% block content %}
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-12 col-md-6 col-lg-4 offset-lg-2">
+            <div class="image-container my-5">
+                <a href="{{ supply.image_url }}" target="_blank">
+                    <img class="card-img-top img-fluid" src="{{ supply.image_url }}" alt="Rent Event {{ supply.name }}">
+                </a>
+            </div>
+        </div>
+        <div class="col-12 col-md-6 col-lg-4">
+            <div class="supply-details-container mb-5 mt-md-5">
+                <h1 class="display-6 my-3">{{ supply.name }}</h1>
+                <p class="mb-0">Price Per Day: <span class="text-accent"> ${{ supply.price_per_day }} </span></p>
+                {% if supply.rating %}
+                <small class="text-muted"><i class="fas fa-star mr-1"></i>{{ supply.rating }} / 5</small>
+                {% else %}
+                <small class="text-muted">No Rating</small>
+                {% endif %}
+                <p class="mt-3">{{ supply.description }}</p>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
