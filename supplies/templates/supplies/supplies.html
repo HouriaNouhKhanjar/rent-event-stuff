@@ -17,12 +17,75 @@
     <div class="row">
         <div class="col text-center mt-3">
             <h2 class="p-3">Supplies</h2>
+            {% for c in current_categories %}
+            <a class="category-badge text-decoration-none" href="{% url 'supplies' %}?category={{ c.slug }}">
+                <span class="p-2 mt-2 badge badge-white text-black rounded-0 border border-dark">{{ c.name }}</span>
+            </a>
+            {% endfor %}
             <hr class="w-50 mb-1">
         </div>
     </div>
     <div class="row">
         <div class="supply-container col-10 pb-4 offset-1">
-            <div class="row mt-1 mb-2"></div>
+            <div class="row mt-1 mb-2">
+                <div class="col-12 col-md-6 my-auto order-md-last d-flex justify-content-center justify-content-md-end">
+                    <div class="sort-select-wrapper w-50">
+                        <select id="sort-selector"
+                            class="custom-select custom-select-sm rounded-0 border border-{% if current_sorting != 'None_None' %}info{% else %}black{% endif %}">
+                            <option value="reset" 
+                                    {% if current_sorting == "None_None" %}
+                                         selected="selected"
+                                    {% endif %} >
+                                Sort by...
+                            </option>
+                            <option value="price_asc" 
+                                    {% if current_sorting == 'price_asc' %}
+                                          selected="selected"
+                                    {% endif %}>
+                                         Price (low to high)
+                            </option>
+                            <option value="price_desc"
+                                    {% if current_sorting == 'price_desc' %}
+                                         selected="selected"
+                                    {% endif %}>
+                                Price (high to low)
+                            </option>
+                            <option value="name_asc" 
+                                    {% if current_sorting == 'name_asc' %}
+                                         selected="selected"
+                                    {% endif %}>
+                                 Name (A-Z)
+                            </option>
+                            <option value="name_desc"
+                                    {% if current_sorting == 'name_desc' %}
+                                         selected="selected"
+                                    {% endif %}>
+                                 Name (Z-A)
+                            </option>
+                            <option value="category_asc" 
+                                    {% if current_sorting == 'category_asc' %}
+                                         selected="selected"
+                                    {% endif %}>
+                                Category (A-Z)
+                            </option>
+                            <option value="category_desc" 
+                                    {% if current_sorting == 'category_desc' %}
+                                         selected="selected"
+                                    {% endif %}>
+                                Category (Z-A)
+                            </option>
+                        </select>
+                    </div>
+                </div>
+                <div class="col-12 col-md-6 order-md-first">
+                    <p class="text-muted mt-3 text-center text-md-left">
+                        {% if search_term or current_categories or current_sorting != 'None_None' %}
+                        <span class="text-primary"><a href="{% url 'supplies' %}" class="text-primary">Supplies Home</a> | </span>
+                        {% endif %}
+                        {{ supplies|length }} Supplies{% if search_term %} found for <strong class="text-accent">{{ search_term }}</strong>{% endif %}
+                    </p>
+                </div>
+            </div>
             <div class="row">
                 {% for supply in supplies %}
                 <div class="col-sm-6 col-md-6 col-lg-4 col-xl-3">
@@ -39,7 +102,7 @@
                                 <div class="col">
                                     <p class="lead mb-0 text-left font-weight-bold">${{ supply.price_per_day }}</p>
                                     {% if supply.rating %}
-                                    <small class="text-muted"><i class="fas fa-star mr-1"></i>{{ product.rating }} /
+                                    <small class="text-muted"><i class="fas fa-star mr-1"></i>{{ supply.rating }} /
                                         5</small>
                                     {% else %}
                                     <small class="text-muted">No Rating</small>
