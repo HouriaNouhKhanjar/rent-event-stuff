@@ -4,6 +4,10 @@
 
 {% block extra_title %} | Supplies {% endblock %}
 
+{% block extra_css %}
+    <link rel="stylesheet" href="{% static 'supplies/css/style.css' %}">
+{% endblock %}
+
 {% block page_header %}
 <div class="container-fluid header-container">
     <div class="row">
@@ -14,217 +18,169 @@
 
 {% block content %}
 <div class="container-fluid">
-    <div class="row">
-        <div class="col text-center mt-3">
-            <h2 class="p-3">Supplies</h2>
-            {% if selected_category %}
-            <a class="category-badge text-decoration-none" href="{% url 'supplies' %}?category={{ selected_category.slug }}">
-                <span class="p-2 mt-2 badge badge-white text-black rounded-0 border border-dark">{{ selected_category.name }}</span>
-            </a>
-            {% endif %}
-            <hr class="w-50 mb-1">
+    <div class="row mt-5">
+        <div class="d-none d-inline-block col-md-4 col-lg-3"></div>
+        <div class="col col-md-8 col-lg-9 text-center px-2 text-md-left px-md-0">
+            <h2 class="text-dark">
+                <strong> Rent Supplies For Your Event Easly !!</strong>
+            </h2>
         </div>
     </div>
-    <div class="row">
+    <div class="row mt-3">
         <div class="supply-container col-10 pb-4 offset-1">
-            <div class="row mt-1 mb-2">
-                <div class="col-12 col-md-6 my-auto order-md-last d-flex justify-content-center justify-content-md-end">
-                    <div class="sort-select-wrapper w-50">
-                        <select id="sort-selector"
-                            class="custom-select custom-select-sm rounded-0 border border-{% if current_sorting != 'None_None' %}info{% else %}black{% endif %}">
-                            <option value="reset" 
-                                    {% if current_sorting == "None_None" %}
-                                         selected="selected"
-                                    {% endif %} >
-                                Sort by...
-                            </option>
-                            <option value="price_asc" 
-                                    {% if current_sorting == 'price_asc' %}
-                                          selected="selected"
-                                    {% endif %}>
-                                         Price (low to high)
-                            </option>
-                            <option value="price_desc"
-                                    {% if current_sorting == 'price_desc' %}
-                                         selected="selected"
-                                    {% endif %}>
-                                Price (high to low)
-                            </option>
-                            <option value="name_asc" 
-                                    {% if current_sorting == 'name_asc' %}
-                                         selected="selected"
-                                    {% endif %}>
-                                 Name (A-Z)
-                            </option>
-                            <option value="name_desc"
-                                    {% if current_sorting == 'name_desc' %}
-                                         selected="selected"
-                                    {% endif %}>
-                                 Name (Z-A)
-                            </option>
-                            <option value="category_asc" 
-                                    {% if current_sorting == 'category_asc' %}
-                                         selected="selected"
-                                    {% endif %}>
-                                Category (A-Z)
-                            </option>
-                            <option value="category_desc" 
-                                    {% if current_sorting == 'category_desc' %}
-                                         selected="selected"
-                                    {% endif %}>
-                                Category (Z-A)
-                            </option>
-                        </select>
-                    </div>
+            <div class="row mt-2 mb-2">
+                <div class="col-12 col-md-3 col-lg-2 filters pb-3">
+                    Filters
                 </div>
-                <div class="col-12 col-md-6 order-md-first">
-                    <p class="text-muted mt-3 text-center text-md-left">
-                        {% if search_term or current_categories or current_sorting != 'None_None' %}
-                        <span class="text-primary"><a href="{% url 'supplies' %}" class="text-primary">Supplies Home</a> | </span>
-                        {% endif %}
-                        {{ supplies_count }} Supplies{% if search_term %} found for <strong class="text-accent">{{ search_term }}</strong>{% endif %}
-                    </p>
-                </div>
-            </div>
-            <div class="row">
-                {% for supply in supplies %}
-                <div class="col-sm-6 col-md-6 col-lg-4 col-xl-3">
-                    <div class="card h-100 border-0">
-                        <a href="{% url 'supply_detail' supply.id %}">
-                            <img class="card-img-top img-fluid" src="{{ supply.image_url }}"
-                                alt="Rent Event {{ supply.name }}">
-                        </a>
-                        <div class="card-body pb-0">
-                            <p class="mb-0">{{ supply.name }}</p>
-                        </div>
-                        <div class="card-footer bg-white pt-0 border-0 text-left">
-                            <div class="row">
-                                <div class="col">
-                                    <p class="lead mb-0 text-left font-weight-bold">${{ supply.price_per_day }}</p>
-                                    {% if supply.rating %}
-                                    <small class="text-muted"><i class="fas fa-star mr-1"></i>{{ supply.rating }} /
-                                        5</small>
-                                    {% else %}
-                                    <small class="text-muted">No Rating</small>
-                                    {% endif %}
+
+                <div class="col-12 col-md-9 col-lg-10 px-0 pl-md-3">
+                    {% include 'includes/supplies-nav.html' %}
+                    <div class="row">
+                        {% for supply in supplies %}
+                        <div class="col-sm-6 col-md-6 col-lg-4 col-xl-3">
+                            <div class="card h-100 border-0">
+                                <a href="{% url 'supply_detail' supply.id %}">
+                                    <img class="card-img-top img-fluid" src="{{ supply.image_url }}"
+                                        alt="Rent Event {{ supply.name }}">
+                                </a>
+                                <div class="card-body pb-0">
+                                    <a href="{% url 'supply_detail' supply.id %}" class="text-dark">
+                                        <p class="mb-0 ellipsis">{{ supply.name }}</p>
+                                    </a>
+                                </div>
+                                <div class="card-footer bg-white pt-0 border-0 text-left">
+                                    <div class="row">
+                                        <div class="col">
+                                            <p class="lead mb-0 text-left font-weight-bold">${{ supply.price_per_day }}
+                                            </p>
+                                            {% if supply.rating %}
+                                            <small class="text-muted"><i class="fas fa-star mr-1"></i>{{ supply.rating
+                                                }} /
+                                                5</small>
+                                            {% else %}
+                                            <small class="text-muted">No Rating</small>
+                                            {% endif %}
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
                         </div>
+                        {% if not forloop.last %}
+                        {% if forloop.counter|divisibleby:1 %}
+                        <div class="col-12 d-sm-none mb-5">
+                            <hr>
+                        </div>
+                        {% endif %}
+                        {% if forloop.counter|divisibleby:2 %}
+                        <div class="col-12 d-none d-sm-block d-md-block d-lg-none mb-5">
+                            <hr>
+                        </div>
+                        {% endif %}
+                        {% if forloop.counter|divisibleby:3 %}
+                        <div class="col-12 d-none d-lg-block d-xl-none mb-5">
+                            <hr>
+                        </div>
+                        {% endif %}
+                        {% if forloop.counter|divisibleby:4 %}
+                        <div class="col-12 d-none d-xl-block mb-5">
+                            <hr>
+                        </div>
+                        {% endif %}
+
+                        {% endif %}
+                        {% endfor %}
+                        {% if not supplies %}
+                        <div class="w-100 text-center"><strong>There are no Supplies matching your Queries...</strong>
+                        </div>
+                        {% endif %}
+                    </div>
+                    <div class="row">
+                        <div class="col-12 text-center p-5">
+                            {%if page_obj.has_previous %}
+                            <a href="#" class="paginate-btn" data-page="{{page_obj.previous_page_number}}">
+                                <i class="fa-solid fa-square-caret-left fa-xl text-primary"></i>
+                            </a>
+                            {% endif %}
+                            <span class="text-wieght-bold mx-4">{{page_obj.number}}</span>
+
+                            {%if page_obj.has_next %}
+                            <a href="#" class="paginate-btn" data-page="{{page_obj.next_page_number}}">
+                                <i class="fa-solid fa-square-caret-right fa-xl text-primary"></i>
+                            </a>
+                            {% endif %}
+                        </div>
                     </div>
                 </div>
-                {% if not forloop.last %}
-                {% if forloop.counter|divisibleby:1 %}
-                <div class="col-12 d-sm-none mb-5">
-                    <hr>
-                </div>
-                {% endif %}
-                {% if forloop.counter|divisibleby:2 %}
-                <div class="col-12 d-none d-sm-block d-md-block d-lg-none mb-5">
-                    <hr>
-                </div>
-                {% endif %}
-                {% if forloop.counter|divisibleby:3 %}
-                <div class="col-12 d-none d-lg-block d-xl-none mb-5">
-                    <hr>
-                </div>
-                {% endif %}
-                {% if forloop.counter|divisibleby:4 %}
-                <div class="col-12 d-none d-xl-block mb-5">
-                    <hr>
-                </div>
-                {% endif %}
-
-                {% endif %}
-                {% endfor %}
-                {% if not supplies %}
-                <div class="w-100 text-center"><strong>There are no Supplies matching your Queries...</strong></div>
-                {% endif %}
             </div>
-        </div>
-    </div>
-    <div class="row">
-        <div class="col-12 text-center p-5">
-            {%if page_obj.has_previous %}
-                <a href="#" class="paginate-btn" data-page="{{page_obj.previous_page_number}}">
-                    <i class="fa-solid fa-square-caret-left fa-xl text-primary"></i>
-                </a>
-            {% endif %}
-            <span class="text-wieght-bold mx-4">{{page_obj.number}}</span>
-        
-            {%if page_obj.has_next %}
-                <a href="#" class="paginate-btn" data-page="{{page_obj.next_page_number}}">
-                    <i class="fa-solid fa-square-caret-right fa-xl text-primary"></i>
-                </a>
-            {% endif %}
         </div>
     </div>
 </div>
 <div class="top-button-container shadow-sm rounded-0">
     <a class="btn-top d-flex h-100 bg-accent">
         <i class="fas fa-arrow-up text-black mx-auto my-auto text-white"></i>
-    </a>	
+    </a>
 </div>
 {% endblock %}
 
 {% block postloadjs %}
-    {{ block.super }}
-    <script type="text/javascript">
-		$('.btn-top').click(function(e) {
-			window.scrollTo({
-                top: 0,
-                left: 0,
-                behavior: "smooth",
-                });
-		});
-	</script>
-    
-    <script type="text/javascript">
-        $('#sort-selector').change(function() {
-            var selector = $(this);
-            var currentUrl = new URL(window.location);
-            var selectedVal = selector.val();
-            if(selectedVal != "reset"){
-                var sort = selectedVal.split("_")[0];
-                var direction = selectedVal.split("_")[1];
-                currentUrl.searchParams.set("sort", sort);
-                currentUrl.searchParams.set("direction", direction);
-                window.location.replace(currentUrl);
-            } else {
-                currentUrl.searchParams.delete("sort");
-                currentUrl.searchParams.delete("direction");
-                window.location.replace(currentUrl);
-            }
-        })
-    </script>
-    <script type="text/javascript">
-        $('.paginate-btn').click(function(e) {
-            e.preventDefault();
-            var selector = $(this);
-            var currentUrl = new URL(window.location);
+{{ block.super }}
+<script type="text/javascript">
+    $('.btn-top').click(function (e) {
+        window.scrollTo({
+            top: 0,
+            left: 0,
+            behavior: "smooth",
+        });
+    });
+</script>
 
-            var page = selector.attr('data-page');
-            currentUrl.searchParams.set("page", page);
-
-            var searchTerm = "{{search_term}}";
-            if(searchTerm && searchTerm != "" && searchTerm != "None") {
-                console.log(searchTerm);
-                 currentUrl.searchParams.set("q", searchTerm);
-            }
-
-            var category = "{{category_slug}}";
-            if(category && category != "" && category != "None") {
-                 currentUrl.searchParams.set("category", category);
-            }
-
-            var currentSorting = "{{current_sorting}}";
-            if(currentSorting && currentSorting != "" && currentSorting != "None_None"){
-                console.log(currentSorting);
-                var sort = currentSorting.split("_")[0];
-                var direction = currentSorting.split("_")[1];
-                currentUrl.searchParams.set("sort", sort);
-                currentUrl.searchParams.set("direction", direction);
-            } 
+<script type="text/javascript">
+    $('#sort-selector').change(function () {
+        var selector = $(this);
+        var currentUrl = new URL(window.location);
+        var selectedVal = selector.val();
+        if (selectedVal != "reset") {
+            var sort = selectedVal.split("_")[0];
+            var direction = selectedVal.split("_")[1];
+            currentUrl.searchParams.set("sort", sort);
+            currentUrl.searchParams.set("direction", direction);
             window.location.replace(currentUrl);
-        })
-    </script>
+        } else {
+            currentUrl.searchParams.delete("sort");
+            currentUrl.searchParams.delete("direction");
+            window.location.replace(currentUrl);
+        }
+    })
+</script>
+<script type="text/javascript">
+    $('.paginate-btn').click(function (e) {
+        e.preventDefault();
+        var selector = $(this);
+        var currentUrl = new URL(window.location);
+
+        var page = selector.attr('data-page');
+        currentUrl.searchParams.set("page", page);
+
+        var searchTerm = "{{search_term}}";
+        if (searchTerm && searchTerm != "" && searchTerm != "None") {
+            console.log(searchTerm);
+            currentUrl.searchParams.set("q", searchTerm);
+        }
+
+        var category = "{{category_slug}}";
+        if (category && category != "" && category != "None") {
+            currentUrl.searchParams.set("category", category);
+        }
+
+        var currentSorting = "{{current_sorting}}";
+        if (currentSorting && currentSorting != "" && currentSorting != "None_None") {
+            console.log(currentSorting);
+            var sort = currentSorting.split("_")[0];
+            var direction = currentSorting.split("_")[1];
+            currentUrl.searchParams.set("sort", sort);
+            currentUrl.searchParams.set("direction", direction);
+        }
+        window.location.replace(currentUrl);
+    })
+</script>
 {% endblock %}

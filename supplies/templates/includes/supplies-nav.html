@@ -1,0 +1,18 @@
+<nav aria-label="breadcrumb" class="supplies-nav">
+  <ol class="breadcrumb">
+    <li>
+        <a href="{% url 'supplies' %}" class="breadcrumb-item text-dark" >Supplies </a>
+        <small> ({{ supplies_count }}) </small>
+    </li>
+    {% if search_term %}
+      <li class="breadcrumb-item text-dark px-2" aria-current="page">
+       | <strong class="pl-2">{{ search_term }}</strong>
+      </li>
+    {% endif %} 
+    {% if selected_category %}
+      <li class="breadcrumb-item text-dark px-2" aria-current="page">
+        | <strong class="pl-2">{{ selected_category.name }}</strong>
+      </li>
+    {% endif %} 
+  </ol>
+</nav>

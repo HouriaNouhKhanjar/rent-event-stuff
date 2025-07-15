@@ -1,0 +1,16 @@
+.supplies-nav .breadcrumb {
+    background: #4ecdc424;
+}
+
+.supply-container .filters {
+    border-right: none;
+
+}
+
+/* Media Queries */
+/* medium screen and up */
+@media (min-width: 768px) {
+  .supply-container .filters {
+    border-right: 2px solid #e1e1e1;
+   }
+}
