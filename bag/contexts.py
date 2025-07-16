@@ -6,7 +6,7 @@ def bag_contents(request):
 
     bag_items = []
     total = 0
-    product_count = 0
+    supply_count = 0
 
     if total < settings.FREE_DELIVERY_THRESHOLD:
         delivery = total * Decimal(settings.STANDARD_DELIVERY_PERCENTAGE / 100)
@@ -20,7 +20,7 @@ def bag_contents(request):
     context = {
         'bag_items': bag_items,
         'total': total,
-        'product_count': product_count,
+        'supply_count': supply_count,
         'delivery': delivery,
         'free_delivery_delta': free_delivery_delta,
         'free_delivery_threshold': settings.FREE_DELIVERY_THRESHOLD,
