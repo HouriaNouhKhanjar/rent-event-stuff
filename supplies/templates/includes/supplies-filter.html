@@ -1,58 +1,92 @@
-{% if selected_category %}
-            <a class="category-badge text-decoration-none" href="{% url 'supplies' %}?category={{ selected_category.slug }}">
-                <span class="p-2 mt-2 badge badge-white text-black rounded-0 border border-dark">{{ selected_category.name }}</span>
-            </a>
-            {% endif %}
-
-
-
-
-            <div class="col-12 col-md-6 my-auto order-md-last d-flex justify-content-center justify-content-md-end">
-                    <div class="sort-select-wrapper w-50">
-                        <select id="sort-selector"
-                            class="custom-select custom-select-sm rounded-0 border border-{% if current_sorting != 'None_None' %}info{% else %}black{% endif %}">
-                            <option value="reset" 
-                                    {% if current_sorting == "None_None" %}
-                                         selected="selected"
-                                    {% endif %} >
-                                Sort by...
-                            </option>
-                            <option value="price_asc" 
-                                    {% if current_sorting == 'price_asc' %}
-                                          selected="selected"
-                                    {% endif %}>
-                                         Price (low to high)
-                            </option>
-                            <option value="price_desc"
-                                    {% if current_sorting == 'price_desc' %}
-                                         selected="selected"
-                                    {% endif %}>
-                                Price (high to low)
-                            </option>
-                            <option value="name_asc" 
-                                    {% if current_sorting == 'name_asc' %}
-                                         selected="selected"
-                                    {% endif %}>
-                                 Name (A-Z)
-                            </option>
-                            <option value="name_desc"
-                                    {% if current_sorting == 'name_desc' %}
-                                         selected="selected"
-                                    {% endif %}>
-                                 Name (Z-A)
-                            </option>
-                            <option value="category_asc" 
-                                    {% if current_sorting == 'category_asc' %}
-                                         selected="selected"
-                                    {% endif %}>
-                                Category (A-Z)
-                            </option>
-                            <option value="category_desc" 
-                                    {% if current_sorting == 'category_desc' %}
-                                         selected="selected"
-                                    {% endif %}>
-                                Category (Z-A)
-                            </option>
-                        </select>
-                    </div>
-                </div>
+<div class="sort-select-wrapper w-100">
+    <select id="sort-selector"
+        class="custom-select custom-select-sm rounded-0 border border-{% if current_sorting != 'None_None' %}info{% else %}black{% endif %}">
+        <option value="reset" {% if current_sorting == "None_None" %} selected="selected" {% endif %}>
+            Sort by...
+        </option>
+        <option value="price_asc" {% if current_sorting == 'price_asc' %} selected="selected" {% endif %}>
+            Price (low to high)
+        </option>
+        <option value="price_desc" {% if current_sorting == 'price_desc' %} selected="selected" {% endif %}>
+            Price (high to low)
+        </option>
+        <option value="name_asc" {% if current_sorting == 'name_asc' %} selected="selected" {% endif %}>
+            Name (A-Z)
+        </option>
+        <option value="name_desc" {% if current_sorting == 'name_desc' %} selected="selected" {% endif %}>
+            Name (Z-A)
+        </option>
+        <option value="category_asc" {% if current_sorting == 'category_asc' %} selected="selected" {% endif %}>
+            Category (A-Z)
+        </option>
+        <option value="category_desc" {% if current_sorting == 'category_desc' %} selected="selected" {% endif %}>
+            Category (Z-A)
+        </option>
+    </select>
+</div>
+<div class="w-100 pt-3 d-none d-md-block">
+    <h4 class="d-none d-md-block">Filter By Category</h4>
+    <hr/>
+</div>
+<div class="d-block d-md-none pt-3">
+    <a class="btn w-100 categories-filter-collapse-btn"
+     data-toggle="collapse" href="#categories-filter-list"
+       role="button" aria-expanded="false" aria-controls="categories-filter-list">
+       <span>
+          Filter by Categories 
+       </span>
+       <i class="fa-solid fa-caret-down"></i>
+    </a>
+</div>
+<div class="collapse d-md-block" id="categories-filter-list">
+    <div class="categories-filter-container w-100 pb-4 pt-2">
+        {% for cat in top_categories %}
+            <p>
+                <input type="checkbox"
+                    class="main-category"
+                    {% if cat in current_categories %} checked {% endif %}
+                    id="{{cat.id}}"
+                    data-category-id="{{cat.id}}"
+                    data-category-slug="{{cat.slug}}">
+                <strong>{{ cat.name }}</strong>
+            </p>
+            <div class="ml-3" >
+                {% for sub in cat.subcategories.all %}
+                <p>
+                    <input type="checkbox" class="sub-category sub-category-{{cat.id}}"
+                        {% if sub in current_categories %} checked {% endif %}
+                        data-category-id="{{sub.id}}"
+                        data-parent-id="{{cat.id}}"
+                        data-category-slug="{{sub.slug}}">
+                        {{sub.name}}
+                    </p>
+                {% endfor %}
+            </div>
+        {% endfor %}
+        {% for cat in other_categories %}
+            <p>
+                <input type="checkbox" class="main-category"
+                    id="{{cat.id}}" data-category-id="{{cat.id}}"
+                    data-category-slug="{{cat.slug}}"
+                    {% if cat in current_categories %} checked {% endif %}>
+                <strong>{{ cat.name }}</strong>
+            </p>
+            <div class="ml-3" >
+                {% for sub in cat.subcategories.all %}
+                <p>
+                    <input type="checkbox" class="sub-category sub-category-{{cat.id}}"
+                        data-category-id="{{sub.id}}"
+                        data-parent-id="{{cat.id}}"
+                        data-category-slug="{{sub.slug}}"
+                        {% if sub in current_categories %} checked {% endif %}>
+                        {{sub.name}}
+                    </p>
+                {% endfor %}
+            </div>
+        {% endfor %}
+    </div>
+</div>
+<div class="py-3">
+    <button class="btn action-button w-100 mb-2 filter-btn">filter</button>
+    <button class="btn action-button-secondary w-100 reset-btn">Reset all filters</button>
+</div>

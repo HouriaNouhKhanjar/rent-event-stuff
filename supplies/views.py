@@ -13,6 +13,7 @@ def all_supplies(request):
     query = ''
     category = None
     category_slug = ''
+    current_categories = []
     sort = None
     direction = None
 
@@ -36,20 +37,26 @@ def all_supplies(request):
                     sortkey = f'-{sortkey}'
             supplies = supplies.order_by(sortkey)
 
-    if 'category' in request.GET:
-        category = get_object_or_404(Category, slug=request.GET['category'])
-        if category.is_main:
-            # Get all subcategories and the main category itself
-            subcategories = category.subcategories.all()
-            supplies = Supply.objects.filter(category__in=[category] + list(subcategories))
+        if 'category' in request.GET:
+            category = get_object_or_404(Category, slug=request.GET['category'])
+            category_slug = category.get_slug()
+            if category.is_main:
+                # Get all subcategories and the main category itself
+                subcategories = category.subcategories.all()
+                current_categories = [category] + list(subcategories)
+                supplies = supplies.filter(category__in=current_categories)
 
-        else:
-            # Subcategory: just filter supplies by this category
-            supplies = Supply.objects.filter(category=category)
-            
-        category_slug = category.get_slug()
+            else:
+                # Subcategory: just filter supplies by this category
+                current_categories = [category]
+                supplies = supplies.filter(category=category)
 
-    if request.GET:
+        if 'categories' in request.GET:
+            categories = request.GET['categories'].split(',')
+            category_slug = ''
+            supplies = supplies.filter(category__slug__in=categories)
+            current_categories = Category.objects.filter(slug__in=categories)
+
         if 'q' in request.GET:
             query = request.GET['q']
             if not query:
@@ -77,8 +84,8 @@ def all_supplies(request):
         'supplies_count': len(supplies),
         'supplies': page_obj.object_list,
         'search_term': query,
-        'selected_category': category,
         'category_slug': category_slug,
+        'current_categories': current_categories,
         'current_sorting': current_sorting,
         'page_obj': page_obj
     }

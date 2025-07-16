@@ -45,6 +45,11 @@ h3 {
   font-size: medium;
 }
 
+h4 {
+  font-family: var(--primary-font, sans-serif), sans-serif;
+  font-size: medium;
+}
+
 .lead {
   color: var(--primary-color);
 }
@@ -54,6 +59,7 @@ h3 {
   color: var(--dark-color);
   border: 2px solid var(--primary-color);
   font-size: medium;
+  outline: none;
   border-radius: 0;
   -webkit-border-radius: 0;
   -moz-border-radius: 0;
@@ -65,6 +71,7 @@ h3 {
   background-color: transparent;
   color: var(--secondary-color);
   border: 2px solid var(--secondary-color);
+  outline: none;
   border-radius: 0;
   font-size: medium;
   -webkit-border-radius: 0;
@@ -297,11 +304,16 @@ h3 {
 }
 
 /* Media Queries */
-/* medium screen and up */
+/* large screen and up */
 @media (min-width: 992px) {
   /* global variables */
   h1 {
     font-size: xx-large;
+  }
+
+  h2,
+  h3 {
+    font-size: large;
   }
 
   .lead {

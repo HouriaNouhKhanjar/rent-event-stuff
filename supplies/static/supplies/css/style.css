@@ -2,10 +2,38 @@
     background: #4ecdc424;
 }
 
+.supplies-nav .breadcrumb-item+.breadcrumb-item::before {
+    content: "|";
+}
+
 .supply-container .filters {
     border-right: none;
-
 }
+
+.supply-container .categories-filter-container {
+  max-height: 30vh;
+  overflow-y: auto;
+}
+
+.supply-container .categories-filter-container input[type="checkbox"] {
+  width: .9rem;
+  height: .9rem;
+  accent-color: #ff6b6b;
+  outline: none;
+}
+
+.categories-filter-collapse-btn {
+  border: 1px solid #dee2e6;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+}
+
+.categories-filter-collapse-btn span {
+  color: #4f6688;
+  font-size: medium;
+}
+
 
 /* Media Queries */
 /* medium screen and up */
@@ -13,4 +41,7 @@
   .supply-container .filters {
     border-right: 2px solid #e1e1e1;
    }
+   .supply-container .categories-filter-container {
+      max-height: 50vh;
+    }
 }

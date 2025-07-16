@@ -19,21 +19,22 @@
 {% block content %}
 <div class="container-fluid">
     <div class="row mt-5">
-        <div class="d-none d-inline-block col-md-4 col-lg-3"></div>
-        <div class="col col-md-8 col-lg-9 text-center px-2 text-md-left px-md-0">
-            <h2 class="text-dark">
+        <div class="d-none d-inline-block col-md-4"></div>
+        <div class="col col-md-8 text-center px-2 text-md-left px-md-0">
+            <h1 class="text-dark">
                 <strong> Rent Supplies For Your Event Easly !!</strong>
-            </h2>
+            </h1>
         </div>
     </div>
     <div class="row mt-3">
         <div class="supply-container col-10 pb-4 offset-1">
             <div class="row mt-2 mb-2">
-                <div class="col-12 col-md-3 col-lg-2 filters pb-3">
-                    Filters
+                <div class="col-12 col-md-3 filters pb-3 pl-0 pr-2">
+                    <h3 class="text-dark pb-4">Filters</h3>
+                    {% include 'includes/supplies-filter.html' %}
                 </div>
 
-                <div class="col-12 col-md-9 col-lg-10 px-0 pl-md-3">
+                <div class="col-12 col-md-9 px-0 pl-md-3">
                     {% include 'includes/supplies-nav.html' %}
                     <div class="row">
                         {% for supply in supplies %}
@@ -158,23 +159,26 @@
         var selector = $(this);
         var currentUrl = new URL(window.location);
 
-        var page = selector.attr('data-page');
+        var page = selector.data('page');
         currentUrl.searchParams.set("page", page);
 
         var searchTerm = "{{search_term}}";
         if (searchTerm && searchTerm != "" && searchTerm != "None") {
-            console.log(searchTerm);
             currentUrl.searchParams.set("q", searchTerm);
         }
 
-        var category = "{{category_slug}}";
-        if (category && category != "" && category != "None") {
-            currentUrl.searchParams.set("category", category);
+        var category_slug = "{{category_slug}}";
+        if (category_slug && category_slug != "" && category_slug != "None") {
+            
+            if(category_slug.split(',').length){
+                 currentUrl.searchParams.set("categories", category_slug);
+            } else {
+                 currentUrl.searchParams.set("category", category_slug);
+            }
         }
 
         var currentSorting = "{{current_sorting}}";
         if (currentSorting && currentSorting != "" && currentSorting != "None_None") {
-            console.log(currentSorting);
             var sort = currentSorting.split("_")[0];
             var direction = currentSorting.split("_")[1];
             currentUrl.searchParams.set("sort", sort);
@@ -182,5 +186,57 @@
         }
         window.location.replace(currentUrl);
     })
+</script>
+<script type="text/javascript">
+     $('.sub-category').click(function (e) {
+        const selector = $(this);
+        var parentCategoryId = selector.attr('data-parent-id');
+        var categoryId = selector.data('category-id');
+        const subCheckboxes = $(`.sub-category-${parentCategoryId}`);
+        const allChecked =  $(`.sub-category-${parentCategoryId}:checked`).length == $(`.sub-category-${parentCategoryId}`).length
+        $(`#${parentCategoryId}`).prop("checked", allChecked);
+    });
+
+    $('.main-category').click(function (e) {
+        const selector = $(this);
+        var categoryId = selector.data('category-id');
+        const subCheckboxes = $(`.sub-category-${categoryId}`);
+        subCheckboxes.prop("checked", selector.prop("checked"));
+    });
+    
+    $('.filter-btn').click(function (e) {
+        var currentUrl = new URL(window.location);
+        currentUrl.searchParams.delete("category");
+
+        var checkedSubCategories = $(`.sub-category:checked`);
+        var checkedMainCategories = $(`.main-category:checked`);
+        var selectedCategories = [];
+    
+        $.each(checkedSubCategories, function (index, item) {
+            selectedCategories.push( $(item).data('category-slug') );  
+        });
+
+        $.each(checkedMainCategories, function (index, item) {
+            selectedCategories.push( $(item).data('category-slug') );  
+        });
+
+        if (selectedCategories.length) {
+            currentUrl.searchParams.set("categories", selectedCategories.join(","));
+        } else {
+             currentUrl.searchParams.delete("categories");
+        }
+        window.location.replace(currentUrl);
+    });
+
+    $('.reset-btn').click(function (e) {
+        var currentUrl = new URL(window.location);
+        currentUrl.searchParams.delete("page");
+        currentUrl.searchParams.delete("sort");
+        currentUrl.searchParams.delete("direction");
+        currentUrl.searchParams.delete("category");
+        currentUrl.searchParams.delete("categories");
+        currentUrl.searchParams.delete("q");
+        window.location.replace(currentUrl);
+    });
 </script>
 {% endblock %}
