@@ -1,0 +1,43 @@
+{% load static %}
+
+{% block extra_css %}
+    <link rel="stylesheet" href="{% static 'supplies/css/style.css' %}">
+{% endblock %}
+
+{% if supply.images.all %}
+<div id="supply-carousel" class="carousel slide" data-ride="carousel" >
+
+    <!-- Indicators -->
+    <ol class="carousel-indicators">
+        {% for image in supply.images.all %}
+        <li data-target="#supply-carousel" data-slide-to="{{ forloop.counter0 }}"
+            class="{% if forloop.first %}active{% endif %} w-auto h-auto">
+             <img src="{{ image.image_url }}" class="d-block supply-image" alt="Rent Event supply small">
+        </li>
+        {% endfor %}
+    </ol>
+
+    <!-- Slides -->
+    <div class="carousel-inner">
+        {% for image in supply.images.all %}
+        <div class="carousel-item {% if forloop.first %}active{% endif %}">
+            <a href="{{ image.image_url }}" target="_blank">
+                <img src="{{ image.image_url }}" class="d-block w-100" alt="Rent Event {{ supply.name }}">
+            </a>
+        </div>
+        {% endfor %}
+    </div>
+
+    <!-- Controls -->
+    <a class="carousel-control-prev" href="#supply-carousel" role="button" data-slide="prev">
+        <span class="carousel-control-prev-icon bg-accent" aria-hidden="true"></span>
+        <span class="sr-only">Previous</span>
+    </a>
+    <a class="carousel-control-next" href="#supply-carousel" role="button" data-slide="next">
+        <span class="carousel-control-next-icon bg-accent" aria-hidden="true"></span>
+        <span class="sr-only">Next</span>
+    </a>
+</div>
+{% else %}
+<p>No images available for this supply.</p>
+{% endif %}

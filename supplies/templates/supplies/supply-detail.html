@@ -2,6 +2,10 @@
 
 {% load static %}
 
+{% block extra_css %}
+    <link rel="stylesheet" href="{% static 'supplies/css/style.css' %}">
+{% endblock %}
+
 {% block extra_title %} | Supply Detail {% endblock %}
 
 {% block page_header %}
@@ -17,23 +21,46 @@
     <div class="row">
         <div class="col-12 col-md-6 col-lg-4 offset-lg-2">
             <div class="image-container my-5">
-                <a href="{{ supply.image_url }}" target="_blank">
-                    <img class="card-img-top img-fluid" src="{{ supply.image_url }}" alt="Rent Event {{ supply.name }}">
-                </a>
+                {% include 'includes/supply-images-carousel.html' %}
             </div>
         </div>
-        <div class="col-12 col-md-6 col-lg-4">
+        <div class="col-12 col-md-6 col-lg-4 pl-3">
             <div class="supply-details-container mb-5 mt-md-5">
-                <h1 class="display-6 my-3">{{ supply.name }}</h1>
-                <p class="mb-0">Price Per Day: <span class="text-accent"> ${{ supply.price_per_day }} </span></p>
+                <h1 class="display-6 my-3">Rent {{ supply.category.name }} For your Event..</h1>
+                <h2>{{ supply.name }}</h2>
+                <p class="mb-0">Price Per Day: <strong class="text-accent"> ${{ supply.price_per_day }} </strong></p>
                 {% if supply.rating %}
                 <small class="text-muted"><i class="fas fa-star mr-1"></i>{{ supply.rating }} / 5</small>
                 {% else %}
                 <small class="text-muted">No Rating</small>
                 {% endif %}
-                <p class="mt-3">{{ supply.description }}</p>
+                <p>
+                    <span class="supply-description ellipsis-4">{{ supply.description }}</span>
+                    <a href="#" id="btn-read-more" data-mode="open" class="read-more text-accent">
+                        read more<i class="fa fa-light fa-chevron-down pl-2"></i>
+                    </a>
+                </p>
             </div>
         </div>
     </div>
 </div>
+{% endblock %}
+
+{% block postloadjs %}
+{{ block.super }}
+<script type="text/javascript">
+    $('#btn-read-more').click(function (e) {
+        e.preventDefault();
+        var selector = $(this);
+        $('.supply-description').toggleClass( "ellipsis-4" );
+        var mode = selector.data("mode");
+        if(mode == "open") {
+            selector.data("mode", "close");
+            selector.html("read less<i class='fa fa-light fa-chevron-up pl-2'></i>");
+        } else {
+            selector.data("mode", "open");
+            selector.html("read more<i class='fa fa-light fa-chevron-down pl-2'></i>");
+        }
+    });
+</script>
 {% endblock %}
