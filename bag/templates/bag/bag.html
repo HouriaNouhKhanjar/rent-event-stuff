@@ -37,7 +37,6 @@
                                     <th scope="col">Supply Info</th>
                                     <th scope="col"></th>
                                     <th scope="col">Price Per Day</th>
-                                    <th scope="col">Renting Days</th>
                                     <th scope="col">Quantity</th>
                                     <th scope="col">Subtotal</th>
                                 </tr>
@@ -49,19 +48,20 @@
                                         <img class="img-fluid w-75" src="{{ item.supply.image_url }}">
                                     </a>
                                 </td>
-                                <td class="py-3 w-25">
+                                <td class="py-3 w-25 text-left">
                                     <p class="my-0">
                                         <a href="{% url 'supply_detail' item.supply.id %}">
                                             <strong class="text-dark ellipsis">{{ item.supply.name }}</strong>
                                         </a>
                                     </p>
+                                    <p class="my-0">
+                                        Start Renting Date:<span  class="text-primary">{{ item.start_renting_date }}</span>
+                                    </p>
+                                    <p class="my-0 small">Renting For: {{ item.renting_days }} Days</p>
                                     <p class="my-0 small text-muted">SKU: {{ item.supply.sku|upper }}</p>
                                 </td>
                                 <td class="py-3">
                                     <p class="my-0 text-accent">${{ item.supply.price_per_day }}</p>
-                                </td>
-                                <td class="py-3">
-                                    <p class="my-0">{{ item.renting_days }} Day</p>
                                 </td>
                                 <td class="py-3 w-25">
                                     <p class="my-0">{{ item.quantity }}</p>
@@ -79,7 +79,7 @@
                                     <span class="text-accent">${{ total|floatformat:2}}</span>
                                 </strong></h6>
                             <h6>Delivery: <span class="text-accent">${{ delivery|floatformat:2 }}</span></h6>
-                            <h4 class="mt-4"><strong>Grand Total:
+                            <h4 class="my-3"><strong>Grand Total:
                                     <span class="text-accent">${{grand_total|floatformat:2 }}</span>
                                 </strong>
                             </h4>

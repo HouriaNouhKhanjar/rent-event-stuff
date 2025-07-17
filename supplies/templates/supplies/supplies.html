@@ -54,6 +54,13 @@
                                         <div class="col">
                                             <p class="lead mb-0 text-left font-weight-bold">${{ supply.price_per_day }}
                                             </p>
+                                             {% if supply.category %}
+                                            <p class="small mt-1 mb-0">
+                                                <a class="text-muted" href="{% url 'supplies' %}?category={{ supply.category.slug }}">
+                                                    <i class="fas fa-tag mr-1"></i>{{ supply.category.name }}
+                                                </a>
+                                            </p>
+                                            {% endif %}
                                             {% if supply.rating %}
                                             <small class="text-muted"><i class="fas fa-star mr-1"></i>{{ supply.rating
                                                 }} /

@@ -46,23 +46,28 @@
                         <div class="col-12">
                             <div class="form-group w-75">
                                 <label for="quantity">Quantity</label>
-                                <input class="form-control qty_input" type="number" name="quantity" value="1" min="1"
-                                    max="99" data-item_id="{{ supply.id }}" id="id_qty_{{ supply.id }}" required>
+                                <input class="form-control qty-input" type="number" name="quantity" value="1" min="1"
+                                    max="99" data-item-id="{{ supply.id }}" id="quantity" required>
+                            </div>
+                            <div class="form-group w-75">
+                                <label for="quantity">Start Renting Date</label>
+                                <input class="form-control date-input" type="date" name="start_renting_date" 
+                                 data-item-id="{{ supply.id }}" id="start-renting-date" required>
                             </div>
                             <div class="form-group w-75">
                                 <label for="quantity">Renting Days</label>
-                                <input class="form-control days_input" type="number" name="renting_days" value="1" min="1"
-                                    max="99" data-item_id="{{ supply.id }}" id="id_days_{{ supply.id }}" required>
+                                <input class="form-control days-input" type="number" name="renting_days" value="1" min="1"
+                                    max="99" data-item-id="{{ supply.id }}" id="days" required>
                             </div>
                         </div>
-                        <div class="col-12">
-                            <a href="{% url 'supplies' %}" class="btn action-button-secondary mt-5">
+                        <div class="col-12 mt-2 d-flex flex-column flex-md-row align-items-start justify-content-md-start">
+                            <a href="{% url 'supplies' %}" class="btn action-button-secondary mr-0 mr-md-2">
                                 <span class="icon">
                                     <i class="fas fa-chevron-left"></i>
                                 </span>
                                 <span class="text-uppercase">Keep Shopping</span>
                             </a>
-                            <input type="submit" class="btn action-button mt-5" value="Add to Bag">
+                            <input type="submit" class="btn action-button mt-2 mt-md-0 px-5 px-md-2" value="Add to Bag">
                         </div>
                         <input type="hidden" name="redirect_url" value="{{ request.path }}">
                     </div>
@@ -89,5 +94,24 @@
             selector.html("read more<i class='fa fa-light fa-chevron-down pl-2'></i>");
         }
     });
+</script>
+
+<!-- Script to set start renting date -->
+<script>
+    var startDateInput = $('#start-renting-date');
+
+    function formatDate(date) {
+        return date.toISOString().split('T')[0];
+    }
+
+    function setDates() {
+        const today = new Date();
+        today.setDate(today.getDate() + 1);  // Set to tomorrow
+        const tomorrow = formatDate(today);
+
+        startDateInput.attr('min', tomorrow);
+    }
+
+    setDates();
 </script>
 {% endblock %}
