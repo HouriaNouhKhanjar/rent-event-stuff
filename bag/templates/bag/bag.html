@@ -61,13 +61,13 @@
                                     <p class="my-0 text-accent">${{ item.supply.price_per_day }}</p>
                                 </td>
                                 <td class="py-3">
-                                    <p class="my-0">1</p>
+                                    <p class="my-0">{{ item.renting_days }} Day</p>
                                 </td>
                                 <td class="py-3 w-25">
                                     <p class="my-0">{{ item.quantity }}</p>
                                 </td>
                                 <td class="py-3">
-                                    <p class="my-0 text-accent">${{ item.supply.price_per_day }}</p>
+                                    <p class="my-0 text-accent">${{ item.sub_total }}</p>
                                 </td>
                             </tr>
                             {% endfor %}

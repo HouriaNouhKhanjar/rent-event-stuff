@@ -28,6 +28,7 @@ def add_to_bag(request, item_id):
     item = {}
     item['id'] = item_id
     item['quantity'] = int(request.POST.get('quantity'))
+    item['renting_days'] = int(request.POST.get('renting_days'))
     redirect_url = request.POST.get('redirect_url')
     bag = request.session.get('bag', {})
     check_item_in_bag(item, bag)

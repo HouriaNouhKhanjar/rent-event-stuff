@@ -13,11 +13,14 @@ def bag_contents(request):
 
     for item_id, item_obj in bag.items():
         supply = get_object_or_404(Supply, pk=item_id)
-        total += item_obj['quantity'] * supply.price_per_day
+        sub_total = item_obj['quantity'] * item_obj['renting_days'] * supply.price_per_day
+        total += sub_total
         supply_count += item_obj['quantity']
         bag_items.append({
             'item_id': item_id,
             'quantity': item_obj['quantity'],
+            'renting_days': item_obj['renting_days'],
+            'sub_total': sub_total,
             'supply': supply,
         })
 
