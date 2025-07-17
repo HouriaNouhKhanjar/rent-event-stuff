@@ -34,7 +34,7 @@
                 {% else %}
                 <small class="text-muted">No Rating</small>
                 {% endif %}
-                <p>
+                <p class="py-5">
                     <span class="supply-description ellipsis-4">{{ supply.description }}</span>
                     <a href="#" id="btn-read-more" data-mode="open" class="read-more text-accent">
                         read more<i class="fa fa-light fa-chevron-down pl-2"></i>
@@ -46,18 +46,63 @@
                         <div class="col-12">
                             <div class="form-group w-75">
                                 <label for="quantity">Quantity</label>
-                                <input class="form-control qty-input" type="number" name="quantity" value="1" min="1"
-                                    max="99" data-item-id="{{ supply.id }}" id="quantity" required>
+                                <div class="input-group">
+                                    <div class="input-group-prepend">
+                                        <button class="decrement btn action-button-secondary"
+                                            data-item-id="{{ supply.id }}" 
+                                            data-type="qty"
+                                            id="decrement-qty-{{ supply.id }}">
+                                            <span class="icon">
+                                                <i class="fas fa-minus"></i>
+                                            </span>
+                                        </button>
+                                    </div>
+                                    <input class="form-control incremental-input" type="number" name="quantity" value="1" min="1"
+                                    max="99" data-item-id="{{ supply.id }}" id="qty-{{ supply.id }}" data-type="qty" required>
+                                    <div class="input-group-append">
+                                        <button class="increment btn action-button-secondary"
+                                                data-item-id="{{ supply.id }}"
+                                                data-type="qty"
+                                                id="increment-qty-{{ supply.id }}">
+                                            <span class="icon">
+                                                <i class="fas fa-plus"></i>
+                                            </span>
+                                        </button>
+                                    </div>
+                                </div>
                             </div>
                             <div class="form-group w-75">
                                 <label for="quantity">Start Renting Date</label>
                                 <input class="form-control date-input" type="date" name="start_renting_date" 
-                                 data-item-id="{{ supply.id }}" id="start-renting-date" required>
+                                 data-item-id="{{ supply.id }}" id="start-renting-date-{{ supply.id }}" required>
                             </div>
                             <div class="form-group w-75">
                                 <label for="quantity">Renting Days</label>
-                                <input class="form-control days-input" type="number" name="renting_days" value="1" min="1"
-                                    max="99" data-item-id="{{ supply.id }}" id="days" required>
+                                <div class="input-group">
+                                    <div class="input-group-prepend">
+                                        <button class="decrement btn action-button-secondary"
+                                            data-item-id="{{ supply.id }}" 
+                                            data-type="days"
+                                            id="decrement-days-{{ supply.id }}">
+                                            <span class="icon">
+                                                <i class="fas fa-minus"></i>
+                                            </span>
+                                        </button>
+                                    </div>
+                                    <input class="form-control incremental-input" type="number" name="renting_days" value="1" min="1"
+                                    max="99" data-item-id="{{ supply.id }}" data-type="days"
+                                    id="days-{{ supply.id }}" required>
+                                    <div class="input-group-append">
+                                        <button class="increment btn action-button-secondary"
+                                                data-item-id="{{ supply.id }}"
+                                                data-type="days"
+                                                id="increment-days-{{ supply.id }}">
+                                            <span class="icon">
+                                                <i class="fas fa-plus"></i>
+                                            </span>
+                                        </button>
+                                    </div>
+                                </div>
                             </div>
                         </div>
                         <div class="col-12 mt-2 d-flex flex-column flex-md-row align-items-start justify-content-md-start">
@@ -98,7 +143,7 @@
 
 <!-- Script to set start renting date -->
 <script>
-    var startDateInput = $('#start-renting-date');
+    var startDateInput = $('.date-input');
 
     function formatDate(date) {
         return date.toISOString().split('T')[0];
@@ -112,6 +157,9 @@
         startDateInput.attr('min', tomorrow);
     }
 
-    setDates();
+    setDates(); 
 </script>
+
+{% include 'includes/incremental-inputs-jquery.html' %}
+
 {% endblock %}
