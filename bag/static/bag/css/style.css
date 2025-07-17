@@ -1,0 +1,7 @@
+.bag-table-header {
+    border-bottom: 1px solid #dbd7d7;
+}
+
+.bag-container table td {
+    vertical-align: middle;
+}
