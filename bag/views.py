@@ -1,4 +1,7 @@
 from django.shortcuts import render, redirect, reverse, HttpResponse
+from django.contrib import messages
+from supplies.models import Supply
+
 
 # Create your views here.
 BAG_KEY = "bag"
@@ -48,6 +51,8 @@ def add_to_bag(request, item_id):
     the startand end renting date to the
     shopping bag """
 
+    supply = Supply.objects.get(pk=item_id)
+
     item = {}
     item[ID_KEY] = item_id
     item[QTY_KEY] = int(request.POST.get(QTY_KEY))
@@ -58,6 +63,7 @@ def add_to_bag(request, item_id):
     check_item_in_bag(item, bag)
 
     request.session[BAG_KEY] = bag
+    messages.success(request, f'Added {supply.name} to your bag')
     return redirect(redirect_url)
 
 
@@ -91,7 +97,7 @@ def remove_from_bag(request, item_id):
         item[DAYS_KEY] = request.POST.get(DAYS_KEY)
         item[DATE_KEY] = request.POST.get(DATE_KEY)
         bag = request.session.get('bag', {})
-    
+
         print(item)
         del bag[item_id][item[DATE_KEY]][item[DAYS_KEY]]
         if not bag[item_id][item[DATE_KEY]]:
