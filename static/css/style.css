@@ -205,7 +205,6 @@ a:hover {
 }
 
 /* bootstrap toasts */
-
 .message-container {
     position: fixed;
     top: 90px;
@@ -219,6 +218,57 @@ a:hover {
 
 .toast-capper {
     height: 2px;
+}
+
+/* from CSS-tricks.com: https://css-tricks.com/snippets/css/css-triangle/ */
+.arrow-up {
+    width: 0; 
+    height: 0; 
+    border-left: 4px solid transparent;
+    border-right: 4px solid transparent; 
+    border-bottom: 10px solid black;
+    position: absolute;
+    top: -10px;
+    right: 36px;
+}
+
+/* Convenience classes - colors copied from Bootstrap */
+.arrow-primary {
+    border-bottom-color: var(--primary-color) !important;
+}
+
+.arrow-secondary {
+    border-bottom-color: var(--secondary-color) !important;
+}
+
+.arrow-success {
+    border-bottom-color: #28a745 !important;
+}
+
+.arrow-danger {
+    border-bottom-color: #dc3545 !important;
+}
+
+.arrow-warning {
+    border-bottom-color: #ffc107 !important;
+}
+
+.arrow-info {
+    border-bottom-color: #17a2b8 !important;
+}
+
+.arrow-light {
+    border-bottom-color: var(--highlight-color-light) !important;
+}
+
+.arrow-dark {
+    border-bottom-color: var(--dark-color) !important;
+}
+
+.bag-notification-wrapper {
+    height: 100px;
+    overflow-x: hidden;
+    overflow-y: auto;
 }
 
 /* page layout */
@@ -258,6 +308,7 @@ a:hover {
   text-decoration-color: var(--secondary-color);
   text-decoration-thickness: 4px;
   -moz-text-decoration-line: underline;
+  -moz-text-decoration-color: var(--secondary-color);
 }
 
 #main-nav .nav-item .dropdown-menu {
