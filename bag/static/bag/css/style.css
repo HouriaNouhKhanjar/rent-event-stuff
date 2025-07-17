@@ -5,3 +5,8 @@
 .bag-container table td {
     vertical-align: baseline;
 }
+
+.update-link,
+.remove-item {
+    cursor: pointer;
+}

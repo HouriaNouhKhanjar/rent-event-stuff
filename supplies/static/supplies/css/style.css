@@ -64,6 +64,14 @@ h4 {
   height: 25px;
 }
 
+.carousel-control-next-icon,
+.carousel-control-prev-icon {
+    background-position-x: 37%;
+    background-position-y: center;
+    background-size: 80% 100%;
+    background-repeat: no-repeat;
+}
+
 /* Media Queries */
 /* medium screen and up */
 @media (min-width: 768px) {

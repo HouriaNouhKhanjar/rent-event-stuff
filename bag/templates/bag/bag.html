@@ -55,17 +55,19 @@
                                             <strong class="text-dark ellipsis">{{ item.supply.name }}</strong>
                                         </a>
                                     </p>
-                                    <p class="my-0">
-                                        Start Renting Date:<span  class="text-primary">{{ item.start_renting_date }}</span>
+                                    <p class="mt-2 mb-0">
+                                        Start Renting Date:<span class="text-info pl-2">{{ item.start_renting_date }}</span>
                                     </p>
-                                    <p class="my-0 small">Renting For: {{ item.renting_days }} Days</p>
+                                    <p class="my-0 small">
+                                        Renting For: <span class="text-info pl-2">{{ item.renting_days }} Days</span>
+                                    </p>
                                     <p class="my-0 small text-muted">SKU: {{ item.supply.sku|upper }}</p>
                                 </td>
                                 <td class="py-3">
                                     <p class="my-0 text-accent">${{ item.supply.price_per_day }}</p>
                                 </td>
                                 <td class="py-3">
-                                    <form class="form update-form" method="POST" action="">
+                                    <form class="form update-form" method="POST" action="{% url 'adjust_bag' item.item_id %}">
                                         {% csrf_token %}
                                         <input type="hidden" name="renting_days" value="{{ item.renting_days }}">
                                         <input type="hidden" name="start_renting_date" value="{{ item.start_renting_date }}">
@@ -90,7 +92,7 @@
                                                     </button>
                                                 </div>
                                                 <a class="update-link float-right pl-2">
-                                                    <small class="text-primary">Update</small>
+                                                    <small class="text-info">Update</small>
                                                 </a>
                                             </div>
                                         </div>
@@ -101,7 +103,7 @@
                                 </td>
                                 <td>
                                     <a class="remove-item" id="remove-{{ item.item_id }}"
-                                     data-date="{{ item.start_renting_date }}" data-days="{{ item.renting_days }}">
+                                     data-renting-date="{{ item.start_renting_date }}" data-renting-days="{{ item.renting_days }}">
                                      <small class="text-accent"><i class="fa-solid fa-trash"></i></small>
                                     </a>
                                 </td>
@@ -164,22 +166,25 @@
     
     // Update quantity on click
     $('.update-link').click(function(e) {
-        var form = $(this).prev('.update-form');
+        var form = $(this).closest('.update-form');
         form.submit();
     })
 
     // Remove item and reload on click
     $('.remove-item').click(function(e) {
         var csrfToken = "{{ csrf_token }}";
-        var itemId = $(this).attr('id').split('remove-')[1];
-        var date = $(this).data('date');
-        var days = $(this).data('days');
-        var url = `/bag/remove/${itemId}`;
-        var data = {'csrfmiddlewaretoken': csrfToken, 'date': date, 'days': days};
+        var itemId = $(this).attr('id').split('-')[1];
+        var date = $(this).data('renting-date');
+        var days = $(this).data('renting-days');
+        var url = `/bag/remove/${itemId}/`;
+        var data = {'csrfmiddlewaretoken': csrfToken,
+                    'start_renting_date': date,
+                    'renting_days': days
+                   };
         $.post(url, data)
          .done(function() {
              location.reload();
          });
-    })
+    });
 </script>
 {% endblock %}

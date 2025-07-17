@@ -1,4 +1,4 @@
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, reverse, HttpResponse
 
 # Create your views here.
 BAG_KEY = "bag"
@@ -51,12 +51,56 @@ def add_to_bag(request, item_id):
     item = {}
     item[ID_KEY] = item_id
     item[QTY_KEY] = int(request.POST.get(QTY_KEY))
-    item[DAYS_KEY] = int(request.POST.get(DAYS_KEY))
+    item[DAYS_KEY] = request.POST.get(DAYS_KEY)
     item[DATE_KEY] = request.POST.get(DATE_KEY)
     redirect_url = request.POST.get('redirect_url')
     bag = request.session.get(BAG_KEY, {})
     check_item_in_bag(item, bag)
 
-    print(bag)
     request.session[BAG_KEY] = bag
     return redirect(redirect_url)
+
+
+def adjust_bag(request, item_id):
+    """ Adjust the quantity of the specified supply
+    to the specified renting date and days"""
+
+    item = {}
+    item[QTY_KEY] = int(request.POST.get(QTY_KEY))
+    item[DAYS_KEY] = request.POST.get(DAYS_KEY)
+    item[DATE_KEY] = request.POST.get(DATE_KEY)
+    bag = request.session.get('bag', {})
+
+    if item[QTY_KEY] > 0:
+        bag[item_id][item[DATE_KEY]][item[DAYS_KEY]][QTY_KEY] = item[QTY_KEY]
+    else:
+        del bag[item_id][item[DATE_KEY]][item[DAYS_KEY]]
+        if not bag[item_id][item[DATE_KEY]]:
+            del bag[item_id][item[DATE_KEY]]
+        if not bag[item_id]:
+            bag.pop(item_id)
+    print(bag)
+    request.session['bag'] = bag
+    return redirect(reverse('view_bag'))
+
+
+def remove_from_bag(request, item_id):
+    """Remove the item from the shopping bag"""
+    try:
+        item = {}
+        item[DAYS_KEY] = request.POST.get(DAYS_KEY)
+        item[DATE_KEY] = request.POST.get(DATE_KEY)
+        bag = request.session.get('bag', {})
+    
+        print(item)
+        del bag[item_id][item[DATE_KEY]][item[DAYS_KEY]]
+        if not bag[item_id][item[DATE_KEY]]:
+            del bag[item_id][item[DATE_KEY]]
+        if not bag[item_id]:
+            bag.pop(item_id)
+
+        request.session['bag'] = bag
+        return HttpResponse(status=200)
+
+    except Exception as e:
+        return HttpResponse(status=500)
