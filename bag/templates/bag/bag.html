@@ -39,6 +39,7 @@
                                     <th scope="col">Price Per Day</th>
                                     <th scope="col">Quantity</th>
                                     <th scope="col">Subtotal</th>
+                                    <th scope="col">Delete</th>
                                 </tr>
                             </thead>
                             {% for item in bag_items %}
@@ -63,11 +64,46 @@
                                 <td class="py-3">
                                     <p class="my-0 text-accent">${{ item.supply.price_per_day }}</p>
                                 </td>
-                                <td class="py-3 w-25">
-                                    <p class="my-0">{{ item.quantity }}</p>
+                                <td class="py-3">
+                                    <form class="form update-form" method="POST" action="">
+                                        {% csrf_token %}
+                                        <input type="hidden" name="renting_days" value="{{ item.renting_days }}">
+                                        <input type="hidden" name="start_renting_date" value="{{ item.start_renting_date }}">
+                                        <div class="form-group">
+                                            <div class="input-group">
+                                                <div class="input-group-prepend">
+                                                    <button class="decrement btn action-button-secondary btn-sm py-0 px-2"
+                                                    data-item-id="{{ item.item_id }}-{{ item.start_renting_date }}-{{ item.renting_days }}" 
+                                                    data-type="qty" id="decrement-qty-{{ item.item_id }}-{{ item.start_renting_date }}-{{ item.renting_days }}">
+                                                        <i class="fas fa-minus"></i>
+                                                    </button>
+                                                </div>
+                                                <input class="form-control form-control-sm incremental-input" type="number"
+                                                name="quantity" value="{{ item.quantity }}" min="1" max="99"
+                                                data-item-id="{{ item.item_id }}-{{ item.start_renting_date }}-{{ item.renting_days }}"
+                                                id="qty-{{ item.item_id }}-{{ item.start_renting_date }}-{{ item.renting_days }}" data-type="qty">
+                                                <div class="input-group-append">
+                                                    <button class="increment btn action-button-secondary btn-sm py-0 px-2"
+                                                    data-item-id="{{ item.item_id }}-{{ item.start_renting_date }}-{{ item.renting_days }}"
+                                                    data-type="qty" id="increment-qty-{{ item.item_id }}-{{ item.start_renting_date }}-{{ item.renting_days }}">
+                                                        <i class="fas fa-plus"></i>
+                                                    </button>
+                                                </div>
+                                                <a class="update-link float-right pl-2">
+                                                    <small class="text-primary">Update</small>
+                                                </a>
+                                            </div>
+                                        </div>
+                                    </form>
                                 </td>
                                 <td class="py-3">
                                     <p class="my-0 text-accent">${{ item.sub_total }}</p>
+                                </td>
+                                <td>
+                                    <a class="remove-item" id="remove-{{ item.item_id }}"
+                                     data-date="{{ item.start_renting_date }}" data-days="{{ item.renting_days }}">
+                                     <small class="text-accent"><i class="fa-solid fa-trash"></i></small>
+                                    </a>
                                 </td>
                             </tr>
                             {% endfor %}
@@ -119,4 +155,31 @@
         </div>
     </div>
 </div>
+{% endblock %}
+
+{% block postloadjs %}
+{{ block.super }}
+{% include 'supplies/includes/incremental-inputs-jquery.html' %}
+<script type="text/javascript">
+    
+    // Update quantity on click
+    $('.update-link').click(function(e) {
+        var form = $(this).prev('.update-form');
+        form.submit();
+    })
+
+    // Remove item and reload on click
+    $('.remove-item').click(function(e) {
+        var csrfToken = "{{ csrf_token }}";
+        var itemId = $(this).attr('id').split('remove-')[1];
+        var date = $(this).data('date');
+        var days = $(this).data('days');
+        var url = `/bag/remove/${itemId}`;
+        var data = {'csrfmiddlewaretoken': csrfToken, 'date': date, 'days': days};
+        $.post(url, data)
+         .done(function() {
+             location.reload();
+         });
+    })
+</script>
 {% endblock %}
