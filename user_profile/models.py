@@ -18,3 +18,13 @@ class Address(models.Model):
                              on_delete=models.CASCADE)
     type = models.IntegerField(choices=ADDRESS_TYPE, default=0)
     is_default = models.BooleanField(default=False)
+
+    @property
+    def title(self):
+        if self.user:
+            return f'Address for {self.user.username}'
+        else:
+            return f'Address in {self.country}'
+
+    def __str__(self):
+        return self.title

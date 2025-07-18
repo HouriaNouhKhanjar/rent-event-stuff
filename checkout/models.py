@@ -46,12 +46,13 @@ class Order(models.Model):
         accounting for delivery costs.
         """
         self.order_total = self.lineitems.aggregate(Sum('lineitem_total'))['lineitem_total__sum']
-        if self.order_total < settings.FREE_DELIVERY_THRESHOLD:
-            self.delivery_cost = self.order_total * settings.STANDARD_DELIVERY_PERCENTAGE / 100
-        else:
-            self.delivery_cost = 0
-        self.grand_total = self.order_total + self.delivery_cost
-        self.save()
+        if self.order_total:
+            if self.order_total < settings.FREE_DELIVERY_THRESHOLD:
+                self.delivery_cost = self.order_total * settings.STANDARD_DELIVERY_PERCENTAGE / 100
+            else:
+                self.delivery_cost = 0
+            self.grand_total = self.order_total + self.delivery_cost
+            self.save()
 
     def save(self, *args, **kwargs):
         """
@@ -78,7 +79,7 @@ class OrderLineItem(models.Model):
                                          null=False, blank=False,
                                          editable=False)
     renting_days = models.IntegerField(null=False, blank=False, default=0)
-    start_renting_date = models.DateTimeField(null=False, blank=False)
+    start_renting_date = models.DateField(null=False, blank=False)
     created_on = models.DateTimeField(auto_now_add=True)
 
     def save(self, *args, **kwargs):
@@ -86,6 +87,7 @@ class OrderLineItem(models.Model):
         Override the original save method to set the lineitem total
         and update the order total.
         """
+        self.price_per_day = self.supply.price_per_day
         self.lineitem_total = self.supply.price_per_day * self.quantity * self.renting_days
         super().save(*args, **kwargs)
 
