@@ -26,7 +26,7 @@
         </div>
     </div>
     <!-- Side-by-side on large screens -->
-    <div class="row checkout-container d-none d-lg-flex mb-3">
+    <div class="row checkout-container checkout-desktop d-none d-lg-flex mb-3">
         <div class="col-lg-7 p-3">
            {% include 'checkout/includes/checkout-form.html' %}
         </div>
@@ -36,7 +36,7 @@
     </div>
 
     <!-- Accordion on small screens -->
-    <div class="d-block checkout-container d-lg-none mb-3">
+    <div class="d-block checkout-container checkout-mobile d-lg-none mb-3">
         <div id="accordion">
             <div class="card">
                 <div class="card-header bg-light" id="order-items">
@@ -72,5 +72,8 @@
 {% endblock %}
 
 {% block postloadjs %}
-{{ block.super }}
+    {{ block.super }}
+    {{ stripe_public_key|json_script:"id_stripe_public_key" }}
+    {{ client_secret|json_script:"id_client_secret" }}
+    <script src="{% static 'checkout/js/stripe_elements.js' %}"></script>
 {% endblock %}
