@@ -1,0 +1,76 @@
+{% extends "base.html" %}
+
+{% load static %}
+
+{% block extra_css %}
+<link rel="stylesheet" href="{% static 'checkout/css/checkout.css' %}">
+{% endblock %}
+
+{% block extra_title %} | Checkout {% endblock %}
+
+{% block page_header %}
+<div class="container-fluid header-container">
+    <div class="row">
+        <div class="col"></div>
+    </div>
+</div>
+{% endblock %}
+
+{% block content %}
+<div class="container-fluid px-3 px-md-5">
+    <div class="row mt-5">
+        <div class="col text-center">
+            <h1>
+                <strong> Your Shoping Bag </strong>
+            </h1>
+        </div>
+    </div>
+    <!-- Side-by-side on large screens -->
+    <div class="row checkout-container d-none d-lg-flex mb-3">
+        <div class="col-lg-7 p-3">
+           {% include 'checkout/includes/checkout-form.html' %}
+        </div>
+        <div class="col-lg-5 p-3">
+            {% include 'checkout/includes/bag-items.html' %}
+        </div>
+    </div>
+
+    <!-- Accordion on small screens -->
+    <div class="d-block checkout-container d-lg-none mb-3">
+        <div id="accordion">
+            <div class="card">
+                <div class="card-header bg-light" id="order-items">
+                    <h5 class="mb-0">
+                        <button class="btn" data-toggle="collapse" data-target="#order-items-content">
+                            Order Items
+                        </button>
+                    </h5>
+                </div>
+                <div id="order-items-content" class="collapse" data-parent="#accordion">
+                    <div class="card-body">
+                         {% include 'checkout/includes/bag-items.html' %}
+                    </div>
+                </div>
+            </div>
+            <div class="card">
+                <div class="card-header bg-light" id="order-form">
+                    <h5 class="mb-0">
+                        <button class="btn collapsed" data-toggle="collapse" data-target="#order-form-content">
+                            Delivery and Payment
+                        </button>
+                    </h5>
+                </div>
+                <div id="order-form-content" class="collapse show" data-parent="#accordion">
+                    <div class="card-body">
+                        {% include 'checkout/includes/checkout-form.html' %}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block postloadjs %}
+{{ block.super }}
+{% endblock %}

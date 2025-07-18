@@ -47,11 +47,14 @@ INSTALLED_APPS = [
     'allauth.account',
     'allauth.socialaccount',
     'allauth.socialaccount.providers.google',
+    # rent event stuff app
     'home',
     'supplies',
     'bag',
     'user_profile',
-    'checkout'
+    'checkout',
+    # other app
+    'crispy_forms',
 ]
 
 MIDDLEWARE = [
@@ -65,6 +68,8 @@ MIDDLEWARE = [
 ]
 
 ROOT_URLCONF = 'rent_event_stuff.urls'
+
+CRISPY_TEMPLATE_PACK = 'bootstrap4'
 
 TEMPLATES = [
     {
@@ -83,6 +88,10 @@ TEMPLATES = [
                 'django.template.context_processors.media',
                 'supplies.context_processors.navbar_categories',
                 'bag.contexts.bag_contents',
+            ],
+            'builtins': [
+                'crispy_forms.templatetags.crispy_forms_tags',
+                'crispy_forms.templatetags.crispy_forms_field',
             ],
         },
     },

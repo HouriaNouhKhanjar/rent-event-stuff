@@ -62,6 +62,23 @@ a:hover {
   text-decoration: none;
 }
 
+button,
+a,
+input {
+  outline: none;
+  box-shadow: none;
+}
+
+button:hover,
+a:hover,
+input:hover,
+button:focus,
+a:focus,
+input:focus {
+  outline: none !important;
+  box-shadow: none !important;
+}
+
 .action-button {
   background-color: var(--primary-color);
   color: var(--dark-color);
