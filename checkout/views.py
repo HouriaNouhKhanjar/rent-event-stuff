@@ -37,23 +37,25 @@ def checkout(request):
         if order_form.is_valid() and address_form.is_valid():
             with transaction.atomic():
                 # First, save the address form
-                address = address_form.save()
+                billing_address = address_form.save()
 
                 # Then, save the order form with the address associated
                 order = order_form.save(commit=False)
-                order.address = address
+                order.billing_address = billing_address
+                order.delivery_address = billing_address
                 order.save()
                 for item_id, item_data in bag.items():
                     try:
                         supply = Supply.objects.get(id=item_id)
-                        for renting_date, date_item in item_data:
-                            for renting_days, days_item in date_item:
+                        print(item_data)
+                        for renting_date, date_item in item_data.items():
+                            for renting_days, days_item in date_item.items():
                                 order_line_item = OrderLineItem(
                                     order=order,
                                     supply=supply,
                                     price_per_day=supply.price_per_day,
-                                    quantity=days_item['quantity'],
-                                    renting_days=renting_days,
+                                    quantity=int(days_item['quantity']),
+                                    renting_days=int(renting_days),
                                     start_renting_date=renting_date,
                                 )
                                 order_line_item.save()
