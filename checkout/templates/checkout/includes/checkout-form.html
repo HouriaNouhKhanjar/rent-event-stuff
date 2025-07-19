@@ -1,5 +1,5 @@
 <p class="text-muted">Please fill out the form below to complete your order</p>
-<form action="{% url 'checkout' %}" method="POST" id="payment-form">
+<form action="{% url 'checkout' %}" method="POST" class="payment-form">
     {% csrf_token %}
     <fieldset class="rounded mb-5">
         <legend class="fieldset-label small text-black  w-auto">Details</legend>
@@ -17,13 +17,13 @@
         {{ address_form.county | as_crispy_field }}
         <div class="form-check form-check-inline float-right mr-0 ml-1">
             {% if user.is_authenticated %}
-            <label class="form-check-labe mr-1" for="id-save-info">Save this delivery information to my profile</label>
-            <input type="checkbox" class="form-check-input ml-2 mr-0" data-toggle="toggle" 
-            data-on="" data-off="" data-width="50" data-height="20"
-            data-onstyle="success" data-offstyle="secondary"
-             id="id-save-info" name="save-info" checked>
+            <label class="form-check-labe mr-1">Save this delivery information to my profile
+                <input type="checkbox" class="form-check-input info-save ml-2 mr-0" data-toggle="toggle" 
+                        data-on="" data-off="" data-width="50" data-height="20"
+                        data-onstyle="success" data-offstyle="secondary" name="save-info" checked>
+            </label>
             {% else %}
-            <label class="form-check-label" for="id-save-info">
+            <label class="form-check-label">
                 <a class="text-info" href="{% url 'account_signup' %}">Create an account</a> or
                 <a class="text-info" href="{% url 'account_login' %}">login</a> to save this information
             </label>
@@ -44,7 +44,7 @@
             </span>
             <span class="font-weight-bold">Adjust Bag</span>
         </a>
-        <button id="submit-button" class="btn action-button mt-2 mt-md-0">
+        <button class="btn action-button submit-payment-form mt-2 mt-md-0">
             <span class="font-weight-bold">Complete Order</span>
             <span class="icon">
                 <i class="fas fa-lock"></i>
