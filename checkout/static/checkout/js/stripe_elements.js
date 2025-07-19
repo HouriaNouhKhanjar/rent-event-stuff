@@ -7,25 +7,25 @@
 */
 var stripePublic_key = $("#id_stripe_public_key").text().slice(1, -1);
 var clientSecret = $("#id_client_secret").text().slice(1, -1);
-var stripe = Stripe(stripePublic_key);
-var elements = stripe.elements();
-var style = {
-  base: {
-    color: "#000",
-    fontFamily: '"Open Sans", sans-serif',
-    fontSmoothing: "antialiased",
-    fontSize: "16px",
-    "::placeholder": {
-      color: "#6c7581"
-    }
-  },
-  invalid: {
-    color: "#dc3545",
-    iconColor: "#dc3545"
-  }
-};
 
 function getStripeOneTime(containerClass) {
+  var stripe = Stripe(stripePublic_key);
+  var elements = stripe.elements();
+  var style = {
+    base: {
+      color: "#000",
+      fontFamily: '"Open Sans", sans-serif',
+      fontSmoothing: "antialiased",
+      fontSize: "16px",
+      "::placeholder": {
+        color: "#6c7581"
+      }
+    },
+    invalid: {
+      color: "#dc3545",
+      iconColor: "#dc3545"
+    }
+  };
   var card = elements.create("card", { style: style });
   card.mount(`.${containerClass} .card-element`);
   // Handle realtime validation errors on the card element
@@ -50,6 +50,8 @@ function getStripeOneTime(containerClass) {
     ev.preventDefault();
     card.update({ disabled: true });
     $(`.${containerClass} .submit-payment-form`).attr("disabled", true);
+    $(`.${containerClass} .payment-form`).fadeToggle(100);
+    $("#loading-overlay").fadeToggle(100);
     stripe
       .confirmCardPayment(clientSecret, {
         payment_method: {
@@ -58,13 +60,17 @@ function getStripeOneTime(containerClass) {
       })
       .then(function (result) {
         if (result.error) {
-          var errorDiv = document.querySelector(`.${containerClass} .card-errors`);;
+          var errorDiv = document.querySelector(
+            `.${containerClass} .card-errors`
+          );
           var html = `
                 <span class="icon" role="alert">
                 <i class="fas fa-times"></i>
                 </span>
                 <span>${result.error.message}</span>`;
           $(errorDiv).html(html);
+          $(`.${containerClass} .payment-form`).fadeToggle(100);
+          $("#loading-overlay").fadeToggle(100);
           card.update({ disabled: false });
           $(`.${containerClass} .submit-payment-form`).attr("disabled", false);
         } else {
