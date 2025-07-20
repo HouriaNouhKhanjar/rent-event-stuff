@@ -55,18 +55,18 @@ def checkout(request):
         address_form = AddressForm(address_form_data)
         if order_form.is_valid() and address_form.is_valid():
             with transaction.atomic():
-                # First, save the address form
                 billing_address = address_form.save()
 
-                # Then, save the order form with the address associated
                 order = order_form.save(commit=False)
                 order.billing_address = billing_address
                 order.delivery_address = billing_address
+                pid = request.POST.get('client_secret').split('_secret')[0]
+                order.stripe_pid = pid
+                order.original_bag = json.dumps(bag)
                 order.save()
                 for item_id, item_data in bag.items():
                     try:
                         supply = Supply.objects.get(id=item_id)
-                        print(item_data)
                         for renting_date, date_item in item_data.items():
                             for renting_days, days_item in date_item.items():
                                 order_line_item = OrderLineItem(
