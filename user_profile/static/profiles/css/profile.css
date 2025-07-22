@@ -1,0 +1,39 @@
+input,
+select {
+    outline: none;
+    border-radius: unset !important;
+    -webkit-border-radius: unset !important;
+    -moz-border-radius: unset !important;
+    -ms-border-radius: unset !important;
+    -o-border-radius: unset !important;
+}
+
+input:focus,
+select:focus {
+    outline: none!important;
+    box-shadow: unset!important;
+    border-color: #ced4da!important;
+    border-bottom: 2px solid #ff6b6b!important;
+}
+
+select,
+select option {
+  color: #000000;
+}
+
+select:invalid,
+select option[value=""] {
+  color: #6c757d !important;
+}
+
+.profile-update-form-container {
+  border-right: none;
+}
+
+/* Media Queries */
+/* medium screen and up */
+@media (min-width: 768px) {
+  .profile-update-form-container {
+    border-right: 2px solid #dddddd;
+  }
+}

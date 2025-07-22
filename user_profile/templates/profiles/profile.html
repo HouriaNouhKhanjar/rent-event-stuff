@@ -2,26 +2,79 @@
 {% load static %}
 
 {% block extra_css %}
-    <link rel="stylesheet" href="{% static 'profiles/css/profile.css' %}">
+<link rel="stylesheet" href="{% static 'profiles/css/profile.css' %}">
 {% endblock %}
 
 {% block extra_title %} | Profile {% endblock %}
 
 {% block page_header %}
-    <div class="container header-container">
-        <div class="row">
-            <div class="col"></div>
-        </div>
+<div class="container header-container">
+    <div class="row">
+        <div class="col"></div>
     </div>
+</div>
 {% endblock %}
 
 {% block content %}
-    <div class="container-fluid px-3 py-5 p-md-5">
-        <div class="row">
-            <div class="col">
-                <h2 class="logo-font mb-4 text-uppercase text-info">Profile</h2>
-                <hr>
-            </div>
+<div class="container-fluid px-3 pt-5 px-md-5">
+    <div class="row">
+        <div class="col">
+            <h1 class="mb-4 text-uppercase text-info">Profile</h1>
+            <hr>
         </div>
     </div>
+    <div class="row px-3 pb-3 p-md-5">
+        <div class="col-12 col-lg-6 profile-update-form-container px-1 px-md-5">
+            <p class="text-muted">Profile Information</p>
+            <form class="mt-3" action="{% url 'profile' %}" method="POST" id="profile-update-form">
+                {% csrf_token %}
+
+                <fieldset class="mb-2">
+                    <legend class="fieldset-label small text-black  w-auto">Conatct Information</legend>
+                    {{ user_profile_form.phone_number | as_crispy_field }}
+                </fieldset>
+                <div class="text-right">
+                    <button type="submit" class="btn action-button text-uppercase">Update</button>
+                </div>
+                <hr/>
+            </form>
+            <form class="mt-3" action="{% url 'update_address' 'delivery' %}" method="POST">
+                {% csrf_token %}
+                <fieldset class="mb-2">
+                    <legend class="fieldset-label small text-black w-auto">Delivery Information</legend>
+                    {{ delivery_address_form.street_address1 | as_crispy_field }}
+                    {{ delivery_address_form.street_address2 | as_crispy_field }}
+                    {{ delivery_address_form.town_or_city | as_crispy_field }}
+                    {{ delivery_address_form.postcode | as_crispy_field }}
+                    {{ delivery_address_form.county | as_crispy_field }}
+                    {{ delivery_address_form.country | as_crispy_field }}
+                </fieldset>
+                <div class="text-right">
+                    <button type="submit" class="btn action-button text-uppercase">Update</button>
+                </div>
+                <hr/>
+            </form>
+            <form class="mt-3" action="{% url 'update_address' 'billing' %}" method="POST">
+                {% csrf_token %}
+                <fieldset class="rounded mb-2">
+                    <legend class="fieldset-label small text-black w-auto">Billing Information</legend>
+                    {{ billing_address_form.street_address1 | as_crispy_field }}
+                    {{ billing_address_form.street_address2 | as_crispy_field }}
+                    {{ billing_address_form.town_or_city | as_crispy_field }}
+                    {{ billing_address_form.postcode | as_crispy_field }}
+                    {{ billing_address_form.county | as_crispy_field }}
+                    {{ billing_address_form.country | as_crispy_field }}
+                </fieldset>
+                <div class="text-right">
+                    <button type="submit" class="btn action-button text-uppercase">Update</button>
+                </div>
+                <hr class="d-block d-md-none"/>
+            </form>
+        </div>
+        <div class="col-12 col-lg-6 pt-5 pt-md-0">
+            <p class="text-muted">Order History</p>
+            {{ orders }}
+        </div>
+    </div>
+</div>
 {% endblock %}
