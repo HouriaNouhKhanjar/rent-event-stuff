@@ -4,7 +4,8 @@ from django.contrib import messages
 from django.db import transaction
 from django.conf import settings
 from .forms import OrderForm
-from user_profile.forms import AddressForm
+from user_profile.forms import AddressForm, UserProfileForm, UserAddressForm
+from user_profile.models import UserProfile, Address
 from .models import Order, OrderLineItem
 from supplies.models import Supply
 from bag.contexts import bag_contents
@@ -111,7 +112,28 @@ def checkout(request):
 
         order_form = OrderForm()
         address_form = AddressForm()
-        template = 'checkout/checkout.html'
+        
+        if request.user.is_authenticated:
+            try:
+                profile = UserProfile.objects.get(user=request.user)
+                order_form = OrderForm(initial={
+                    'full_name': profile.user.get_full_name(),
+                    'email': profile.user.email,
+                    'phone_number': profile.phone_number,
+                })
+                delivery_address = None
+                delivery_address = Address.objects.filter(type=1,
+                                                          user=request.user).first()
+                address_form = AddressForm(initial={
+                    'country': delivery_address.country,
+                    'postcode':delivery_address.postcode,
+                    'town_or_city': delivery_address.town_or_city,
+                    'street_address1': delivery_address.street_address1,
+                    'street_address2': delivery_address.street_address2,
+                    'county': delivery_address.county,
+                })
+            except UserProfile.DoesNotExist:
+                order_form = OrderForm()
 
         if not stripe_public_key:
             messages.warning(request, 'Stripe public key is missing. \
@@ -124,6 +146,7 @@ def checkout(request):
             'client_secret': intent.client_secret,
         }
 
+        template = 'checkout/checkout.html'
         return render(request, template, context)
 
 
@@ -133,6 +156,42 @@ def checkout_success(request, order_number):
     """
     save_info = request.session.get('save_info')
     order = get_object_or_404(Order, order_number=order_number)
+
+    if request.user.is_authenticated:
+        profile = UserProfile.objects.get(user=request.user)
+        # Attach the user's profile to the order
+        order.user_profile = profile
+        order.save()
+
+        # Save the user's info
+        if save_info:
+            profile_data = {
+                'phone_number': order.phone_number,
+            }
+            user_profile_form = UserProfileForm(profile_data, instance=profile)
+            if user_profile_form.is_valid():
+                user_profile_form.save()
+
+            delivery_address_data = {
+                'country': order.billing_address.country,
+                'postcode': order.billing_address.postcode,
+                'town_or_city': order.billing_address.town_or_city,
+                'street_address1': order.billing_address.street_address1,
+                'street_address2': order.billing_address.street_address2,
+                'county': order.billing_address.county,
+                'is_default': True,
+                'user': request.user,
+                'type': 1
+            }
+            delivery_address = None
+            delivery_address = Address.objects.filter(type=1,
+                                                      user=request.user).first()
+            address_form = UserAddressForm(delivery_address_data,
+                                           instance=delivery_address)
+
+            if address_form.is_valid():
+                address_form.save()
+
     messages.success(request, f'Order successfully processed! \
         Your order number is {order_number}. A confirmation \
         email will be sent to {order.email}.')

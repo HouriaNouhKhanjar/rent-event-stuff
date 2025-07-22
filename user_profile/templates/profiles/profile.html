@@ -77,7 +77,50 @@
         </div>
         <div class="col-12 col-lg-6 pt-5 pt-md-0">
             <p class="text-muted">Order History</p>
-            {{ orders }}
+            <div class="order-history table-responsive">
+                <table class="table table-sm table-borderless">
+                    <thead>
+                        <tr>
+                            <th>Order Number</th>
+                            <th>Date</th>
+                            <th>Items</th>
+                            <th>OrderTotal</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for order in orders %}
+                            <tr>
+                                <td>
+                                    <a href="{% url 'order_history' order.order_number %}"
+                                        title="{{ order.order_number }}">
+                                        {{ order.order_number|truncatechars:6 }}
+                                    </a>
+                                </td>
+                                <td>{{ order.created_on|date:'Y-m-d' }}</td>
+                                <td class="w-25">
+                                    <ul class="list-unstyled">
+                                        {% for item in order.lineitems.all %}
+                                            <li class="small">
+                                                <p class="text-black font-weight-bold">
+                                                    <span class="ellipsis">{{ item.supply.name }}</span>
+                                                    <br>
+                                                    <span class="small mb-0 text-info"> Renting Date: {{ item.start_renting_date|date:'Y-m-d' }} </span>
+                                                    <br>
+                                                    <span class="small mb-0 text-info"> Renting for {{ item.renting_days }} Days</span>
+                                                    <br>
+                                                    <span class="small mb-0">{{ item.quantity }} for ${{ item.supply.price_per_day }} each per day</span>
+                                                </p>
+                                            </li>
+                                            <hr/>
+                                        {% endfor %}
+                                    </ul>
+                                </td>
+                                <td>${{ order.grand_total }}</td>
+                            </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
         </div>
     </div>
 </div>
