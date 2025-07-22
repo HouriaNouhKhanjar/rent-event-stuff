@@ -9,12 +9,12 @@
     <fieldset class="rounded mb-5">
         <legend class="fieldset-label small text-black  w-auto">Delivery</legend>
         {{ order_form.phone_number | as_crispy_field }}
-        {{ address_form.country | as_crispy_field }}
-        {{ address_form.postcode | as_crispy_field }}
-        {{ address_form.town_or_city | as_crispy_field }}
         {{ address_form.street_address1 | as_crispy_field }}
         {{ address_form.street_address2 | as_crispy_field }}
+        {{ address_form.town_or_city | as_crispy_field }}
+        {{ address_form.postcode | as_crispy_field }}
         {{ address_form.county | as_crispy_field }}
+        {{ address_form.country | as_crispy_field }}
         <div class="form-check form-check-inline float-right mr-0 ml-1">
             {% if user.is_authenticated %}
             <label class="form-check-labe mr-1">Save this delivery information to my profile

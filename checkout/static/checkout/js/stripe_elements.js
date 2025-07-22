@@ -18,7 +18,7 @@ function getStripeOneTime(containerClass) {
       fontSmoothing: "antialiased",
       fontSize: "16px",
       "::placeholder": {
-        color: "#6c7581"
+        color: "#6c757d"
       }
     },
     invalid: {
