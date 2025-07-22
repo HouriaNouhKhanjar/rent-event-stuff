@@ -25,12 +25,14 @@ class AddressForm(forms.ModelForm):
             'street_address2': 'Street Address 2',
             'county': 'County | State or Locality',
         }
+        
+        excluded_fields = ['country', 'user', 'is_default', 'type']
 
         # Generate a random prefix
         random_prefix = ''.join(random.choices(string.ascii_lowercase + string.digits, k=8))
         for field in self.fields:
             field_item = self.fields[field]
-            if field != 'country':
+            if field not in excluded_fields:
                 if field_item.required:
                     placeholder = f'{placeholders[field]} *'
                 else:
@@ -45,6 +47,11 @@ class AddressForm(forms.ModelForm):
             self.fields[field].widget.attrs['placeholder'] = placeholder
             self.fields[field].widget.attrs['class'] = 'stripe-style-input'
             self.fields[field].label = False
+
+
+class UserAddressForm(AddressForm):
+    class Meta(AddressForm.Meta):
+        fields = AddressForm.Meta.fields + ('user', 'type', 'is_default', )
 
 
 class UserProfileForm(forms.ModelForm):

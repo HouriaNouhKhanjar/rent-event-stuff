@@ -27,7 +27,7 @@ class Address(models.Model):
         if self.user:
             return f'Address for {self.user.username}'
         else:
-            return f'Address in {self.country}'
+            return f'Address in {self.street_address1} street in {self.country}'
 
     def __str__(self):
         return self.title

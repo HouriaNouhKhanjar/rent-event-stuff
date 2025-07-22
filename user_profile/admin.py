@@ -1,12 +1,12 @@
 from django.contrib import admin
-from .models import Address
+from .models import Address, UserProfile
 
 
 class AddressAdmin(admin.ModelAdmin):
     readonly_fields = ('created_on', )
 
-    list_display = ('title', 'postcode', 'town_or_city', 'street_address1',
-                    'type', )
+    list_display = ('title', 'postcode', 'town_or_city',
+                    'type', 'created_on')
 
     ordering = ('-created_on', )
 
@@ -16,4 +16,13 @@ class AddressAdmin(admin.ModelAdmin):
     list_per_page = 15
 
 
+class UserProfileAdmin(admin.ModelAdmin):
+
+    list_display = ('user', 'phone_number',)
+
+    search_fields = ['user__username', 'phone_number']
+    list_per_page = 15
+
+
 admin.site.register(Address, AddressAdmin)
+admin.site.register(UserProfile, UserProfileAdmin)

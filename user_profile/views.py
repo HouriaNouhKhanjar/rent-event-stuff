@@ -1,23 +1,12 @@
-from django.shortcuts import render, get_object_or_404
+from django.shortcuts import render, get_object_or_404, redirect, reverse
 from django.contrib import messages
-from .models import UserProfile
-from .forms import UserProfileForm, AddressForm
+from .models import UserProfile, Address
+from .forms import UserProfileForm, UserAddressForm
 
 
 def profile(request):
     """ Display the user's profile. """
     profile = get_object_or_404(UserProfile, user=request.user)
-
-    billing_address_form = AddressForm()
-    delivery_address_form = AddressForm()
-    user_addresses = profile.user.user_addresses.all()
-    if len(user_addresses):
-        billing_address = profile.user.user_addresses.filter(type=0)
-        if billing_address:
-            billing_address_form = AddressForm(isinstance=billing_address)
-        delivery_address = profile.user.user_addresses.filter(type=1)
-        if delivery_address:
-            delivery_address_form = AddressForm(isinstance=delivery_address)
 
     if request.method == 'POST':
         form = UserProfileForm(request.POST, instance=profile)
@@ -26,6 +15,18 @@ def profile(request):
             messages.success(request, 'Profile updated successfully')
 
     user_profile_form = UserProfileForm(instance=profile)
+    billing_address_form = UserAddressForm()
+    delivery_address_form = UserAddressForm()
+    
+    billing_address = None
+    delivery_address = None
+    billing_address = Address.objects.filter(type=0, user= request.user).first()
+    if billing_address:
+        billing_address_form = UserAddressForm(instance=billing_address)
+    delivery_address = Address.objects.filter(type=1, user= request.user).first()
+    if delivery_address:
+        delivery_address_form = UserAddressForm(instance=delivery_address)
+        
     orders = profile.orders.all()
 
     template = 'profiles/profile.html'
@@ -33,6 +34,8 @@ def profile(request):
         'user_profile_form': user_profile_form,
         'billing_address_form': billing_address_form,
         'delivery_address_form': delivery_address_form,
+        'billing_address': billing_address,
+        'delivery_address': delivery_address,
         'on_profile_page': True,
         'orders': orders
     }
@@ -40,11 +43,29 @@ def profile(request):
     return render(request, template, context)
 
 
-def update_address(request, address_type):
-    """ A view to return supply detail page """
-    profile = get_object_or_404(UserProfile, user=request.user)
+def update_address(request):
+    """Update users billing or delivery address"""
 
-    context = {
-    }
+    if request.method == 'POST':
+        id = request.POST['address_id']
+        address = None
+        if id:
+            address = get_object_or_404(Address, pk=id)
 
-    return render(request, 'profiles/profile.html', context)
+        address_form_data = {
+            'country': request.POST['country'],
+            'postcode': request.POST['postcode'],
+            'town_or_city': request.POST['town_or_city'],
+            'street_address1': request.POST['street_address1'],
+            'street_address2': request.POST['street_address2'],
+            'county': request.POST['county'],
+            'type': int(request.POST['type']),
+            'is_default': True,
+            'user': request.user
+        }
+        form = UserAddressForm(address_form_data, instance=address)
+        if form.is_valid():
+            form.save()
+            messages.success(request, 'Profile updated successfully')
+
+    return redirect(reverse('profile'))

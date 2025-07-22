@@ -38,7 +38,7 @@
                 </div>
                 <hr/>
             </form>
-            <form class="mt-3" action="{% url 'update_address' 'delivery' %}" method="POST">
+            <form class="mt-3" action="{% url 'update_address' %}" method="POST">
                 {% csrf_token %}
                 <fieldset class="mb-2">
                     <legend class="fieldset-label small text-black w-auto">Delivery Information</legend>
@@ -48,13 +48,15 @@
                     {{ delivery_address_form.postcode | as_crispy_field }}
                     {{ delivery_address_form.county | as_crispy_field }}
                     {{ delivery_address_form.country | as_crispy_field }}
+                    <input type="hidden" name="type" value="1" />
+                    <input type="hidden" name="address_id" value="{{delivery_address.id}}" />
                 </fieldset>
                 <div class="text-right">
                     <button type="submit" class="btn action-button text-uppercase">Update</button>
                 </div>
                 <hr/>
             </form>
-            <form class="mt-3" action="{% url 'update_address' 'billing' %}" method="POST">
+            <form class="mt-3" action="{% url 'update_address' %}" method="POST">
                 {% csrf_token %}
                 <fieldset class="rounded mb-2">
                     <legend class="fieldset-label small text-black w-auto">Billing Information</legend>
@@ -64,6 +66,8 @@
                     {{ billing_address_form.postcode | as_crispy_field }}
                     {{ billing_address_form.county | as_crispy_field }}
                     {{ billing_address_form.country | as_crispy_field }}
+                    <input type="hidden" name="type" value="0" />
+                    <input type="hidden" name="address_id" value="{{billing_address.id}}" />
                 </fieldset>
                 <div class="text-right">
                     <button type="submit" class="btn action-button text-uppercase">Update</button>
