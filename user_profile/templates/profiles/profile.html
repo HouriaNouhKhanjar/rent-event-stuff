@@ -108,14 +108,14 @@
                                                     <br>
                                                     <span class="small mb-0 text-info"> Renting for {{ item.renting_days }} Days</span>
                                                     <br>
-                                                    <span class="small mb-0">{{ item.quantity }} for ${{ item.supply.price_per_day }} each per day</span>
+                                                    <span class="small mb-0">{{ item.quantity }} for ${{ item.supply.price_per_day | floatformat:2 }} each per day</span>
                                                 </p>
                                             </li>
                                             <hr/>
                                         {% endfor %}
                                     </ul>
                                 </td>
-                                <td>${{ order.grand_total }}</td>
+                                <td>${{ order.grand_total | floatformat:2 }}</td>
                             </tr>
                         {% endfor %}
                     </tbody>

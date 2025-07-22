@@ -1,0 +1,1 @@
+Rent Event Stuff Confirmation for Order Number {{ order.order_number }}

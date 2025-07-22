@@ -25,7 +25,7 @@
         <p class="my-0 small text-muted">Qty: {{ item.quantity }}</p>
     </div>
     <div class="col-5 col-md-4 text-right">
-        <p class="my-0 small text-muted">${{ item.sub_total }}</p>
+        <p class="my-0 small text-muted">${{ item.sub_total | floatformat:2 }}</p>
     </div>
 </div>
 {% endfor %}

@@ -65,7 +65,7 @@
                                     <p class="my-0 small text-muted">SKU: {{ item.supply.sku|upper }}</p>
                                 </td>
                                 <td class="py-3">
-                                    <p class="my-0 text-accent">${{ item.supply.price_per_day }}</p>
+                                    <p class="my-0 text-accent">${{ item.supply.price_per_day | floatformat:2 }}</p>
                                 </td>
                                 <td class="py-3">
                                     <form class="form update-form" method="POST" action="{% url 'adjust_bag' item.item_id %}">
@@ -100,7 +100,7 @@
                                     </form>
                                 </td>
                                 <td class="py-3">
-                                    <p class="my-0 text-accent">${{ item.sub_total }}</p>
+                                    <p class="my-0 text-accent">${{ item.sub_total | floatformat:2 }}</p>
                                 </td>
                                 <td>
                                     <a class="remove-item" id="remove-{{ item.item_id }}"
@@ -125,7 +125,7 @@
                             {% if free_delivery_delta > 0 %}
                             <p class="mb-1 text-danger">
                                 You could get free delivery by spending just
-                                <strong class="text-accent">${{free_delivery_delta}}</strong> more!
+                                <strong class="text-accent">${{free_delivery_delta | floatformat:2}}</strong> more!
                             </p>
                             {% endif %}
                         </div>
