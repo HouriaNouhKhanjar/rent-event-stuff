@@ -3,7 +3,7 @@ from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from django.contrib import messages
 from django.db.models import Q
 from django.db.models.functions import Lower
-from .models import Supply, Category
+from .models import Supply, Category, SupplyImage
 from .forms import SupplyForm
 
 
@@ -105,23 +105,41 @@ def supply_detail(request, supply_id):
     return render(request, 'supplies/supply-detail.html', context)
 
 
-def add_supply(request):
-    """ Add a supply to the store """
+def manage_supply(request, supply_id):
+    """ manage add or edit a supply to the store """
+    supply = None
+    edit_mode = False
+    form = SupplyForm()
+
     if request.method == 'POST':
-        form = SupplyForm(request.POST, request.FILES)
+        id = request.POST['id']
+
+        if id:
+            edit_mode = True
+            supply = get_object_or_404(Supply, pk=id)
+
+        form = SupplyForm(request.POST, request.FILES, instance=supply)
         if form.is_valid():
-            form.save()
+            supply = form.save()
+            images = request.FILES.getlist('images')
+            for img in images:
+                SupplyImage.objects.create(supply=supply, image=img)
             messages.success(request, 'Successfully added supply!')
-            return redirect(reverse('add_supply'))
+            return redirect(reverse('manage_supply'))
         else:
             messages.error(request, 'Failed to add supply. Please ensure the form is valid.')
-    else:
-        form = SupplyForm()
 
-    template = 'supplies/add_supply.html'
+    elif supply_id:
+        edit_mode = True
+        supply = get_object_or_404(Supply, pk=supply_id)
+        form = SupplyForm(instance=supply)
+
+    template = 'supplies/supply-form.html'
     context = {
         'form': form,
+        'supply': supply,
         'show_only_message': True,
+        'edit_mode': edit_mode,
     }
 
     return render(request, template, context)

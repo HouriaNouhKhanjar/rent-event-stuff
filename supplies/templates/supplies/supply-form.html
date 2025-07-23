@@ -1,0 +1,110 @@
+{% extends "base.html" %}
+
+{% load static %}
+
+{% block extra_css %}
+<link rel="stylesheet" href="{% static 'supplies/css/supplies.css' %}">
+{% endblock %}
+
+{% block extra_title %} | Add Supply {% endblock %}
+
+{% block page_header %}
+<div class="container-fluid header-container">
+    <div class="row">
+        <div class="col"></div>
+    </div>
+</div>
+{% endblock %}
+
+{% block content %}
+<div class="container-fluid px-3 px-md-5 py-3">
+    <div class="row mt-5">
+        <div class="col">
+            <h1><strong> Supply Management </strong></h1>
+            <h2 class="text-muted display-6">Add a Product</h2>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-12 col-md-6 px-0 px-md-2 py-3">
+            <form method="POST" action="{% url 'manage_supply' %}" class="form mb-2" enctype="multipart/form-data">
+                {% csrf_token %}
+                {{ form | crispy }}
+
+                {% if supply and supply.id %}
+                <input type="hidden" name="id" value="{{supply.id}}"/>
+                {% endif %}
+
+                <!-- Drag & Drop Upload -->
+                <div>
+                    <div id="drop-area" class="border p-4 text-center pointer">
+                        <p class="mb-2">Upload Images <br> Drag & Drop Images Here or Click to Browse</p>
+                        <input type="file" id="id-supply-image" name="images" accept="image/*" multiple hidden>
+                        <button type="button" class="btn action-button-secondary upload-image-btn">Select Images</button>
+
+                        <div id="preview" class="row mt-3 gx-2 gy-2">
+                            <!-- display supply images -->
+                            {% if edit_mode and supply.images %}
+                            {% for image in supply.images %}
+                            <div class="col-12 col-md-4 position-relative" id="image-preview-{{ image.id }}">
+                                <div class="border shadow-sm overflow-hidden position-relative"
+                                    data-image-id="{{ image.id }}">
+                                    <img src="{{ image.image_url }}" class="img-fluid w-100" alt="preview"
+                                        loading="lazy" decoding="async" referrerpolicy="strict-origin">
+                                    <button type="button"
+                                        class="btn btn-sm btn-danger delete-image-btn"
+                                        data-bs-toggle="modal" data-bs-target="#confirm-modal"
+                                        data-image-id="{{ image.id }}">
+                                        delete
+                                    </button>
+                                </div>
+                            </div>
+                            {% endfor %}
+                            {% endif %}
+                        </div>
+                    </div>
+                </div>
+                <div class="text-right py-2">
+                    <a class="btn action-button-secondary" href="{% url 'supplies' %}">Cancel</a>
+                    <button class="btn action-button" type="submit">Add Supply</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+<div id="message-toast" class="toast position-absolute p-0" role="alert" aria-live="assertive" aria-atomic="true">
+    <div class="toast-header">
+        <strong class="me-auto">Response</strong>
+        <button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Close"></button>
+    </div>
+    <div class="toast-body"></div>
+</div>
+<!-- confirmation modal -->
+<div class="modal fade" id="confirm-modal" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Confirm Deletion</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+            </div>
+            <div class="modal-body">
+                Are you sure you want to delete?
+            </div>
+            <div class="modal-footer">
+                <button id="confirmDelete" class="btn action-button-secondary">Delete</button>
+                <button class="btn action-button-accent" data-bs-dismiss="modal">Cancel</button>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- Loader -->
+<div id="overlay-loader" class="overlay-loader">
+    <div id="loader">
+        <div class="spinner-border text-primary" role="status"></div>
+    </div>
+</div>
+{% endblock %}
+
+{% block postloadjs %}
+{{ block.super }}
+<script src="{% static 'supplies/js/supplies.js' %}"></script>
+{% endblock %}

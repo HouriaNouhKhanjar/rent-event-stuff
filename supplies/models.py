@@ -1,6 +1,7 @@
+from django.core.files.storage import default_storage
 from functools import cached_property
-from django.db import models
 from django.utils.text import slugify
+from django.db import models
 
 
 class Category(models.Model):
@@ -73,3 +74,10 @@ class SupplyImage(models.Model):
     image_url = models.URLField(max_length=1024, null=True, blank=True)
     image = models.ImageField(null=True, blank=True)
     created_on = models.DateTimeField(auto_now_add=True)
+
+    def save(self, *args, **kwargs):
+        # If the image field is not empty, set the image_url field
+        if self.image and not self.image_url:
+            self.image_url = default_storage.url(self.image.name)
+
+        super(SupplyImage, self).save(*args, **kwargs)
