@@ -105,18 +105,44 @@ def supply_detail(request, supply_id):
     return render(request, 'supplies/supply-detail.html', context)
 
 
-def manage_supply(request, supply_id):
+def add_supply(request):
+    """ manage add a supply to the store """
+    supply = None
+    edit_mode = False
+    form = SupplyForm()
+
+    if request.method == 'POST':
+        form = SupplyForm(request.POST, request.FILES)
+        if form.is_valid():
+            supply = form.save()
+            images = request.FILES.getlist('images')
+            for img in images:
+                SupplyImage.objects.create(supply=supply, image=img)
+            messages.success(request, 'Successfully added supply!')
+            return redirect('edit_supply', supply.id)
+        else:
+            messages.error(request, 'Failed to add supply. Please ensure the form is valid.')
+
+    template = 'supplies/supply-form.html'
+    context = {
+        'form': form,
+        'supply': supply,
+        'show_only_message': True,
+        'edit_mode': edit_mode,
+    }
+
+    return render(request, template, context)
+
+
+def edit_supply(request, supply_id):
     """ manage add or edit a supply to the store """
     supply = None
     edit_mode = False
     form = SupplyForm()
 
     if request.method == 'POST':
-        id = request.POST['id']
-
-        if id:
-            edit_mode = True
-            supply = get_object_or_404(Supply, pk=id)
+        edit_mode = True
+        supply = get_object_or_404(Supply, pk=supply_id)
 
         form = SupplyForm(request.POST, request.FILES, instance=supply)
         if form.is_valid():
@@ -124,12 +150,12 @@ def manage_supply(request, supply_id):
             images = request.FILES.getlist('images')
             for img in images:
                 SupplyImage.objects.create(supply=supply, image=img)
-            messages.success(request, 'Successfully added supply!')
-            return redirect(reverse('manage_supply'))
+            messages.success(request, 'Successfully updated supply!')
+            return redirect('edit_supply', supply.id)
         else:
-            messages.error(request, 'Failed to add supply. Please ensure the form is valid.')
+            messages.error(request, 'Failed to update supply. Please ensure the form is valid.')
 
-    elif supply_id:
+    else:
         edit_mode = True
         supply = get_object_or_404(Supply, pk=supply_id)
         form = SupplyForm(instance=supply)

@@ -21,18 +21,17 @@
     <div class="row mt-5">
         <div class="col">
             <h1><strong> Supply Management </strong></h1>
-            <h2 class="text-muted display-6">Add a Product</h2>
+            <h2 class="text-muted display-6"> {% if edit_mode %} Edit {% else %} Add {% endif %} Supply </h2>
         </div>
     </div>
     <div class="row">
         <div class="col-12 col-md-6 px-0 px-md-2 py-3">
-            <form method="POST" action="{% url 'manage_supply' %}" class="form mb-2" enctype="multipart/form-data">
+            <form method="POST"
+             action="{% if edit_mode %}{% url 'edit_supply' supply.id %}{% else %}{% url 'add_supply' %}{% endif %}"
+             class="form mb-2" 
+             enctype="multipart/form-data">
                 {% csrf_token %}
                 {{ form | crispy }}
-
-                {% if supply and supply.id %}
-                <input type="hidden" name="id" value="{{supply.id}}"/>
-                {% endif %}
 
                 <!-- Drag & Drop Upload -->
                 <div>
@@ -44,7 +43,7 @@
                         <div id="preview" class="row mt-3 gx-2 gy-2">
                             <!-- display supply images -->
                             {% if edit_mode and supply.images %}
-                            {% for image in supply.images %}
+                            {% for image in supply.images.all %}
                             <div class="col-12 col-md-4 position-relative" id="image-preview-{{ image.id }}">
                                 <div class="border shadow-sm overflow-hidden position-relative"
                                     data-image-id="{{ image.id }}">
@@ -64,8 +63,11 @@
                     </div>
                 </div>
                 <div class="text-right py-2">
-                    <a class="btn action-button-secondary" href="{% url 'supplies' %}">Cancel</a>
-                    <button class="btn action-button" type="submit">Add Supply</button>
+                    <a class="btn action-button-secondary"
+                     href="{% if edit_mode %}{% url 'supply_detail' supply.id %}{% else %}{% url 'supplies' %}{% endif %}">
+                     Cancel
+                    </a>
+                    <button class="btn action-button" type="submit">{% if edit_mode %} Update {% else %} Add {% endif %}  Supply</button>
                 </div>
             </form>
         </div>

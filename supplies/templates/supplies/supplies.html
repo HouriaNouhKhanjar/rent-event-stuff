@@ -68,6 +68,13 @@
                                             {% else %}
                                             <small class="text-muted">No Rating</small>
                                             {% endif %}
+                                            {% if request.user.is_authenticated %}
+                                                {% if request.user.is_superuser %}
+                                                    <p class="text-right">
+                                                        <a href="{% url 'edit_supply' supply.id %}" class="btn btn-sm text-info">edit</a>
+                                                    </p>
+                                                {% endif %}
+                                            {% endif %}
                                         </div>
                                     </div>
                                 </div>
