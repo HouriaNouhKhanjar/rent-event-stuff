@@ -1,3 +1,4 @@
+from django.http import JsonResponse
 from django.shortcuts import render, redirect, reverse, get_object_or_404
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from django.contrib import messages
@@ -169,3 +170,32 @@ def edit_supply(request, supply_id):
     }
 
     return render(request, template, context)
+
+
+def delete_supply_image(request, pk):
+    """
+    Delete an individual image.
+
+    **args**
+
+    ``pk``
+        The instance id of :model:`supplies.SupplyImage` to delete.
+    """
+    if request.method not in ["POST", "DELETE"]:
+        return JsonResponse({'error': 'Method not allowed'}, status=405)
+
+    image = get_object_or_404(SupplyImage, pk=pk)
+
+    # Check if the logged-in user is the owner of the related car
+    if not (request.user and request.user.is_superuser):
+        return JsonResponse({'error': 'Forbidden'}, status=403)
+
+    try:
+        image.delete()
+        messages.success(request,
+                         "Image deleted successfully.")
+        return JsonResponse({'success': True})
+    except Exception as e:
+        messages.error(request, f"image deletion failed: {e}")
+        return JsonResponse({'error': f'deletion failed: {e}'},
+                            status=500)
