@@ -96,7 +96,7 @@
               <div class="dropdown-menu border-0 rounded-0 bg-light accounts-menu" aria-labelledby="user-options">
                 {% if request.user.is_authenticated %}
                 {% if request.user.is_superuser %}
-                <a href="" class="dropdown-item">Supplies Management</a>
+                <a href="{% url 'add_supply' %}" class="dropdown-item">Supplies Management</a>
                 <div class="dropdown-divider"></div>
                 <a href="{% url 'admin:index' %}" class="dropdown-item">Admin Panel</a>
                 <div class="dropdown-divider"></div>

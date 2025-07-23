@@ -14,8 +14,11 @@ def profile(request):
         if form.is_valid():
             form.save()
             messages.success(request, 'Profile updated successfully')
+        else:
+            messages.error(request, 'Update failed. Please ensure the form is valid.')
+    else:
+        form = UserProfileForm(instance=profile)
 
-    user_profile_form = UserProfileForm(instance=profile)
     billing_address_form = UserAddressForm()
     delivery_address_form = UserAddressForm()
 
@@ -32,12 +35,12 @@ def profile(request):
 
     template = 'profiles/profile.html'
     context = {
-        'user_profile_form': user_profile_form,
+        'user_profile_form': form,
         'billing_address_form': billing_address_form,
         'delivery_address_form': delivery_address_form,
         'billing_address': billing_address,
         'delivery_address': delivery_address,
-        'on_profile_page': True,
+        'show_only_message': True,
         'orders': orders
     }
 
@@ -85,5 +88,7 @@ def update_address(request):
         if form.is_valid():
             form.save()
             messages.success(request, 'Profile updated successfully')
+        else:
+            messages.error(request, 'Update failed. Please ensure the address is valid.')
 
     return redirect(reverse('profile'))

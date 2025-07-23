@@ -4,6 +4,7 @@ from django.contrib import messages
 from django.db.models import Q
 from django.db.models.functions import Lower
 from .models import Supply, Category
+from .forms import SupplyForm
 
 
 def all_supplies(request):
@@ -102,3 +103,25 @@ def supply_detail(request, supply_id):
     }
 
     return render(request, 'supplies/supply-detail.html', context)
+
+
+def add_supply(request):
+    """ Add a supply to the store """
+    if request.method == 'POST':
+        form = SupplyForm(request.POST, request.FILES)
+        if form.is_valid():
+            form.save()
+            messages.success(request, 'Successfully added supply!')
+            return redirect(reverse('add_supply'))
+        else:
+            messages.error(request, 'Failed to add supply. Please ensure the form is valid.')
+    else:
+        form = SupplyForm()
+
+    template = 'supplies/add_supply.html'
+    context = {
+        'form': form,
+        'show_only_message': True,
+    }
+
+    return render(request, template, context)

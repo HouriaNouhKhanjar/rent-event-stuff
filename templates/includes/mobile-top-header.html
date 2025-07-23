@@ -32,7 +32,7 @@
     <div class="dropdown-menu border-0 w-100 p-3 rounded-0 my-0 bg-dark  accounts-menu" aria-labelledby="user-options">
         {% if request.user.is_authenticated %}
         {% if request.user.is_superuser %}
-        <a href="{% url 'account_logout' %}" class="dropdown-item text-white">Supplies Management</a>
+        <a href="{% url 'add_supply' %}"class="dropdown-item text-white">Supplies Management</a>
         <div class="dropdown-divider"></div>
         <a href="{% url 'admin:index' %}" class="dropdown-item text-white">Admin Panel</a>
         <div class="dropdown-divider"></div>

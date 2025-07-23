@@ -72,6 +72,24 @@ h4 {
     background-repeat: no-repeat;
 }
 
+input,
+select {
+    outline: none;
+    border-radius: unset !important;
+    -webkit-border-radius: unset !important;
+    -moz-border-radius: unset !important;
+    -ms-border-radius: unset !important;
+    -o-border-radius: unset !important;
+}
+
+input:focus,
+select:focus {
+    outline: none!important;
+    box-shadow: unset!important;
+    border-color: #ced4da!important;
+    border-bottom: 2px solid #ff6b6b!important;
+}
+
 /* Media Queries */
 /* medium screen and up */
 @media (min-width: 768px) {
