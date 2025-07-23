@@ -11,6 +11,7 @@ class SupplyImageInline(admin.StackedInline):
     """
     model = SupplyImage
     form = SupplyImageInlineForm
+    readonly_fields = ('image_url', 'created_on', )
     extra = 1
 
 
@@ -23,6 +24,7 @@ class SupplyAdmin(admin.ModelAdmin):
         'price_per_day',
         'quantity_available'
     )
+    readonly_fields = ('created_on', )
     search_fields = ['name', 'description', 'category']
     list_filter = ('created_on', 'category',)
     list_per_page = 15
@@ -33,6 +35,7 @@ class CategoryAdmin(admin.ModelAdmin):
         'name',
         'slug',
     )
+    readonly_fields = ('slug', 'created_on', )
     search_fields = ['name']
     list_per_page = 10
 

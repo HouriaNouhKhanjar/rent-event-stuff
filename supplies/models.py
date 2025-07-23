@@ -1,5 +1,6 @@
 from django.core.files.storage import default_storage
 from functools import cached_property
+from django.core.validators import MinValueValidator
 from django.utils.text import slugify
 from django.db import models
 
@@ -47,7 +48,10 @@ class Supply(models.Model):
     name = models.CharField(max_length=254)
     description = models.TextField()
     price_per_day = models.DecimalField(max_digits=6, decimal_places=2)
-    quantity_available = models.IntegerField(default=0, null=True, blank=True)
+     
+    quantity_available = models.IntegerField(default=1,
+                                             validators=[MinValueValidator(1)],
+                                             null=False, blank=False)
     created_on = models.DateTimeField(auto_now_add=True)
 
     def __str__(self):
