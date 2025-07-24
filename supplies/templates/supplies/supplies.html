@@ -72,6 +72,11 @@
                                                 {% if request.user.is_superuser %}
                                                     <p class="text-right">
                                                         <a href="{% url 'edit_supply' supply.id %}" class="btn btn-sm text-info">edit</a>
+                                                        <button type="button"
+                                                                class="btn btn-sm text-accent delete-supply-btn"
+                                                                data-toggle="modal" data-target="#confirm-supply-modal" data-supply-id="{{supply.id}}">
+                                                                delete
+                                                        </button>
                                                     </p>
                                                 {% endif %}
                                             {% endif %}
@@ -135,6 +140,34 @@
         <i class="fas fa-arrow-up text-black mx-auto my-auto text-white"></i>
     </a>
 </div>
+<!-- confirmation modal -->
+<div class="modal fade" id="confirm-supply-modal" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Confirm Deletion</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                Are you sure you want to delete this supply?
+            </div>
+            <div class="modal-footer">
+                <button id="confirm-supply-delete" class="btn action-button">Delete</button>
+                <button class="btn action-button-secondary" data-dismiss="modal">Cancel</button>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- Loader -->
+<div id="overlay-loader" class="overlay-loader">
+    <div id="loader">
+        <div class="spinner-border text-primary" role="status"></div>
+    </div>
+</div>
+<!-- input for delete  -->
+ <input type="hidden" id="delete-supply-input" value="" />
 {% endblock %}
 
 {% block postloadjs %}
@@ -252,5 +285,35 @@
         currentUrl.searchParams.delete("q");
         window.location.replace(currentUrl);
     });
+</script>
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+    // selectedImageId determines the id of image to be deleted
+       document.querySelectorAll(".delete-supply-btn").forEach((btn) => {
+            btn.addEventListener("click", function () {
+                selectedSupplyId = this.dataset.supplyId;
+                $('#delete-supply-input').val(selectedSupplyId);
+        });
+       });
+    });
+    $("#confirm-supply-delete").click(function () {
+         var postData = {
+            csrfmiddlewaretoken: "{{csrf_token}}",
+        };
+
+        var supplyId  = $('#delete-supply-input').prop('value');
+        var url = `/supplies/supply-delete/${supplyId}/`;
+        $.post(url, postData).done(function () {
+            closeModal();
+            window.location.replace("{% url 'supplies' %}");
+        }).fail(function () {
+            // just reload the page, the error will be in django messages
+            location.reload();
+        });
+    });
+    //close the confirmation modal
+    function closeModal() {
+     $("#confirm-supply-modal").modal("hide");
+    }
 </script>
 {% endblock %}

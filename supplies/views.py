@@ -186,7 +186,7 @@ def delete_supply_image(request, pk):
 
     image = get_object_or_404(SupplyImage, pk=pk)
 
-    # Check if the logged-in user is the owner of the related car
+    # Check if the logged-in user is admin
     if not (request.user and request.user.is_superuser):
         return JsonResponse({'error': 'Forbidden'}, status=403)
 
@@ -198,4 +198,33 @@ def delete_supply_image(request, pk):
     except Exception as e:
         messages.error(request, f"image deletion failed: {e}")
         return JsonResponse({'error': f'deletion failed: {e}'},
+                            status=500)
+
+
+def delete_supply(request, pk):
+    """
+    Delete an individual supply.
+
+    **args**
+
+    ``pk``
+        The instance id of :model:`supplies.Supply` to delete.
+    """
+    if request.method not in ["POST", "DELETE"]:
+        messages.info(request, 'Method not allowed')
+        return JsonResponse({'error': 'Method not allowed'}, status=405)
+
+    supply = get_object_or_404(Supply, pk=pk)
+
+    # Check if the logged-in user is admin
+    if not (request.user and request.user.is_superuser):
+        messages.info(request, 'Forbidden')
+        return JsonResponse({'error': 'Forbidden'}, status=403)
+
+    try:
+        supply.delete()
+        messages.info(request, "Supply deleted successfully.")
+        return JsonResponse({'message': 'Deleted Successfully'}, status=200)
+    except Exception as e:
+        return JsonResponse({'error': f'Supply deletion failed: {e}'},
                             status=500)
