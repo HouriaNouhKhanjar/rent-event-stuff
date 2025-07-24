@@ -124,14 +124,15 @@ def checkout(request):
                 delivery_address = None
                 delivery_address = Address.objects.filter(type=1,
                                                           user=request.user).first()
-                address_form = AddressForm(initial={
-                    'country': delivery_address.country,
-                    'postcode':delivery_address.postcode,
-                    'town_or_city': delivery_address.town_or_city,
-                    'street_address1': delivery_address.street_address1,
-                    'street_address2': delivery_address.street_address2,
-                    'county': delivery_address.county,
-                })
+                if delivery_address:
+                    address_form = AddressForm(initial={
+                        'country': delivery_address.country,
+                        'postcode':delivery_address.postcode,
+                        'town_or_city': delivery_address.town_or_city,
+                        'street_address1': delivery_address.street_address1,
+                        'street_address2': delivery_address.street_address2,
+                        'county': delivery_address.county,
+                    })
             except UserProfile.DoesNotExist:
                 order_form = OrderForm()
 
