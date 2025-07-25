@@ -17,11 +17,20 @@
         {{ address_form.country | as_crispy_field }}
         <div class="form-check form-check-inline float-right mr-0 ml-1">
             {% if user.is_authenticated %}
-            <label class="form-check-labe mr-1">Save this delivery information to my profile
-                <input type="checkbox" class="form-check-input info-save ml-2 mr-0" data-toggle="toggle" 
-                        data-on="" data-off="" data-width="50" data-height="20"
-                        data-onstyle="success" data-offstyle="secondary" name="save-info" checked>
-            </label>
+            <!-- Desktop version -->
+            <div class="d-none d-md-block">
+                <div class="custom-control custom-switch">
+                    <input type="checkbox" class="custom-control-input info-save" id="toggle-save-desktop" name="save-info">
+                    <label class="custom-control-label" for="toggle-save-desktop">Save this delivery information to my profile</label>
+                </div>
+            </div>
+            <!-- Mobile version -->
+            <div class="d-block d-md-none">
+                <div class="custom-control custom-switch">
+                    <input type="checkbox" class="custom-control-input info-save" id="toggle-save-mobile" name="save-info">
+                    <label class="custom-control-label" for="toggle-save-mobile">Save this delivery information to my profile</label>
+                </div>
+            </div>
             {% else %}
             <label class="form-check-label">
                 <a class="text-info" href="{% url 'account_signup' %}">Create an account</a> or

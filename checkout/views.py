@@ -44,6 +44,8 @@ def checkout(request):
             'email': request.POST['email'],
             'phone_number': request.POST['phone_number'],
         }
+        save_info = request.POST.get('save-info')
+        is_default = save_info.lower() in ['true', '1', 'on'] if save_info else False
         address_form_data = {
             'country': request.POST['country'],
             'postcode': request.POST['postcode'],
@@ -51,16 +53,23 @@ def checkout(request):
             'street_address1': request.POST['street_address1'],
             'street_address2': request.POST['street_address2'],
             'county': request.POST['county'],
+            'user': request.user,
+            'is_defalut': is_default,
+            'type': 0
         }
         order_form = OrderForm(order_form_data)
-        address_form = AddressForm(address_form_data)
-        if order_form.is_valid() and address_form.is_valid():
+        billing_address_form = UserAddressForm(address_form_data)
+        address_form_data['type'] = 1
+        delivery_address_form = UserAddressForm(address_form_data)
+        if order_form.is_valid() and billing_address_form.is_valid():
             with transaction.atomic():
-                billing_address = address_form.save()
+                billing_address = billing_address_form.save()
+
+                delivery_address = delivery_address_form.save()
 
                 order = order_form.save(commit=False)
                 order.billing_address = billing_address
-                order.delivery_address = billing_address
+                order.delivery_address = delivery_address
                 pid = request.POST.get('client_secret').split('_secret')[0]
                 order.stripe_pid = pid
                 order.original_bag = json.dumps(bag)
@@ -87,7 +96,7 @@ def checkout(request):
                         order.delete()
                         return redirect(reverse('view_bag'))
 
-                request.session['save_info'] = 'save-info' in request.POST
+                request.session['save_info'] = request.POST.get('save-info', None)
                 return redirect(reverse('checkout_success', args=[order.order_number]))
         else:
             messages.error(request, 'There was an error with your form. \
@@ -112,7 +121,7 @@ def checkout(request):
 
         order_form = OrderForm()
         address_form = AddressForm()
-        
+
         if request.user.is_authenticated:
             try:
                 profile = UserProfile.objects.get(user=request.user)
@@ -123,7 +132,8 @@ def checkout(request):
                 })
                 delivery_address = None
                 delivery_address = Address.objects.filter(type=1,
-                                                          user=request.user).first()
+                                                          user=request.user,
+                                                          is_default=True).first()
                 if delivery_address:
                     address_form = AddressForm(initial={
                         'country': delivery_address.country,
@@ -165,7 +175,8 @@ def checkout_success(request, order_number):
         order.save()
 
         # Save the user's info
-        if save_info:
+        is_default_address = save_info.lower() in ['true', '1', 'on'] if save_info else False
+        if is_default_address:
             profile_data = {
                 'phone_number': order.phone_number,
             }
@@ -173,25 +184,10 @@ def checkout_success(request, order_number):
             if user_profile_form.is_valid():
                 user_profile_form.save()
 
-            delivery_address_data = {
-                'country': order.billing_address.country,
-                'postcode': order.billing_address.postcode,
-                'town_or_city': order.billing_address.town_or_city,
-                'street_address1': order.billing_address.street_address1,
-                'street_address2': order.billing_address.street_address2,
-                'county': order.billing_address.county,
-                'is_default': True,
-                'user': request.user,
-                'type': 1
-            }
-            delivery_address = None
-            delivery_address = Address.objects.filter(type=1,
-                                                      user=request.user).first()
-            address_form = UserAddressForm(delivery_address_data,
-                                           instance=delivery_address)
-
-            if address_form.is_valid():
-                address_form.save()
+            order.delivery_address.is_default = True
+            order.delivery_address.user = order.user_profile.user
+            order.billing_address.is_default = True
+            order.billing_address.user = order.user_profile.user
 
     messages.success(request, f'Order successfully processed! \
         Your order number is {order_number}. A confirmation \

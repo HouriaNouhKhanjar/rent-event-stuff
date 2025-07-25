@@ -31,6 +31,13 @@ class Address(models.Model):
 
     def __str__(self):
         return self.title
+    
+    def save(self, *args, **kwargs):
+        if self.is_default and self.user:
+            # Unset default for all other addresses of the same user
+            Address.objects.filter(user=self.user, is_default=True,
+                                   type=self.type).exclude(pk=self.pk).update(is_default=False)
+        super().save(*args, **kwargs)
 
 
 class UserProfile(models.Model):

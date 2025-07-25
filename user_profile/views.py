@@ -24,10 +24,12 @@ def profile(request):
 
     billing_address = None
     delivery_address = None
-    billing_address = Address.objects.filter(type=0, user=request.user).first()
+    billing_address = Address.objects.filter(type=0, user=request.user,
+                                             is_default=True).first()
     if billing_address:
         billing_address_form = UserAddressForm(instance=billing_address)
-    delivery_address = Address.objects.filter(type=1, user=request.user).first()
+    delivery_address = Address.objects.filter(type=1, user=request.user,
+                                              is_default=True).first()
     if delivery_address:
         delivery_address_form = UserAddressForm(instance=delivery_address)
 
@@ -69,9 +71,6 @@ def update_address(request):
 
     if request.method == 'POST':
         id = request.POST['address_id']
-        address = None
-        if id:
-            address = get_object_or_404(Address, pk=id)
 
         address_form_data = {
             'country': request.POST['country'],
@@ -84,7 +83,7 @@ def update_address(request):
             'is_default': True,
             'user': request.user
         }
-        form = UserAddressForm(address_form_data, instance=address)
+        form = UserAddressForm(address_form_data)
         if form.is_valid():
             form.save()
             messages.success(request, 'Profile updated successfully')

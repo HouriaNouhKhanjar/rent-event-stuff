@@ -56,7 +56,7 @@ function getStripeOneTime(containerClass) {
 
     $("#loading-overlay").fadeToggle(100);
 
-    var saveInfo = Boolean($(`.${containerClass} .info-save`).attr("checked"));
+    var saveInfo = Boolean($(`.${containerClass} .info-save`).prop('checked'));
     var csrfToken = $(
       `.${containerClass}  input[name="csrfmiddlewaretoken"]`
     ).val();
