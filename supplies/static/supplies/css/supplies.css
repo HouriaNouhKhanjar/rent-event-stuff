@@ -72,6 +72,14 @@ h4 {
     background-repeat: no-repeat;
 }
 
+.supply-details-container .form-group {
+  width: 100%;
+}
+
+.supply-details-container .form-group button {
+  padding: .2rem!important;
+}
+
 /* supply form */
 #drop-area.pointer {
   cursor: pointer;
@@ -125,6 +133,9 @@ textarea:focus {
     .supply-image {
       width: 50px;
       height: 50px;
+    }
+    .supply-details-container .form-group {
+      width: 75%;
     }
 }
 /* large screen and up */

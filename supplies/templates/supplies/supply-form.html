@@ -18,13 +18,13 @@
 
 {% block content %}
 <div class="container-fluid px-3 px-md-5 py-3">
-    <div class="row mt-5">
+    <div class="row mt-5 px-2">
         <div class="col">
             <h1><strong> Supply Management </strong></h1>
             <h2 class="text-muted display-6"> {% if edit_mode %} Edit {% else %} Add {% endif %} Supply </h2>
         </div>
     </div>
-    <div class="row">
+    <div class="row px-3">
         <div class="col-12 col-md-6 px-0 px-md-2 py-3">
             <form method="POST"
              action="{% if edit_mode %}{% url 'edit_supply' supply.id %}{% else %}{% url 'add_supply' %}{% endif %}"
@@ -44,13 +44,13 @@
                             <!-- display supply images -->
                             {% if edit_mode and supply.images %}
                             {% for image in supply.images.all %}
-                            <div class="col-12 col-md-4 position-relative" id="image-preview-{{ image.id }}">
+                            <div class="col-12 col-md-4 mt-2 mt-md-0 position-relative" id="image-preview-{{ image.id }}">
                                 <div class="border shadow-sm overflow-hidden position-relative"
                                     data-image-id="{{ image.id }}">
                                     <img src="{{ image.image_url }}" class="img-fluid w-100" alt="preview"
                                         loading="lazy" decoding="async" referrerpolicy="strict-origin">
                                     <button type="button"
-                                        class="btn btn-sm btn-danger delete-image-btn"
+                                        class="btn btn-sm btn-danger delete-image-btn w-100 mt-2"
                                         data-toggle="modal" data-target="#confirm-modal"
                                         data-image-id="{{ image.id }}">
                                         delete

@@ -19,7 +19,7 @@
 <div class="container-fluid px-3 pt-5 px-md-5">
     <div class="row">
         <div class="col">
-            <h1 class="mb-4 text-uppercase text-info">Profile</h1>
+            <h1 class="mb-4 text-uppercase text-info">Profile | {{user.username}} </h1>
             <hr>
         </div>
     </div>
@@ -75,14 +75,13 @@
                 <hr class="d-block d-md-none"/>
             </form>
         </div>
-        <div class="col-12 col-lg-6 pt-5 pt-md-0">
+        <div class="col-12 col-lg-6 pt-5 pt-md-0 px-0 px-md-3">
             <p class="text-muted">Order History</p>
             <div class="order-history table-responsive">
                 <table class="table table-sm table-borderless">
                     <thead>
                         <tr>
                             <th>Order Number</th>
-                            <th>Date</th>
                             <th>Items</th>
                             <th>OrderTotal</th>
                         </tr>
@@ -92,17 +91,18 @@
                             <tr>
                                 <td>
                                     <a href="{% url 'order_history' order.order_number %}"
-                                        title="{{ order.order_number }}" class="text-info">
-                                        {{ order.order_number|truncatechars:6 }}
+                                        title="{{ order.order_number }}">
+                                        <span class="text-accent display-5">{{ order.order_number|truncatechars:6 }}</span>
+                                        <br>
+                                        <span class="small mb-0 text-dark mb-0"> {{ order.created_on|date:'Y-m-d' }}</span>
                                     </a>
                                 </td>
-                                <td>{{ order.created_on|date:'Y-m-d' }}</td>
-                                <td class="w-25">
+                                <td class="w-50">
                                     <ul class="list-unstyled">
                                         {% for item in order.lineitems.all %}
                                             <li class="small">
-                                                <p class="text-black font-weight-bold">
-                                                    <span class="ellipsis">{{ item.supply.name }}</span>
+                                                <p class="font-weight-bold">
+                                                    <span class="ellipsis text-dark">{{ item.supply.name }}</span>
                                                     <br>
                                                     <span class="small mb-0 text-info"> Renting Date: {{ item.start_renting_date|date:'Y-m-d' }} </span>
                                                     <br>
@@ -111,7 +111,6 @@
                                                     <span class="small mb-0">{{ item.quantity }} for ${{ item.supply.price_per_day | floatformat:2 }} each per day</span>
                                                 </p>
                                             </li>
-                                            <hr/>
                                         {% endfor %}
                                     </ul>
                                 </td>
