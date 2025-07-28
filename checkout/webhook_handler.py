@@ -83,7 +83,7 @@ class StripeWH_Handler:
 
         order_exists = False
         attempt = 1
-        while attempt <= 5:
+        while attempt <= 10:
             try:
                 order = Order.objects.get(
                     full_name__iexact=shipping_details.name,
@@ -97,14 +97,12 @@ class StripeWH_Handler:
                     delivery_address__county__iexact=shipping_details.address.state,
                     grand_total=grand_total,
                     original_bag=bag,
-                    stripe_pid=pid,
                 )
                 order_exists = True
                 break
             except Order.DoesNotExist:
                 attempt += 1
-                time.sleep(1)
-
+                time.sleep(2)
         if order_exists:
             self._send_confirmation_email(order)
             return HttpResponse(
