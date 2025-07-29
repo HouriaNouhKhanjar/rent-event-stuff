@@ -138,6 +138,7 @@ textarea:focus {
       width: 75%;
     }
 }
+
 /* large screen and up */
 @media (min-width: 992px) {
   h1 {

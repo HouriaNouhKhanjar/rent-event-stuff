@@ -1,0 +1,48 @@
+<div class="d-block d-lg-none">
+    {% include 'bag/includes/total-and-actions.html' %}
+</div>
+
+{% include 'bag/includes/info-header.html' %}
+
+{% for item in bag_items %}
+<div class="row vertical-centerd mt-0 mt-lg-2">
+    <div class="col-12 col-md-6 col-lg-2 align-content-center">
+        <a href="{% url 'supply_detail' item.supply.id %}">
+            <img class="img-fluid" src="{{ item.supply.image_url }}" alt="rent for you event {{item.supply.name}}">
+        </a>
+    </div>
+    <div class="col-12 col-md-6 col-lg-3 align-content-center">
+        <p class="my-0">
+            <a href="{% url 'supply_detail' item.supply.id %}">
+                <strong class="text-dark ellipsis">{{ item.supply.name }}</strong>
+            </a>
+        </p>
+        <p class="mt-2 mb-0">
+            Start Renting Date:<span class="text-info pl-2">{{ item.start_renting_date }}</span>
+        </p>
+        <p class="my-0 small">
+            Renting For: <span class="text-info pl-2">{{ item.renting_days }} Days</span>
+        </p>
+        <p class="my-0 small text-muted">SKU: {{ item.supply.sku|upper }}</p>
+    </div>
+    <div class="col-12 col-md-6 offset-md-6 col-lg-3 offset-lg-0 my-3 my-md-0 align-content-center">
+        {% include 'bag/includes/quantity-form.html' %}
+    </div>
+    <div class="col-12 col-md-6 offset-md-6 col-lg-2 offset-lg-0 align-content-center">
+        <p class="text-dark mb-0">
+            <span class="d-inline-block d-lg-none">Price Per Day: </span> 
+            ${{item.supply.price_per_day | floatformat:2 }}
+        </p>
+    </div>
+    <div class="col-12 col-md-6 offset-md-6 col-lg-2 offset-lg-0 mt-2 mt-lg-0 align-content-center">
+        <p class="text-dark">
+            <span class="d-inline-block d-lg-none">Subtotal: </span> ${{ item.sub_total | floatformat:2}}
+        </p>
+    </div>
+</div>
+<hr>
+</hr>
+{% endfor %}
+<div class="d-none d-lg-block">
+    {% include 'bag/includes/total-and-actions.html' %}
+</div>

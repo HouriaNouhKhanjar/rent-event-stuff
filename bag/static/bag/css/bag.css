@@ -1,12 +1,19 @@
-.bag-table-header {
-    background-color: #f7f1e3;
+.bag-info-header {
+  background-color: #f7f1e3;
 }
 
-.bag-container table td {
-    vertical-align: baseline;
+.bag-actions .btn {
+  width: 100% !important;
 }
 
 .update-link,
 .remove-item {
-    cursor: pointer;
+  cursor: pointer;
+}
+
+/* large screen and up */
+@media (min-width: 992px) {
+  .bag-actions .btn {
+    width: auto !important;
+  }
 }

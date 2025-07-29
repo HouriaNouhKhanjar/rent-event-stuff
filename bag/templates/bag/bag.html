@@ -27,134 +27,22 @@
     </div>
     <div class="row mt-3">
         <div class="bag-container col-10 pb-4 offset-1">
-            <div class="row">
-                <div class="col text-center">
-                    {% if bag_items %}
-                    <div class="table-responsive rounded">
-                        <table class="table table-sm table-borderless">
-                            <thead class="text-black bag-table-header">
-                                <tr>
-                                    <th scope="col">Supply Info</th>
-                                    <th scope="col"></th>
-                                    <th scope="col">Price Per Day</th>
-                                    <th scope="col">Quantity</th>
-                                    <th scope="col">Subtotal</th>
-                                    <th scope="col">Delete</th>
-                                </tr>
-                            </thead>
-                            {% for item in bag_items %}
-                            <tr>
-                                <td class="px-0 pt-2 p-md-3 w-25">
-                                    <a href="{% url 'supply_detail' item.supply.id %}">
-                                        <img class="img-fluid w-75" src="{{ item.supply.image_url }}"
-                                        alt="rent for you event {{item.supply.name}}">
-                                    </a>
-                                </td>
-                                <td class="py-3 w-25 text-left">
-                                    <p class="my-0">
-                                        <a href="{% url 'supply_detail' item.supply.id %}">
-                                            <strong class="text-dark ellipsis">{{ item.supply.name }}</strong>
-                                        </a>
-                                    </p>
-                                    <p class="mt-2 mb-0">
-                                        Start Renting Date:<span class="text-info pl-2">{{ item.start_renting_date }}</span>
-                                    </p>
-                                    <p class="my-0 small">
-                                        Renting For: <span class="text-info pl-2">{{ item.renting_days }} Days</span>
-                                    </p>
-                                    <p class="my-0 small text-muted">SKU: {{ item.supply.sku|upper }}</p>
-                                </td>
-                                <td class="py-3">
-                                    <p class="my-0 text-accent">${{ item.supply.price_per_day | floatformat:2 }}</p>
-                                </td>
-                                <td class="py-3">
-                                    <form class="form update-form" method="POST" action="{% url 'adjust_bag' item.item_id %}">
-                                        {% csrf_token %}
-                                        <input type="hidden" name="renting_days" value="{{ item.renting_days }}">
-                                        <input type="hidden" name="start_renting_date" value="{{ item.start_renting_date }}">
-                                        <div class="form-group">
-                                            <div class="input-group">
-                                                <div class="input-group-prepend">
-                                                    <button class="decrement btn action-button-secondary btn-sm py-0 px-2"
-                                                    data-item-id="{{ item.item_id }}-{{ item.start_renting_date }}-{{ item.renting_days }}" 
-                                                    data-type="qty" id="decrement-qty-{{ item.item_id }}-{{ item.start_renting_date }}-{{ item.renting_days }}">
-                                                        <i class="fas fa-minus"></i>
-                                                    </button>
-                                                </div>
-                                                <input class="form-control form-control-sm incremental-input" type="number"
-                                                name="quantity" value="{{ item.quantity }}" min="1" max="99"
-                                                data-item-id="{{ item.item_id }}-{{ item.start_renting_date }}-{{ item.renting_days }}"
-                                                id="qty-{{ item.item_id }}-{{ item.start_renting_date }}-{{ item.renting_days }}" data-type="qty">
-                                                <div class="input-group-append">
-                                                    <button class="increment btn action-button-secondary btn-sm py-0 px-2"
-                                                    data-item-id="{{ item.item_id }}-{{ item.start_renting_date }}-{{ item.renting_days }}"
-                                                    data-type="qty" id="increment-qty-{{ item.item_id }}-{{ item.start_renting_date }}-{{ item.renting_days }}">
-                                                        <i class="fas fa-plus"></i>
-                                                    </button>
-                                                </div>
-                                                <a class="update-link float-right pl-2">
-                                                    <small class="text-info">Update</small>
-                                                </a>
-                                            </div>
-                                        </div>
-                                    </form>
-                                </td>
-                                <td class="py-3">
-                                    <p class="my-0 text-accent">${{ item.sub_total | floatformat:2 }}</p>
-                                </td>
-                                <td>
-                                    <a class="remove-item" id="remove-{{ item.item_id }}"
-                                     data-renting-date="{{ item.start_renting_date }}" data-renting-days="{{ item.renting_days }}">
-                                     <small class="text-accent"><i class="fa-solid fa-trash"></i></small>
-                                    </a>
-                                </td>
-                            </tr>
-                            {% endfor %}
-                        </table>
+            {% if bag_items %}
+                {% include 'bag/includes/bag-info.html' %}
+            {% else %}
+                <div class="row">
+                    <div class="col text-center">
+                        <p class="display-5 mb-5">Your bag is empty.</p>
+                        <a href="{% url 'supplies' %}" class="btn action-button-secondary">
+                            <span class="icon">
+                                <i class="fas fa-chevron-left"></i>
+                            </span>
+                            <span class="text-uppercase">Keep Shopping</span>
+                        </a>
                     </div>
-                    <div class="mt-3">
-                        <div class="d-flex flex-column align-items-end">
-                            <h6><strong>Bag Total:
-                                    <span class="text-accent">${{ total|floatformat:2}}</span>
-                                </strong></h6>
-                            <h6>Delivery: <span class="text-accent">${{ delivery|floatformat:2 }}</span></h6>
-                            <h4 class="my-3"><strong>Grand Total:
-                                    <span class="text-accent">${{grand_total|floatformat:2 }}</span>
-                                </strong>
-                            </h4>
-                            {% if free_delivery_delta > 0 %}
-                            <p class="mb-1 text-danger">
-                                You could get free delivery by spending just
-                                <strong class="text-accent">${{free_delivery_delta | floatformat:2}}</strong> more!
-                            </p>
-                            {% endif %}
-                        </div>
-                        <div class="d-flex flex-column flex-md-row align-items-end justify-content-md-end">
-                            <a href="{% url 'supplies' %}" class="btn action-button-secondary px-4 px-md-2 mr-0 mr-md-2">
-                                <span class="icon">
-                                    <i class="fas fa-chevron-left"></i>
-                                </span>
-                                <span class="text-uppercase">Keep Shopping</span>
-                            </a>
-                            <a href="{% url 'checkout' %}" class="btn action-button mt-2 mt-md-0">
-                                <span class="text-uppercase">Secure Checkout</span>
-                                <span class="icon">
-                                    <i class="fas fa-lock"></i>
-                                </span>
-                            </a>
-                        </div>
-                    </div>
-                    {% else %}
-                    <p class="display-5 mb-5">Your bag is empty.</p>
-                    <a href="{% url 'supplies' %}" class="btn action-button-secondary">
-                        <span class="icon">
-                            <i class="fas fa-chevron-left"></i>
-                        </span>
-                        <span class="text-uppercase">Keep Shopping</span>
-                    </a>
-                    {% endif %}
                 </div>
-            </div>
+            {% endif %}
+
         </div>
     </div>
 </div>
@@ -164,28 +52,29 @@
 {{ block.super }}
 {% include 'supplies/includes/incremental-inputs-jquery.html' %}
 <script type="text/javascript">
-    
+
     // Update quantity on click
-    $('.update-link').click(function(e) {
+    $('.update-link').click(function (e) {
         var form = $(this).closest('.update-form');
         form.submit();
     })
 
     // Remove item and reload on click
-    $('.remove-item').click(function(e) {
+    $('.remove-item').click(function (e) {
         var csrfToken = "{{ csrf_token }}";
         var itemId = $(this).attr('id').split('-')[1];
         var date = $(this).data('renting-date');
         var days = $(this).data('renting-days');
         var url = `/bag/remove/${itemId}/`;
-        var data = {'csrfmiddlewaretoken': csrfToken,
-                    'start_renting_date': date,
-                    'renting_days': days
-                   };
+        var data = {
+            'csrfmiddlewaretoken': csrfToken,
+            'start_renting_date': date,
+            'renting_days': days
+        };
         $.post(url, data)
-         .done(function() {
-             location.reload();
-         });
+            .done(function () {
+                location.reload();
+            });
     });
 </script>
 {% endblock %}
