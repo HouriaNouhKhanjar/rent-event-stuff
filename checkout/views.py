@@ -53,14 +53,22 @@ def checkout(request):
             'street_address1': request.POST['street_address1'],
             'street_address2': request.POST['street_address2'],
             'county': request.POST['county'],
-            'user': request.user,
-            'is_defalut': is_default,
+            'user': None,
+            'default': False,
             'type': 0
         }
+
+        if request.user.is_authenticated:
+            address_form_data['user'] = request.user
+            address_form_data['default'] = is_default
+
         order_form = OrderForm(order_form_data)
         billing_address_form = UserAddressForm(address_form_data)
         address_form_data['type'] = 1
         delivery_address_form = UserAddressForm(address_form_data)
+        print(billing_address_form.is_valid())
+        print(billing_address_form['user'])
+        print(billing_address_form['is_default'])
         if order_form.is_valid() and billing_address_form.is_valid():
             with transaction.atomic():
                 billing_address = billing_address_form.save()
@@ -101,6 +109,7 @@ def checkout(request):
         else:
             messages.error(request, 'There was an error with your form. \
                 Please double check your information.')
+            return redirect(reverse('checkout'))
 
     else:
 

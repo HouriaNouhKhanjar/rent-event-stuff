@@ -52,6 +52,10 @@ class AddressForm(forms.ModelForm):
 class UserAddressForm(AddressForm):
     class Meta(AddressForm.Meta):
         fields = AddressForm.Meta.fields + ('user', 'type', 'is_default', )
+        
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        self.fields['user'].required = False
 
 
 class UserProfileForm(forms.ModelForm):

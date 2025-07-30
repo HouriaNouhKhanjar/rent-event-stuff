@@ -18,7 +18,7 @@
 
 {% block content %}
 <div class="container-fluid px-3 px-md-5">
-    <div class="row mt-5">
+    <div class="row mt-5 mb-3">
         <div class="col text-center">
             <h1>
                 <strong> Checkout </strong>
@@ -27,10 +27,10 @@
     </div>
     <!-- Side-by-side on large screens -->
     <div class="row checkout-container checkout-desktop d-none d-lg-flex mb-3">
-        <div class="col-lg-7 p-3">
+        <div class="col-lg-6 py-3 px-5 form-container">
            {% include 'checkout/includes/checkout-form.html' %}
         </div>
-        <div class="col-lg-5 p-3">
+        <div class="col-lg-6 p-3">
             {% include 'checkout/includes/bag-items.html' %}
         </div>
     </div>
@@ -39,7 +39,7 @@
     <div class="d-block checkout-container checkout-mobile d-lg-none mb-3">
         <div id="accordion">
             <div class="card">
-                <div class="card-header bg-light" id="order-items">
+                <div class="card-header bg-light p-1" id="order-items">
                     <h5 class="mb-0">
                         <button class="btn" data-toggle="collapse" data-target="#order-items-content">
                             Order Items
@@ -47,13 +47,13 @@
                     </h5>
                 </div>
                 <div id="order-items-content" class="collapse" data-parent="#accordion">
-                    <div class="card-body">
+                    <div class="card-body p-2">
                          {% include 'checkout/includes/bag-items.html' %}
                     </div>
                 </div>
             </div>
             <div class="card">
-                <div class="card-header bg-light" id="order-form">
+                <div class="card-header bg-light p-1" id="order-form">
                     <h5 class="mb-0">
                         <button class="btn collapsed" data-toggle="collapse" data-target="#order-form-content">
                             Delivery and Payment

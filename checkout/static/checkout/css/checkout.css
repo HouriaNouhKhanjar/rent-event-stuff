@@ -1,3 +1,7 @@
+.checkout-desktop .form-container {
+  border-right: 1px solid #d3d3d3;
+}
+
 .StripeElement,
 .stripe-style-input {
   box-sizing: border-box;
@@ -66,4 +70,15 @@ select option[value=""] {
   justify-content: center;
   margin: 0;
   height: 100%;
+}
+
+.checkout-actions .btn {
+  width: 100% !important;
+}
+
+/* large screen and up */
+@media (min-width: 992px) {
+  .checkout-actions .btn {
+    width: auto !important;
+  }
 }

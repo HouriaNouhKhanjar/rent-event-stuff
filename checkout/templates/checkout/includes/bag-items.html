@@ -1,6 +1,6 @@
 <p class="text-muted">Order Summary ({{ supply_count }})</p>
-<div class="row">
-    <div class="col-7 col-md-5 offset-0 offset-md-3">
+<div class="row px-4 px-md-2">
+    <div class="col-7 col-md-5 offset-0 offset-md-3 px-0">
         <p class="mb-1 mt-0 small text-muted">Item</p>
     </div>
     <div class="col-5 col-md-4 text-right">
@@ -8,7 +8,7 @@
     </div>
 </div>
 {% for item in bag_items %}
-<div class="row">
+<div class="row px-4 px-md-2 mt-2">
     <div class="d-none d-md-block col-md-3 mb-1">
         <a href="{% url 'supply_detail' item.supply.id %}">
             <img class="img-fluid" src="{{ item.supply.image_url }}" alt="rent for you event {{item.supply.name}}">
@@ -29,7 +29,7 @@
     </div>
 </div>
 {% endfor %}
-<div class="row text-black text-right">
+<div class="row px-4 px-md-2 text-black text-right">
     <div class="col-5 col-md-7 offset-2">
         <p class="my-0">Order Total:</p>
         <p class="my-0">Delivery:</p>
