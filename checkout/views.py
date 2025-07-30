@@ -66,9 +66,6 @@ def checkout(request):
         billing_address_form = UserAddressForm(address_form_data)
         address_form_data['type'] = 1
         delivery_address_form = UserAddressForm(address_form_data)
-        print(billing_address_form.is_valid())
-        print(billing_address_form['user'])
-        print(billing_address_form['is_default'])
         if order_form.is_valid() and billing_address_form.is_valid():
             with transaction.atomic():
                 billing_address = billing_address_form.save()
