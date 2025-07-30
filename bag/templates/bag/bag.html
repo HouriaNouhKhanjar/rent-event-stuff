@@ -46,11 +46,26 @@
         </div>
     </div>
 </div>
+<div class="d-block d-lg-none top-button-container shadow-sm rounded-0">
+    <a class="btn-top d-flex h-100 bg-accent">
+        <i class="fas fa-arrow-up text-black mx-auto my-auto text-white"></i>
+    </a>
+</div>
 {% endblock %}
 
 {% block postloadjs %}
 {{ block.super }}
 {% include 'supplies/includes/incremental-inputs-jquery.html' %}
+<script type="text/javascript">
+    $('.btn-top').click(function (e) {
+        window.scrollTo({
+            top: 0,
+            left: 0,
+            behavior: "smooth",
+        });
+    });
+</script>
+
 <script type="text/javascript">
 
     // Update quantity on click
