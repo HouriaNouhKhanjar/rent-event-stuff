@@ -1,0 +1,30 @@
+<div class="order-history table-responsive mt-3">
+    {% if saved_items %}
+        <table class="table table-sm table-borderless">
+            <thead>
+                <tr>
+                    <th></th>
+                    <th>Supply</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for item in saved_items %}
+                <tr>
+                    <td>
+                        <a href="{% url 'supply_detail' item.supply.id %}" title="{{ item.supply.name }}">
+                        <img class="img-fluid w-75" src="{{ item.supply.image_url }}" alt="{{item.supply.name}}">
+                        </a>
+                    </td>
+                    <td class="item-supply-name w-75">
+                        <a href="{% url 'supply_detail' item.supply.id %}" title="{{ item.supply.name }}">
+                        <span class="text-info ellipsis">{{ item.supply.name }}...</span>
+                        </a>
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    {% else %}
+       <p>You have not saved any item yet.</p>
+    {% endif %}
+</div>

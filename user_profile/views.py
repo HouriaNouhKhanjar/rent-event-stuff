@@ -37,6 +37,8 @@ def profile(request):
 
     orders = profile.orders.all()
 
+    saved_items = SavedSupply.objects.filter(user=request.user).select_related('supply')
+
     template = 'profiles/profile.html'
     context = {
         'user_profile_form': form,
@@ -45,7 +47,8 @@ def profile(request):
         'billing_address': billing_address,
         'delivery_address': delivery_address,
         'show_only_message': True,
-        'orders': orders
+        'orders': orders,
+        'saved_items': saved_items
     }
 
     return render(request, template, context)

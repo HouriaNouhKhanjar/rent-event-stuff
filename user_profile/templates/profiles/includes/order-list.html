@@ -1,0 +1,53 @@
+<div class="order-history table-responsive mt-3">
+    {% if orders %}
+        <table class="table table-sm table-borderless">
+            <thead>
+                <tr>
+                    <th>Order Number</th>
+                    <th>Items</th>
+                    <th>OrderTotal</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for order in orders %}
+                <tr>
+                    <td>
+                        <a href="{% url 'order_history' order.order_number %}" title="{{ order.order_number }}">
+                            <span class="text-accent display-5">
+                                {{ order.order_number|truncatechars:6 }}
+                            </span>
+                            <br>
+                            <span class="small mb-0 text-dark mb-0">
+                                {{ order.created_on|date:'Y-m-d' }}
+                            </span>
+                        </a>
+                    </td>
+                    <td class="w-50">
+                        <ul class="list-unstyled">
+                            {% for item in order.lineitems.all %}
+                            <li class="small">
+                                <p class="font-weight-bold">
+                                    <span class="ellipsis text-dark">{{ item.supply.name }}</span>
+                                    <br>
+                                    <span class="small mb-0 text-info">
+                                        Renting Date: {{ item.start_renting_date|date:'Y-m-d' }} </span>
+                                    <br>
+                                    <span class="small mb-0 text-info"> Renting for {{ item.renting_days }} Days</span>
+                                    <br>
+                                    <span class="small mb-0">
+                                        {{ item.quantity }} for ${{ item.supply.price_per_day |floatformat:2 }} each per day
+                                    </span>
+                                </p>
+                            </li>
+                            {% endfor %}
+                        </ul>
+                    </td>
+                    <td>${{ order.grand_total | floatformat:2 }}</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    {% else %}
+       <p>You have not placed an order yet.</p>
+    {% endif %}
+</div>

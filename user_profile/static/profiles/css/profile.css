@@ -39,6 +39,18 @@ select option[value=""] {
   border-right: none;
 }
 
+#profile-content-tab-header .nav-link {
+  color: #7a7c7e!important;
+}
+
+#profile-content-tab-header .active {
+  color: #0a0a0a!important;
+}
+
+.item-supply-name {
+  vertical-align: middle!important;
+}
+
 /* Media Queries */
 /* medium screen and up */
 @media (min-width: 768px) {
