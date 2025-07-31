@@ -1,7 +1,9 @@
 from django.shortcuts import render, get_object_or_404, redirect, reverse
+from django.contrib.auth.decorators import login_required
 from django.contrib import messages
-from .models import UserProfile, Address
+from .models import UserProfile, Address, SavedSupply
 from .forms import UserProfileForm, UserAddressForm
+from supplies.models import Supply
 from checkout.models import Order
 
 
@@ -70,7 +72,6 @@ def update_address(request):
     """Update users billing or delivery address"""
 
     if request.method == 'POST':
-        id = request.POST['address_id']
 
         address_form_data = {
             'country': request.POST['country'],
@@ -91,3 +92,23 @@ def update_address(request):
             messages.error(request, 'Update failed. Please ensure the address is valid.')
 
     return redirect(reverse('profile'))
+
+
+@login_required
+def toggle_save_supply(request, supply_id):
+    supply = get_object_or_404(Supply, id=supply_id)
+
+    # Check if supply is already saved
+    saved_item = SavedSupply.objects.filter(user=request.user,
+                                            supply=supply).first()
+
+    if saved_item:
+        # If it's saved, delete it (remove from saved items)
+        saved_item.delete()
+        messages.info(request, 'Supply removed from your saved list.')
+    else:
+        # If it's not saved, create it
+        SavedSupply.objects.create(user=request.user, supply=supply)
+        messages.info(request, 'Supply added to your saved list.')
+
+    return redirect('supply_detail', supply_id=supply.id)

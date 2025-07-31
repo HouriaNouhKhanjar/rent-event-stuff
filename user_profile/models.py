@@ -3,6 +3,7 @@ from django.contrib.auth.models import User
 from django_countries.fields import CountryField
 from django.db.models.signals import post_save
 from django.dispatch import receiver
+from supplies.models import Supply
 
 ADDRESS_TYPE = ((0, "Billing"), (1, "Delivery"))
 
@@ -31,12 +32,15 @@ class Address(models.Model):
 
     def __str__(self):
         return self.title
-    
+
     def save(self, *args, **kwargs):
         if self.is_default and self.user:
             # Unset default for all other addresses of the same user
             Address.objects.filter(user=self.user, is_default=True,
-                                   type=self.type).exclude(pk=self.pk).update(is_default=False)
+                                   type=self.type).exclude(
+                                       pk=self.pk
+                                       ).update(
+                                           is_default=False)
         super().save(*args, **kwargs)
 
 
@@ -61,3 +65,12 @@ def create_or_update_user_profile(sender, instance, created, **kwargs):
         UserProfile.objects.create(user=instance)
     # Existing users: just save the profile
     instance.userprofile.save()
+
+
+class SavedSupply(models.Model):
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    supply = models.ForeignKey(Supply, on_delete=models.CASCADE)
+    saved_at = models.DateTimeField(auto_now_add=True)
+
+    class Meta:
+        unique_together = ('user', 'supply')

@@ -59,7 +59,7 @@ class Supply(models.Model):
 
     @cached_property
     def image_url(self):
-        # Returns the first image URL if available
+        """ Returns the first image URL if available """
         first_image = self.images.first()
         if first_image:
             return first_image.image.url

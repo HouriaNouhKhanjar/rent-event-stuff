@@ -40,6 +40,27 @@
                     {% endif %}
                 {% endif %}
                 <h2>{{ supply.name }}</h2>
+                <div class="save-item">
+                    {% if user.is_authenticated %}
+                        <form method="post" action="{% url 'toggle_save_supply' supply.id %}">
+                            {% csrf_token %}
+                            <button type="submit" class="text-primary" 
+                            data-toggle="tooltip" data-placement="bottom"
+                            title="Click to {% if saved_item %} unsave {% else %} save {% endif %}item">
+                                {% if saved_item %}
+                                  <i class="fa-solid fa-heart"></i>
+                                {% else %}
+                                  <i class="fa-regular fa-heart"></i>
+                                {% endif %}
+                            </button>
+                        </form>
+                    {% else %}
+                        <button class="text-dark" data-toggle="tooltip" data-placement="bottom"
+                            title="Login to save item" disabled>
+                            <i class="fa-regular fa-heart"></i>
+                        </button>
+                     {% endif %}
+                </div>
                 <p class="mb-0">Price Per Day: <strong class="text-accent"> ${{ supply.price_per_day }} </strong></p>
                 {% if supply.rating %}
                 <small class="text-muted"><i class="fas fa-star mr-1"></i>{{ supply.rating }} / 5</small>

@@ -52,6 +52,16 @@ h4 {
 }
 
 /* suppply detail */
+.save-item{
+  text-align: end;
+}
+
+.save-item button {
+  border: unset!important;
+  background: unset !important;
+  outline: unset!important;
+}
+
 #btn-read-more:hover,
 #btn-read-more:focus {
   text-decoration: none;
@@ -90,6 +100,10 @@ select,
 textarea {
     outline: none;
     border-radius: unset !important;
+    -webkit-border-radius: unset !important;
+    -moz-border-radius: unset !important;
+    -ms-border-radius: unset !important;
+    -o-border-radius: unset !important;
 }
 
 input:focus,

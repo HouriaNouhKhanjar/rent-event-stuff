@@ -5,6 +5,7 @@ from django.contrib import messages
 from django.db.models import Q
 from django.db.models.functions import Lower
 from .models import Supply, Category, SupplyImage
+from user_profile.models import SavedSupply
 from .forms import SupplyForm
 
 
@@ -99,8 +100,14 @@ def supply_detail(request, supply_id):
     """ A view to return supply detail page """
     supply = get_object_or_404(Supply, pk=supply_id)
 
+    saved_item = None
+    if request.user.is_authenticated:
+        saved_item = SavedSupply.objects.filter(user=request.user,
+                                                supply=supply).first()
+
     context = {
-        'supply': supply
+        'supply': supply,
+        'saved_item': saved_item
     }
 
     return render(request, 'supplies/supply-detail.html', context)
