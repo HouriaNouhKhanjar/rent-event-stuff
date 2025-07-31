@@ -14,16 +14,17 @@
 
 {% block content %}
 <div class="container-fluid pt-5">
-    <div class="row text-center h-100 pt-5">
-        <h1 class="display-6 text-uppercase">
+    <div class="row text-center pt-5">
+        <div class="col">
+            <h1 class="display-6 text-uppercase">
             The page you are looking for isn't available!
         </h1>
         <div class="my-5">
-            <a href="{% url 'supplies' %}" class="btn action-button-secondary py-3">
+            <a href="{% url 'supplies' %}" class="btn action-button-secondary py-1 py-lg-3">
                 <strong>Return to shop</strong>
             </a>
         </div>
+        </div>
     </div>
-</div>
 </div>
 {% endblock %}
