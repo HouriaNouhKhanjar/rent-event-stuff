@@ -1,0 +1,32 @@
+{% extends "base.html" %}
+
+{% load static %}
+
+{% block extra_title %} | Page Not Found {% endblock %}
+
+{% block page_header %}
+<div class="container-fluid header-container">
+    <div class="row">
+        <div class="col"></div>
+    </div>
+</div>
+{% endblock %}
+
+{% block content %}
+<div class="container-fluid">
+    <div class="row text-center h-100">
+        <div class="col-12  d-flex flex-column justify-content-end">
+            <div>
+                <h1 class="display-6 text-uppercase">
+                    The page you are looking for isn't available!
+                </h1>
+                <div class="my-5">
+                    <a href="{% url 'supplies' %}" class="action-button-secondary btn btn-lg py-3">
+                        <strong>Return to shop</strong>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
