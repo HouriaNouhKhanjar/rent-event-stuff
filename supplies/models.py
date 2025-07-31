@@ -1,7 +1,8 @@
 from django.core.files.storage import default_storage
 from functools import cached_property
-from django.core.validators import MinValueValidator
+from django.core.validators import MinValueValidator, MaxValueValidator
 from django.utils.text import slugify
+from django.contrib.auth.models import User
 from django.db import models
 
 
@@ -85,3 +86,17 @@ class SupplyImage(models.Model):
             self.image_url = default_storage.url(self.image.name)
 
         super(SupplyImage, self).save(*args, **kwargs)
+
+
+class Review(models.Model):
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    supply = models.ForeignKey(Supply, on_delete=models.CASCADE)
+    comment = models.TextField()
+    rating = models.IntegerField(default=1,
+                                 validators=[MinValueValidator(1),
+                                             MaxValueValidator(5)],
+                                 null=False, blank=False)
+    created_at = models.DateTimeField(auto_now_add=True)
+
+    class Meta:
+        unique_together = ('user', 'supply')

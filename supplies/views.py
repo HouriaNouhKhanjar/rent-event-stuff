@@ -1,12 +1,14 @@
-from django.http import JsonResponse
 from django.shortcuts import render, redirect, reverse, get_object_or_404
+from django.contrib.auth.decorators import login_required
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
+from django.http import JsonResponse
 from django.contrib import messages
 from django.db.models import Q
 from django.db.models.functions import Lower
-from .models import Supply, Category, SupplyImage
+from .models import Supply, Category, SupplyImage, Review
 from user_profile.models import SavedSupply
-from .forms import SupplyForm
+from checkout.models import Order
+from .forms import SupplyForm, ReviewForm
 
 
 def all_supplies(request):
@@ -101,13 +103,20 @@ def supply_detail(request, supply_id):
     supply = get_object_or_404(Supply, pk=supply_id)
 
     saved_item = None
+    can_make_review = None
+    review_form = None
     if request.user.is_authenticated:
         saved_item = SavedSupply.objects.filter(user=request.user,
                                                 supply=supply).first()
+        can_make_review = Order.objects.filter(user_profile__user=request.user,
+                                               lineitems__supply=supply).exists()
+        review_form = ReviewForm()
 
     context = {
         'supply': supply,
-        'saved_item': saved_item
+        'saved_item': saved_item,
+        'can_make_review': can_make_review,
+        'review_form': review_form
     }
 
     return render(request, 'supplies/supply-detail.html', context)
@@ -235,3 +244,40 @@ def delete_supply(request, pk):
     except Exception as e:
         return JsonResponse({'error': f'Supply deletion failed: {e}'},
                             status=500)
+
+
+@login_required
+def review_supply(request, supply_id):
+    if request.method == 'POST':
+        supply = get_object_or_404(Supply, id=supply_id)
+
+        rented = Order.objects.filter(user_profile__user=request.user,
+                                      lineitems__supply=supply).exists()
+
+        if rented:
+            review = Review.objects.filter(user=request.user, supply=supply).first()
+
+            form = None
+            if review:
+                form = ReviewForm(request.POST, instance=review)
+            else:
+                form = ReviewForm(request.POST)
+
+            if form.is_valid():
+                review = form.save(commit=False)
+                review.user = request.user
+                review.supply = supply
+                review.save()
+
+                messages.info(request, 'Your review has been submitted.')
+                return redirect('supply_detail', supply_id=supply.id)
+            else:
+                messages.error(request, "Can not submit your Review.")
+                return redirect('supply_detail', supply_id=supply.id)
+
+        else:
+            messages.error(request, "Sorry, You dont have the permission to review this item.")
+            return redirect('supply_detail', supply_id=supply.id)
+
+    messages.error(request, "Method Not Allowed.")
+    return redirect('supply_detail', supply_id=supply.id)

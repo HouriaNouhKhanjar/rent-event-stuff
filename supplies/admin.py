@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import Supply, Category, SupplyImage
+from .models import Supply, Category, SupplyImage, Review
 from .forms import SupplyImageInlineForm
 
 # Register your models here.
@@ -40,5 +40,17 @@ class CategoryAdmin(admin.ModelAdmin):
     list_per_page = 10
 
 
+class ReviewAdmin(admin.ModelAdmin):
+    list_display = (
+        'user',
+        'supply',
+        'rating',
+        'created_at'
+    )
+    readonly_fields = ('created_at', )
+    list_per_page = 10
+
+
 admin.site.register(Supply, SupplyAdmin)
 admin.site.register(Category, CategoryAdmin)
+admin.site.register(Review, ReviewAdmin)

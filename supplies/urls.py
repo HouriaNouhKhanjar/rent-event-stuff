@@ -11,4 +11,6 @@ urlpatterns = [
          name='delete_supply'),
     path('image/<int:pk>/delete/', views.delete_supply_image,
          name='delete_supply_image'),
+    path('review_supply/<int:supply_id>/', views.review_supply,
+         name='review_supply'),
 ]
