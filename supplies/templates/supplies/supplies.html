@@ -22,7 +22,7 @@
         <div class="d-none d-inline-block col-md-4 p-0"></div>
         <div class="col col-md-8 text-center px-2 text-md-left px-md-0">
             <h1>
-                <strong> Rent Supplies For Your Event Easly !!</strong>
+                <strong> Event Rental - Rent Supplies For Your Event Easly !!</strong>
             </h1>
         </div>
     </div>
@@ -42,17 +42,18 @@
                             <div class="card h-100 border-0">
                                 <a href="{% url 'supply_detail' supply.id %}">
                                     <img class="card-img-top img-fluid" src="{{ supply.image_url }}"
-                                        alt="Rent Event {{ supply.name }}">
+                                        alt="event rental, rent equipment for your party, {{ supply.name }}">
                                 </a>
                                 <div class="card-body pb-0">
                                     <a href="{% url 'supply_detail' supply.id %}" class="text-dark">
-                                        <p class="mb-0 ellipsis">{{ supply.name }}</p>
+                                        <h3 class="display-6 mb-0 ellipsis">{{ supply.name }}</h3>
                                     </a>
                                 </div>
                                 <div class="card-footer bg-white pt-0 border-0 text-left">
                                     <div class="row">
                                         <div class="col">
-                                            <p class="lead mb-0 text-left font-weight-bold">${{ supply.price_per_day }}
+                                            <p class="lead mb-0 text-left font-weight-bold">
+                                                ${{ supply.price_per_day }}
                                             </p>
                                              {% if supply.category %}
                                             <p class="small mt-1 mb-0">

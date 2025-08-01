@@ -6,7 +6,7 @@
         {% for image in supply.images.all %}
         <li data-target="#supply-carousel" data-slide-to="{{ forloop.counter0 }}"
             class="{% if forloop.first %}active{% endif %} w-auto h-auto">
-             <img src="{{ image.image_url }}" class="d-block supply-image" alt="Rent Event supply small">
+             <img src="{{ image.image_url }}" class="d-block supply-image" alt="event rental, rent equipment for your party, supply image small">
         </li>
         {% endfor %}
     </ol>
@@ -16,7 +16,7 @@
         {% for image in supply.images.all %}
         <div class="carousel-item {% if forloop.first %}active{% endif %}">
             <a href="{{ image.image_url }}" target="_blank">
-                <img src="{{ image.image_url }}" class="d-block w-100" alt="Rent Event {{ supply.name }}">
+                <img src="{{ image.image_url }}" class="d-block w-100" alt="event rental, rent equipment for your party, {{ supply.name }}">
             </a>
         </div>
         {% endfor %}
