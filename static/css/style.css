@@ -112,7 +112,7 @@ input:focus {
 }
 
 .action-button-secondary:hover {
-  color: var(--highlight-color-light)!important;
+  color: var(--highlight-color-light) !important;
   background-color: var(--secondary-color);
 }
 
@@ -129,7 +129,7 @@ input:focus {
 }
 
 .text-info {
-    color: #158981 !important;
+  color: #158981 !important;
 }
 
 .border-accent {
@@ -201,92 +201,92 @@ input:focus {
 }
 
 .ellipsis {
-    overflow: hidden;
-    text-overflow: ellipsis;
-    -o-text-overflow: ellipsis;
-    display: -webkit-box;
-   -webkit-line-clamp: 2; /* number of lines to show */
-           line-clamp: 2;
-   -webkit-box-orient: vertical;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  -o-text-overflow: ellipsis;
+  display: -webkit-box;
+  -webkit-line-clamp: 2; /* number of lines to show */
+  line-clamp: 2;
+  -webkit-box-orient: vertical;
 }
 
 .top-button-container {
-    height: 42px;
-    width: 42px;
-    position: fixed;
-    bottom: 20px;
-    right: 20px;
+  height: 42px;
+  width: 42px;
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
 }
 
 .btn-top {
-    cursor: pointer;
+  cursor: pointer;
 }
 
 /* bootstrap toasts */
 .message-container {
-    position: fixed;
-    top: 90px;
-    right: 15px;
-    z-index: 99999999999;
+  position: fixed;
+  top: 90px;
+  right: 15px;
+  z-index: 99999999999;
 }
 
 .custom-toast {
-    overflow: visible;
+  overflow: visible;
 }
 
 .toast-capper {
-    height: 2px;
+  height: 2px;
 }
 
 /* from CSS-tricks.com: https://css-tricks.com/snippets/css/css-triangle/ */
 .arrow-up {
-    width: 0; 
-    height: 0; 
-    border-left: 4px solid transparent;
-    border-right: 4px solid transparent; 
-    border-bottom: 10px solid black;
-    position: absolute;
-    top: -10px;
-    right: 36px;
+  width: 0;
+  height: 0;
+  border-left: 4px solid transparent;
+  border-right: 4px solid transparent;
+  border-bottom: 10px solid black;
+  position: absolute;
+  top: -10px;
+  right: 36px;
 }
 
 /* Convenience classes - colors copied from Bootstrap */
 .arrow-primary {
-    border-bottom-color: var(--primary-color) !important;
+  border-bottom-color: var(--primary-color) !important;
 }
 
 .arrow-secondary {
-    border-bottom-color: var(--secondary-color) !important;
+  border-bottom-color: var(--secondary-color) !important;
 }
 
 .arrow-success {
-    border-bottom-color: #28a745 !important;
+  border-bottom-color: #28a745 !important;
 }
 
 .arrow-danger {
-    border-bottom-color: #dc3545 !important;
+  border-bottom-color: #dc3545 !important;
 }
 
 .arrow-warning {
-    border-bottom-color: #ffc107 !important;
+  border-bottom-color: #ffc107 !important;
 }
 
 .arrow-info {
-    border-bottom-color: #17a2b8 !important;
+  border-bottom-color: #17a2b8 !important;
 }
 
 .arrow-light {
-    border-bottom-color: var(--highlight-color-light) !important;
+  border-bottom-color: var(--highlight-color-light) !important;
 }
 
 .arrow-dark {
-    border-bottom-color: var(--dark-color) !important;
+  border-bottom-color: var(--dark-color) !important;
 }
 
 .bag-notification-wrapper {
-    height: 100px;
-    overflow-x: hidden;
-    overflow-y: auto;
+  height: 100px;
+  overflow-x: hidden;
+  overflow-y: auto;
 }
 
 /* page layout */
@@ -353,6 +353,13 @@ input:focus {
 /* footer */
 .social-media .text-accent:hover {
   color: var(--primary-color);
+}
+
+/* mailchimp */
+.mailchimp-container .mce_inline_error {
+  display: block;
+  color: var(--secondary-color);
+  width: 100%;
 }
 
 /* Homepage */
@@ -451,7 +458,7 @@ input:focus {
     padding-top: 130px;
   }
   .other-categories-menu .dropdown-divider {
-    border-color: var(--dark-color)!important;
+    border-color: var(--dark-color) !important;
   }
   /* accounts */
   .accounts-container {
