@@ -74,7 +74,6 @@ class ReviewForm(forms.ModelForm):
             'comment': 'Comment',
         }
 
-        self.fields['rating'].widget.attrs['autofocus'] = True
         for field in self.fields:
             if self.fields[field].required:
                 placeholder = f'{placeholders[field]} *'
