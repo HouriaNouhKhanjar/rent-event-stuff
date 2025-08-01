@@ -32,7 +32,12 @@
                         <span class="text-muted">{{ review.created_at|date:'Y-m-d' }}</span>
                         {% if review.user == user %}
                             <br>
-                            <a class="text-primary edit-review" data-id="{{ review.id }}" href="#">Edit</a> | 
+                            <a class="text-primary edit-review"
+                                data-rating="{{ review.rating }}"
+                                data-comment="{{ review.comment }}"
+                                href="#">
+                                    Edit
+                            </a> | 
                             <a class="text-accent delete-action" data-toggle="modal"
                                 data-target="#confirm-supply-modal" 
                                 data-type="review"
@@ -52,12 +57,14 @@
     <div class="col-12 col-md-6 col-lg-4 px-3 my-3 my-md-0">
         <h4>Leave a review</h4>
         {% if can_make_review %}
-        <div>
+        <div class="review-form">
             <form method="post" action="{% url 'review_supply' supply.id %}">
                 {% csrf_token %}
                 {{ review_form.rating | as_crispy_field }}
                 {{ review_form.comment | as_crispy_field }}
                 <button type="submit" class="btn action-button">Submit Review</button>
+                <br>
+                <small class="text-accent">You can review only one time if you have reviewed this item previously, it will be updated.</small>
             </form>
         </div>
         {% else %}
@@ -68,6 +75,7 @@
                     <button type="submit" class="btn action-button" disabled>
                         Submit Review
                     </button>
+                    <br>
                     <small class="text-accent">You must have previously rented the property before leaving your review.</small>
                 </form>
             </div>

@@ -253,6 +253,17 @@
     }
 </script>
 
+<script>
+    $('.edit-review').click( function(e) {
+        e.preventDefault();
+        var comment = $(this).data("comment");
+        var rating = $(this).data("rating");
+        $(".review-form input[name='rating']").val(rating);
+        $(".review-form textarea[name='comment']").val(comment);
+        $(".review-form textarea[name='comment']").focus()
+    });
+</script>
+
 {% include 'supplies/includes/incremental-inputs-jquery.html' %}
 
 {% endblock %}
