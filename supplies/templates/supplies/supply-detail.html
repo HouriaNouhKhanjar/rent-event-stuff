@@ -30,12 +30,13 @@
                 {% if request.user.is_authenticated %}
                     {% if request.user.is_superuser %}
                         <p class="text-right">
-                            <a href="{% url 'edit_supply' supply.id %}" class="btn btn-sm text-info">edit</a>
-                            <button type="button"
-                                        class="btn btn-sm text-accent delete-supply-btn"
-                                        data-toggle="modal" data-target="#confirm-supply-modal">
-                                        delete
-                            </button>
+                            <a href="{% url 'edit_supply' supply.id %}" class="btn btn-sm text-info">edit</a> |
+                            <a href="#"
+                                class="small text-accent delete-supply-btn delete-action"
+                                data-type="supply" data-url="{% url 'delete_supply' supply.id %}"
+                                data-toggle="modal" data-target="#confirm-supply-modal">
+                                  delete
+                            </a>
                         </p>
                     {% endif %}
                 {% endif %}
@@ -224,14 +225,23 @@
 </script>
 
 <script>
+    var deleteType = '';
+    var deleteUrl = '';
+    $('.delete-action').click(function() {
+        deleteType = $(this).data('type');
+        deleteUrl = $(this).data('url');
+    });
     var postData = {
         csrfmiddlewaretoken: "{{csrf_token}}",
     };
-    var url = "{% url 'delete_supply' supply.id %}";
     $("#confirm-supply-delete").click(function () {
-        $.post(url, postData).done(function () {
+        $.post(deleteUrl, postData).done(function () {
             closeModal();
-            window.location.replace("{% url 'supplies' %}");
+            if( deleteType === 'supply' ){
+                window.location.replace("{% url 'supplies' %}");
+            }else {
+                window.location.replace("{% url 'supply_detail' supply.id %}");
+            }
         }).fail(function () {
             // just reload the page, the error will be in django messages
             location.reload();

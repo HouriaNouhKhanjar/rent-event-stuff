@@ -117,12 +117,12 @@ textarea:focus {
 
 /* Reviews */
 .reviews-container .card {
-  border: 2px solid #ebebeb !important;
-  box-shadow: 10px 10px 12px #dbdbdba8;
+  border: 2px solid #f9f8f8 !important;
+  box-shadow: 5px 5px 8px #dbdbdb9c;
 }
 
 .reviews-list {
-  max-height: 600px;
+  max-height: 400px;
   overflow-y: auto;
 }
 

@@ -227,14 +227,14 @@ def delete_supply(request, pk):
         The instance id of :model:`supplies.Supply` to delete.
     """
     if request.method not in ["POST", "DELETE"]:
-        messages.info(request, 'Method not allowed')
+        messages.error(request, 'Method not allowed')
         return JsonResponse({'error': 'Method not allowed'}, status=405)
 
     supply = get_object_or_404(Supply, pk=pk)
 
     # Check if the logged-in user is admin
     if not (request.user and request.user.is_superuser):
-        messages.info(request, 'Forbidden')
+        messages.error(request, 'Forbidden')
         return JsonResponse({'error': 'Forbidden'}, status=403)
 
     try:
@@ -281,3 +281,32 @@ def review_supply(request, supply_id):
 
     messages.error(request, "Method Not Allowed.")
     return redirect('supply_detail', supply_id=supply.id)
+
+
+def delete_review(request, pk):
+    """
+    Delete an individual review.
+
+    **args**
+
+    ``pk``
+        The instance id of :model:`supplies.Review` to delete.
+    """
+    if request.method not in ["POST", "DELETE"]:
+        messages.error(request, 'Method not allowed')
+        return JsonResponse({'error': 'Method not allowed'}, status=405)
+
+    review = get_object_or_404(Review, pk=pk)
+
+    # Check if the logged-in user is admin
+    if not (request.user and review.user == request.user):
+        messages.error(request, 'Forbidden')
+        return JsonResponse({'error': 'Forbidden'}, status=403)
+
+    try:
+        review.delete()
+        messages.info(request, "Review deleted successfully.")
+        return JsonResponse({'message': 'Deleted Successfully'}, status=200)
+    except Exception as e:
+        return JsonResponse({'error': f'Review deletion failed: {e}'},
+                            status=500)

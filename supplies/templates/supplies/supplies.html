@@ -72,12 +72,12 @@
                                             {% if request.user.is_authenticated %}
                                                 {% if request.user.is_superuser %}
                                                     <p class="text-right">
-                                                        <a href="{% url 'edit_supply' supply.id %}" class="btn btn-sm text-info">edit</a>
-                                                        <button type="button"
-                                                                class="btn btn-sm text-accent delete-supply-btn"
-                                                                data-toggle="modal" data-target="#confirm-supply-modal" data-supply-id="{{supply.id}}">
-                                                                delete
-                                                        </button>
+                                                        <a href="{% url 'edit_supply' supply.id %}" class="btn btn-sm text-info">edit</a> |
+                                                        <a href="#"
+                                                            class="small text-accent delete-supply-btn"
+                                                            data-toggle="modal" data-target="#confirm-supply-modal" data-supply-id="{{supply.id}}">
+                                                            delete
+                                                        </a>
                                                     </p>
                                                 {% endif %}
                                             {% endif %}
@@ -303,7 +303,7 @@
         };
 
         var supplyId  = $('#delete-supply-input').prop('value');
-        var url = `/supplies/supply-delete/${supplyId}/`;
+        var url = `/supplies/delete_supply/${supplyId}/`;
         $.post(url, postData).done(function () {
             closeModal();
             window.location.replace("{% url 'supplies' %}");
