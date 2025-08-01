@@ -115,6 +115,17 @@ textarea:focus {
     border-bottom: 2px solid #ff6b6b!important;
 }
 
+/* Reviews */
+.reviews-container .card {
+  border: 2px solid #ebebeb !important;
+  box-shadow: 10px 10px 12px #dbdbdba8;
+}
+
+.reviews-list {
+  max-height: 600px;
+  overflow-y: auto;
+}
+
 /* Loader */
 .overlay-loader {
   position: fixed;

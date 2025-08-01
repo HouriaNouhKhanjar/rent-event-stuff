@@ -66,6 +66,25 @@ class Supply(models.Model):
             return first_image.image.url
         return '/media/placeholder.jpg'
 
+    @property
+    def reviews(self):
+        return self.review_set.all()
+
+    @property
+    def average_rating(self):
+        reviews = self.reviews
+        if reviews.exists():
+            total_rating = sum(review.rating for review in reviews)
+            return int(total_rating / len(reviews))
+        return 0
+
+    @property
+    def number_of_reviewers(self):
+        reviews = self.reviews
+        if reviews.exists():
+            return len(reviews)
+        return 0
+
     class Meta:
         verbose_name_plural = "Supplies"
 

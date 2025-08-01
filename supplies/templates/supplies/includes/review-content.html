@@ -1,14 +1,45 @@
-<div class="row my-3 pb-5">
+<div class="row reviews-container my-3 pb-5">
     <div class="col-12 col-lg-8 offset-lg-2">
-        <h3>Reviews:</h3>
+        <h3>Reviews:
+            {% if supply.number_of_reviewers %}
+            <span class="text-muted ml-2">
+                <i class="fa-solid fa-star text-warning small"></i>
+                <small>{{ supply.average_rating }} / 5 ({{supply.number_of_reviewers}})</small>
+            </span>
+            {% endif %}
+        </h3>
         <hr class="text-muted">
         </hr>
     </div>
     {% if user.is_authenticated %}
-    <div class="col-12 col-md-6 col-lg-4 offset-lg-2">
-        rewiews
+    <div class="col-12 col-md-6 col-lg-4 offset-lg-2 reviews-list px-3 px-md-4">
+        {% for review in supply.reviews %}
+        <div class="card w-100 rounded-0 my-1">
+            <div class="card-body p-3">
+                <h4 class="card-title">
+                    {{ review.user.username }}
+                    <span class="text-muted">
+                        <i class="fa-solid fa-star text-warning small"></i>
+                        <small>{{ review.rating }} / 5</small>
+                    </span>
+                </h4>
+                
+                <div class="card-text">
+                    <p class="mb-1">
+                        {{ review.comment }}
+                    </p>
+                    <p class="text-right text-muted mb-0">
+                        {{ review.created_at|date:'Y-m-d' }}
+                    </p>
+                </div>
+            </div>
+        </div>
+        {% empty %}
+        <p> No Reviews for this supply. </p>
+        {% endfor %}
     </div>
-    <div class="col-12 col-md-6 col-lg-4">
+    <div class="col-12 col-md-6 col-lg-4 px-3 my-3 my-md-0">
+        <h4>Leave a review</h4>
         {% if can_make_review %}
         <div>
             <form method="post" action="{% url 'review_supply' supply.id %}">
@@ -18,31 +49,23 @@
                 <button type="submit" class="btn action-button">Submit Review</button>
             </form>
         </div>
+        {% else %}
+            <div>
+                <form method="post">
+                    {{ review_form.rating | as_crispy_field }}
+                    {{ review_form.comment | as_crispy_field }}
+                    <button type="submit" class="btn action-button" disabled>
+                        Submit Review
+                    </button>
+                    <small class="text-accent">You must have previously rented the property before leaving your review.</small>
+                </form>
+            </div>
         {% endif %}
     </div>
     {% else %}
-    <div class="col-12">
-        <span class="col-12">
-            <a class="link text-info" href="{{ login_url }}">Sign in</a>
-            in to show the reviews.
-        </span>.
-        <p class="card-text placeholder-glow">
-            <span class="placeholder col-12 col-md-8 col-lg-3"></span>
-            <span class="placeholder col-0 col-lg-2"></span>
-        </p>
-        <p class="card-text placeholder-glow">
-            <span class="placeholder col-12 col-md-8 col-lg-3"></span>
-            <span class="placeholder col-0 col-lg-2"></span>
-        </p>
-        <p class="card-text placeholder-glow">
-            <span class="placeholder col-12 col-md-8 col-lg-3"></span>
-            <span class="placeholder col-0 col-lg-2"></span>
-        </p>
-        <p class="my-2">
-            <textarea class="placeholder col-12 col-md-8 col-lg-5"></textarea>
-        </p>
+    <div class="col-12 col-lg-8 offset-lg-2">
         <p>
-            <a class="btn btn-primary disabled placeholder col-12 col-md-3 col-lg-1" aria-disabled="true"></a>
+            <a class="link text-info" href="{% url 'account_login' %}">Sign in</a> to show the reviews.
         </p>
     </div>
     {% endif %}

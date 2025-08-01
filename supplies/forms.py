@@ -21,7 +21,7 @@ class SupplyForm(forms.ModelForm):
     class Meta:
         model = Supply
         fields = '__all__'
-    
+
     def __init__(self, *args, **kwargs):
         """
         Add placeholders and classes, remove auto-generated

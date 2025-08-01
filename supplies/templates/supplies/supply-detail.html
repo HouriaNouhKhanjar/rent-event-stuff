@@ -62,8 +62,11 @@
                      {% endif %}
                 </div>
                 <p class="mb-0">Price Per Day: <strong class="text-accent"> ${{ supply.price_per_day }} </strong></p>
-                {% if supply.rating %}
-                <small class="text-muted"><i class="fas fa-star mr-1"></i>{{ supply.rating }} / 5</small>
+                {% if supply.number_of_reviewers %}
+                <p class="text-muted">
+                    <i class="fa-solid fa-star text-warning small"></i>
+                    <small>{{ supply.average_rating }} / 5 ({{supply.number_of_reviewers}})</small>
+                </p>
                 {% else %}
                 <small class="text-muted">No Rating</small>
                 {% endif %}

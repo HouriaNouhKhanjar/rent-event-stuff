@@ -61,12 +61,13 @@
                                                 </a>
                                             </p>
                                             {% endif %}
-                                            {% if supply.rating %}
-                                            <small class="text-muted"><i class="fas fa-star mr-1"></i>{{ supply.rating
-                                                }} /
-                                                5</small>
+                                            {% if supply.number_of_reviewers %}
+                                                <p class="text-muted">
+                                                    <i class="fa-solid fa-star text-warning small"></i>
+                                                    <small>{{ supply.average_rating }} / 5 ({{supply.number_of_reviewers}})</small>
+                                                </p>
                                             {% else %}
-                                            <small class="text-muted">No Rating</small>
+                                                <small class="text-muted">No Rating</small>
                                             {% endif %}
                                             {% if request.user.is_authenticated %}
                                                 {% if request.user.is_superuser %}
