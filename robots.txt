@@ -1,0 +1,6 @@
+User-agent: *
+Disallow: /admin/
+Disallow: /cart/
+Disallow: /checkout/
+Disallow: /account/
+Sitemap: https://rent-event-stuff-d7e439e836a0.herokuapp.com/sitemap.xml
