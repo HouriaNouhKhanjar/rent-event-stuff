@@ -143,7 +143,7 @@ def checkout(request):
                 if delivery_address:
                     address_form = AddressForm(initial={
                         'country': delivery_address.country,
-                        'postcode':delivery_address.postcode,
+                        'postcode': delivery_address.postcode,
                         'town_or_city': delivery_address.town_or_city,
                         'street_address1': delivery_address.street_address1,
                         'street_address2': delivery_address.street_address2,
