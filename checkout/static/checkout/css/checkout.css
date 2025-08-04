@@ -48,6 +48,10 @@ select option {
     color: #000000;
 }
 
+select[name="country"] {
+  padding: 6px 12px;
+}
+
 select:invalid,
 select option[value=""] {
     color: #6c757d !important;
