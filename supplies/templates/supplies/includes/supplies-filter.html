@@ -1,5 +1,5 @@
 <div class="sort-select-wrapper w-100">
-    <select id="sort-selector"
+    <select id="sort-selector" aria-label="sort items"
         class="custom-select custom-select-sm rounded-0 border border-{% if current_sorting != 'None_None' %}info{% else %}black{% endif %}">
         <option value="reset" {% if current_sorting == "None_None" %} selected="selected" {% endif %}>
             Sort by...
@@ -25,7 +25,7 @@
     </select>
 </div>
 <div class="w-100 pt-3 d-none d-md-block">
-    <h4 class="d-none d-md-block">Filter By Category</h4>
+    <h3 class="display-6 d-md-block">Filter By Category</h3>
     <hr/>
 </div>
 <div class="d-block d-md-none pt-3">
@@ -47,6 +47,7 @@
                     {% if cat in current_categories %} checked {% endif %}
                     id="{{cat.id}}"
                     data-category-id="{{cat.id}}"
+                    aria-label="filter by {{cat.slug}}"
                     data-category-slug="{{cat.slug}}">
                 <strong>{{ cat.name }}</strong>
             </p>
@@ -57,6 +58,7 @@
                         {% if sub in current_categories %} checked {% endif %}
                         data-category-id="{{sub.id}}"
                         data-parent-id="{{cat.id}}"
+                        aria-label="filter by {{sub.slug}}"
                         data-category-slug="{{sub.slug}}">
                         {{sub.name}}
                     </p>
@@ -68,6 +70,7 @@
                 <input type="checkbox" class="main-category"
                     id="{{cat.id}}" data-category-id="{{cat.id}}"
                     data-category-slug="{{cat.slug}}"
+                    aria-label="filter by {{cat.slug}}"
                     {% if cat in current_categories %} checked {% endif %}>
                 <strong>{{ cat.name }}</strong>
             </p>
@@ -78,6 +81,7 @@
                         data-category-id="{{sub.id}}"
                         data-parent-id="{{cat.id}}"
                         data-category-slug="{{sub.slug}}"
+                        aria-label="filter by {{sub.slug}}"
                         {% if sub in current_categories %} checked {% endif %}>
                         {{sub.name}}
                     </p>

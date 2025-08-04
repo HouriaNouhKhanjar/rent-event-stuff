@@ -30,7 +30,7 @@
         <div class="supply-container col-10 pb-4 offset-1">
             <div class="row mt-2 mb-2">
                 <div class="col-12 col-md-3 filters pb-3 pl-0 pr-2">
-                    <h3 class="pb-4">Filters</h3>
+                    <h2 class="display-5 pb-4">Filters</h2>
                     {% include 'supplies/includes/supplies-filter.html' %}
                 </div>
 
@@ -42,7 +42,7 @@
                             <div class="card h-100 border-0">
                                 <a href="{% url 'supply_detail' supply.id %}">
                                     <img class="card-img-top img-fluid" src="{{ supply.image_url }}"
-                                        alt="event rental, rent equipment for your party, {{ supply.name }}">
+                                        alt="event rental, rent equipment for your party, {{ supply.name }}" width="100">
                                 </a>
                                 <div class="card-body pb-0">
                                     <a href="{% url 'supply_detail' supply.id %}" class="text-dark">
@@ -119,14 +119,16 @@
                     <div class="row">
                         <div class="col-12 text-center p-5">
                             {%if page_obj.has_previous %}
-                            <a href="#" class="paginate-btn" data-page="{{page_obj.previous_page_number}}">
+                            <a href="#" class="paginate-btn" data-page="{{page_obj.previous_page_number}}"
+                               aria-label="go to previous page">
                                 <i class="fa-solid fa-square-caret-left fa-xl text-primary"></i>
                             </a>
                             {% endif %}
                             <span class="text-wieght-bold mx-4">{{page_obj.number}}</span>
 
                             {%if page_obj.has_next %}
-                            <a href="#" class="paginate-btn" data-page="{{page_obj.next_page_number}}">
+                            <a href="#" class="paginate-btn" data-page="{{page_obj.next_page_number}}"
+                               aria-label="go to next page">
                                 <i class="fa-solid fa-square-caret-right fa-xl text-primary"></i>
                             </a>
                             {% endif %}
@@ -138,9 +140,9 @@
     </div>
 </div>
 <div class="top-button-container shadow-sm rounded-0">
-    <a class="btn-top d-flex h-100 bg-accent">
+    <button class="btn btn-top rounded-0 d-flex h-100 bg-accent" aria-label="scroll to top">
         <i class="fas fa-arrow-up text-black mx-auto my-auto text-white"></i>
-    </a>
+    </button>
 </div>
 <!-- confirmation modal -->
 <div class="modal fade" id="confirm-supply-modal" tabindex="-1" aria-hidden="true">
