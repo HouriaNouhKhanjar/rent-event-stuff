@@ -302,7 +302,6 @@ input:focus {
 .navbar-container {
   background-color: var(--dark-color);
   color: var(--highlight-color-light);
-  box-shadow: 11px 2px 5px #e3e2e291;
 }
 
 .navbar-container .navbar {
@@ -364,11 +363,11 @@ input:focus {
 
 /* Homepage */
 #hero {
-  background: linear-gradient(179deg, rgb(3 3 3 / 31%), rgb(0 0 0 / 85%)),
+  background: linear-gradient(179deg, rgb(3 3 3 / 50%), rgb(0 0 0 / 85%)),
     url(/media/rent-event-stuff-baner.gif);
   background-size: cover;
   background-position: center bottom;
-  height: 80vh;
+  height: 51vh;
 }
 
 /* accounts */
@@ -459,6 +458,14 @@ input:focus {
   }
   .other-categories-menu .dropdown-divider {
     border-color: var(--dark-color) !important;
+  }
+  /* Home */
+  #hero {
+    background: linear-gradient(179deg, rgb(3 3 3 / 52%), rgb(0 0 0 / 85%)),
+      url(/media/rent-event-stuff-baner.gif);
+    background-size: cover;
+    background-position: center bottom;
+    height: 70vh;
   }
   /* accounts */
   .accounts-container {
