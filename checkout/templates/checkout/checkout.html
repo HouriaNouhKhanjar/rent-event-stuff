@@ -6,6 +6,11 @@
 <link rel="stylesheet" href="{% static 'checkout/css/checkout.css' %}">
 {% endblock %}
 
+{% block extra_js %}
+  <!-- Stripe -->
+  <script src="https://js.stripe.com/v3/"></script>
+{% endblock %}
+
 {% block extra_title %} | Checkout {% endblock %}
 
 {% block page_header %}
