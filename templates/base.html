@@ -95,13 +95,13 @@
               </form>
             </li>
             <li class="list-inline-item dropdown">
-              <a class="text-black nav-link" href="#" id="user-options" data-toggle="dropdown" aria-haspopup="true"
+              <a class="text-black nav-link" href="#" id="user-options-desktop" data-toggle="dropdown" aria-haspopup="true"
                 data-toggle="tooltip" title="My Account" aria-expanded="false">
                 <div class="text-center">
                   <i class="fa-solid fa-circle-user fa-lg text-primary"></i>
                 </div>
               </a>
-              <div class="dropdown-menu border-0 rounded-0 bg-light accounts-menu" aria-labelledby="user-options">
+              <div class="dropdown-menu border-0 rounded-0 bg-light accounts-menu" aria-labelledby="user-options-desktop">
                 {% if request.user.is_authenticated %}
                 {% if request.user.is_superuser %}
                 <a href="{% url 'add_supply' %}" class="dropdown-item">Supplies Management</a>

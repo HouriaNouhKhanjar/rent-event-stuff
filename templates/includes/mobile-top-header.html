@@ -1,64 +1,67 @@
-<li class="list-inline-item">
-    <a class="text-black nav-link d-block d-lg-none" href="#" id="mobile-search" data-toggle="dropdown"
-        aria-haspopup="true" aria-expanded="false">
-        <div class="text-center">
-            <div><i class="fas fa-search fa-lg text-primary"></i></div>
-        </div>
-    </a>
-    <div class="dropdown-menu border-0 w-100 p-3 rounded-0 my-0 bg-dark" aria-labelledby="mobile-search">
-        <form class="form" method="GET" action="{% url 'supplies' %}">
-            <div class="input-group w-100">
-                <input class="form-control border-accent input-dark rounded-0" type="text" name="q"
-                    value="{{ search_term }}" placeholder="Search...">
-                <div class="input-group-append">
-                    <button class="form-control form-control btn action-button-secondary"
-                        aria-label="Search for event supply for renting" type="submit">
-                        <span class="icon">
-                            <i class="fas fa-search"></i>
-                        </span>
-                    </button>
-                </div>
+<ul>
+    <li class="list-inline-item">
+        <a class="text-black nav-link d-block d-lg-none" href="#" id="mobile-search" data-toggle="dropdown"
+            aria-haspopup="true" aria-expanded="false">
+            <div class="text-center">
+                <div><i class="fas fa-search fa-lg text-primary"></i></div>
             </div>
-        </form>
-    </div>
-</li>
-<li class="list-inline-item">
-    <a class="text-black nav-link d-block d-lg-none" href="#" id="user-options" data-toggle="dropdown"
-        aria-expanded="false" aria-haspopup="true">
-        <div class="text-center">
-            <div><i class="fas fa-user fa-lg text-primary"></i></div>
+        </a>
+        <div class="dropdown-menu border-0 w-100 p-3 rounded-0 my-0 bg-dark" aria-labelledby="mobile-search">
+            <form class="form" method="GET" action="{% url 'supplies' %}">
+                <div class="input-group w-100">
+                    <input class="form-control border-accent input-dark rounded-0" type="text" name="q"
+                        value="{{ search_term }}" placeholder="Search...">
+                    <div class="input-group-append">
+                        <button class="form-control form-control btn action-button-secondary"
+                            aria-label="Search for event supply for renting" type="submit">
+                            <span class="icon">
+                                <i class="fas fa-search"></i>
+                            </span>
+                        </button>
+                    </div>
+                </div>
+            </form>
         </div>
-    </a>
-    <div class="dropdown-menu border-0 w-100 p-3 rounded-0 my-0 bg-dark  accounts-menu" aria-labelledby="user-options">
-        {% if request.user.is_authenticated %}
-        {% if request.user.is_superuser %}
-        <a href="{% url 'add_supply' %}"class="dropdown-item text-white">Supplies Management</a>
-        <div class="dropdown-divider"></div>
-        <a href="{% url 'admin:index' %}" class="dropdown-item text-white">Admin Panel</a>
-        <div class="dropdown-divider"></div>
-        {% endif %}
-        <a href="{% url 'profile' %}" class="dropdown-item text-white">My Profile</a>
-        <div class="dropdown-divider"></div>
-        <a href="{% url 'account_logout' %}" class="dropdown-item text-white">Logout</a>
-        {% else %}
-        <a href="{% url 'account_signup' %}" class="dropdown-item text-white">Register</a>
-        <div class="dropdown-divider"></div>
-        <a href="{% url 'account_login' %}" class="dropdown-item text-white">Login</a>
-        {% endif %}
-    </div>
-</li>
-<li class="list-inline-item mr-0">
-    <a class="{% if grand_total %}text-accent font-weight-bold{% else %}text-primary{% endif %} nav-link d-block d-lg-none"
-        href="{% url 'view_bag' %}">
-        <div class="text-center">
-            <div><i class="fas fa-shopping-bag fa-lg"></i></div>
-            <p class="my-0">
-                {% if grand_total %}
-                ${{ grand_total|floatformat:2 }}
-                {% else %}
-                $0.00
-                {% endif %}
-            </p>
+    </li>
+    <li class="list-inline-item">
+        <a class="text-black nav-link d-block d-lg-none" href="#" id="user-options" data-toggle="dropdown"
+            aria-expanded="false" aria-haspopup="true">
+            <div class="text-center">
+                <div><i class="fas fa-user fa-lg text-primary"></i></div>
+            </div>
+        </a>
+        <div class="dropdown-menu border-0 w-100 p-3 rounded-0 my-0 bg-dark  accounts-menu"
+            aria-labelledby="user-options">
+            {% if request.user.is_authenticated %}
+            {% if request.user.is_superuser %}
+            <a href="{% url 'add_supply' %}" class="dropdown-item text-white">Supplies Management</a>
+            <div class="dropdown-divider"></div>
+            <a href="{% url 'admin:index' %}" class="dropdown-item text-white">Admin Panel</a>
+            <div class="dropdown-divider"></div>
+            {% endif %}
+            <a href="{% url 'profile' %}" class="dropdown-item text-white">My Profile</a>
+            <div class="dropdown-divider"></div>
+            <a href="{% url 'account_logout' %}" class="dropdown-item text-white">Logout</a>
+            {% else %}
+            <a href="{% url 'account_signup' %}" class="dropdown-item text-white">Register</a>
+            <div class="dropdown-divider"></div>
+            <a href="{% url 'account_login' %}" class="dropdown-item text-white">Login</a>
+            {% endif %}
         </div>
-    </a>
-</li>
+    </li>
+    <li class="list-inline-item mr-0">
+        <a class="{% if grand_total %}text-accent font-weight-bold{% else %}text-primary{% endif %} nav-link d-block d-lg-none"
+            href="{% url 'view_bag' %}">
+            <div class="text-center">
+                <div><i class="fas fa-shopping-bag fa-lg"></i></div>
+                <p class="my-0">
+                    {% if grand_total %}
+                    ${{ grand_total|floatformat:2 }}
+                    {% else %}
+                    $0.00
+                    {% endif %}
+                </p>
+            </div>
+        </a>
+    </li>
+</ul>
