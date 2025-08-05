@@ -8,7 +8,7 @@ from user_profile.forms import AddressForm, UserProfileForm, UserAddressForm
 from user_profile.models import UserProfile, Address
 from .models import Order, OrderLineItem
 from supplies.models import Supply
-from bag.contexts import bag_contents
+from bag.context_processors import bag_contents
 import stripe
 import json
 

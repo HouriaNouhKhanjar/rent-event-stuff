@@ -93,7 +93,8 @@ TEMPLATES = [
                 'django.contrib.messages.context_processors.messages',
                 'django.template.context_processors.media',
                 'supplies.context_processors.navbar_categories',
-                'bag.contexts.bag_contents',
+                'bag.context_processors.bag_contents',
+                'rent_event_stuff.context_processors.canonical_url'
             ],
             'builtins': [
                 'crispy_forms.templatetags.crispy_forms_tags',
