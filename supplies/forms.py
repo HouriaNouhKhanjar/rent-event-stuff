@@ -16,7 +16,7 @@ class SupplyImageInlineForm(forms.ModelForm):
 class SupplyForm(forms.ModelForm):
 
     images = forms.FileField(widget=forms.ClearableFileInput(
-        attrs={'allow_multiple_selected': True}), required=False)
+        attrs={}), required=False)
 
     class Meta:
         model = Supply
@@ -44,7 +44,10 @@ class SupplyForm(forms.ModelForm):
                 placeholder = f'{placeholders[field]} *'
             else:
                 placeholder = placeholders[field]
-            self.fields[field].widget.attrs['placeholder'] = placeholder
+            if field != 'category' and field != 'images':
+                self.fields[field].widget.attrs['placeholder'] = placeholder
+            if field == 'images':
+                self.fields[field].widget.attrs['multiple'] = "multiple"
             self.fields[field].widget.attrs['aria-label'] = f"{placeholder} input"
             self.fields[field].widget.attrs['class'] = 'supply-input'
             self.fields[field].label = False
