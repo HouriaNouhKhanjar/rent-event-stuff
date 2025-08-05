@@ -45,6 +45,7 @@ class SupplyForm(forms.ModelForm):
             else:
                 placeholder = placeholders[field]
             self.fields[field].widget.attrs['placeholder'] = placeholder
+            self.fields[field].widget.attrs['aria-label'] = f"{placeholder} input"
             self.fields[field].widget.attrs['class'] = 'supply-input'
             self.fields[field].label = False
 

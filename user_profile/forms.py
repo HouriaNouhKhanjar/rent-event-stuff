@@ -24,9 +24,10 @@ class AddressForm(forms.ModelForm):
             'street_address1': 'Street Address 1',
             'street_address2': 'Street Address 2',
             'county': 'County | State or Locality',
+            'country': 'Country',
         }
 
-        excluded_fields = ['country', 'user', 'is_default', 'type']
+        excluded_fields = ['user', 'is_default', 'type']
 
         # Generate a random prefix
         random_prefix = ''.join(random.choices(string.ascii_lowercase + string.digits, k=8))
@@ -45,6 +46,7 @@ class AddressForm(forms.ModelForm):
                 field_item.widget.attrs['id'] = f'{random_prefix}_{field}'
 
             self.fields[field].widget.attrs['placeholder'] = placeholder
+            self.fields[field].widget.attrs['aria-label'] = f"{placeholder} input"
             self.fields[field].widget.attrs['class'] = 'stripe-style-input'
             self.fields[field].label = False
 
