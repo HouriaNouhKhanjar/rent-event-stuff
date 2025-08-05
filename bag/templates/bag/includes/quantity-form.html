@@ -1,7 +1,7 @@
 <form class="form update-form pt-0 pt-lg-3" method="POST" action="{% url 'adjust_bag' item.item_id %}">
     {% csrf_token %}
-    <input type="hidden" name="renting_days" value="{{ item.renting_days }}" aria-label="renting days input for item with id {{ item.item_id }}">
-    <input type="hidden" name="start_renting_date" value="{{ item.start_renting_date }}" aria-label="renting date input for item with id {{ item.item_id }}">
+    <input type="hidden" name="renting_days" value="{{ item.renting_days }}">
+    <input type="hidden" name="start_renting_date" value="{{ item.start_renting_date }}">
     <div class="form-group mb-0">
         <div class="input-group">
             <div class="input-group-prepend">
