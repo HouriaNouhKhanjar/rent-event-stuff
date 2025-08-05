@@ -42,7 +42,8 @@
                             <div class="card h-100 border-0">
                                 <a href="{% url 'supply_detail' supply.id %}">
                                     <img class="card-img-top img-fluid" src="{{ supply.image_url }}"
-                                        alt="event rental, rent equipment for your party, {{ supply.name }}" width="100">
+                                        alt="event rental, rent equipment for your party, {{ supply.name }}"
+                                        loading="lazy" width="100" height="100">
                                 </a>
                                 <div class="card-body pb-0">
                                     <a href="{% url 'supply_detail' supply.id %}" class="text-dark">

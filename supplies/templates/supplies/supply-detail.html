@@ -45,9 +45,9 @@
                     {% if user.is_authenticated %}
                         <form method="post" action="{% url 'toggle_save_supply' supply.id %}">
                             {% csrf_token %}
-                            <button type="submit" class="text-primary" 
-                            data-toggle="tooltip" data-placement="bottom"
-                            title="Click to {% if saved_item %} unsave {% else %} save {% endif %}item">
+                            <button type="submit" class="text-primary" aria-label="toggel save item button"
+                                    data-toggle="tooltip" data-placement="bottom"
+                                    title="Click to {% if saved_item %} unsave {% else %} save {% endif %}item">
                                 {% if saved_item %}
                                   <i class="fa-solid fa-heart"></i>
                                 {% else %}
@@ -56,8 +56,9 @@
                             </button>
                         </form>
                     {% else %}
-                        <button class="text-dark" data-toggle="tooltip" data-placement="bottom"
-                            title="Login to save item" disabled>
+                        <button class="text-dark" aria-label="save item button"
+                                data-toggle="tooltip" data-placement="bottom"
+                                title="Login to save item" disabled>
                             <i class="fa-regular fa-heart"></i>
                         </button>
                      {% endif %}
@@ -82,74 +83,79 @@
                     <div class="form-row">
                         <div class="col-12">
                             <div class="form-group">
-                                <label for="quantity">Quantity</label>
+                                <label for="qty-{{ supply.id }}">Quantity</label>
                                 <div class="input-group">
                                     <div class="input-group-prepend">
                                         <button class="decrement btn action-button-secondary"
-                                            data-item-id="{{ supply.id }}" 
-                                            data-type="qty"
-                                            id="decrement-qty-{{ supply.id }}">
-                                            <span class="icon">
-                                                <i class="fas fa-minus"></i>
-                                            </span>
+                                                data-item-id="{{ supply.id }}" 
+                                                aria-label="increment quantity button"
+                                                data-type="qty"
+                                                id="decrement-qty-{{ supply.id }}">
+                                                    <span class="icon">
+                                                        <i class="fas fa-minus"></i>
+                                                    </span>
                                         </button>
                                     </div>
                                     <input class="form-control incremental-input" type="number" name="quantity" value="1" min="1"
-                                    max="99" data-item-id="{{ supply.id }}" id="qty-{{ supply.id }}" data-type="qty" required>
+                                           max="99" data-item-id="{{ supply.id }}" id="qty-{{ supply.id }}"
+                                           data-type="qty" required>
                                     <div class="input-group-append">
                                         <button class="increment btn action-button-secondary"
                                                 data-item-id="{{ supply.id }}"
                                                 data-type="qty"
+                                                aria-label="decrement quantity button"
                                                 id="increment-qty-{{ supply.id }}">
-                                            <span class="icon">
-                                                <i class="fas fa-plus"></i>
-                                            </span>
+                                                    <span class="icon">
+                                                        <i class="fas fa-plus"></i>
+                                                    </span>
                                         </button>
                                     </div>
                                 </div>
                             </div>
                             <div class="form-group">
-                                <label for="quantity">Start Renting Date</label>
+                                <label for="start-renting-date-{{ supply.id }}">Start Renting Date</label>
                                 <input class="form-control date-input" type="date" name="start_renting_date" 
-                                 data-item-id="{{ supply.id }}" id="start-renting-date-{{ supply.id }}" required>
+                                       data-item-id="{{ supply.id }}" id="start-renting-date-{{ supply.id }}" required>
                             </div>
                             <div class="form-group">
-                                <label for="quantity">Renting Days</label>
+                                <label for="days-{{ supply.id }}">Renting Days</label>
                                 <div class="input-group">
                                     <div class="input-group-prepend">
                                         <button class="decrement btn action-button-secondary"
                                             data-item-id="{{ supply.id }}" 
                                             data-type="days"
+                                            aria-label="increment days button"
                                             id="decrement-days-{{ supply.id }}">
-                                            <span class="icon">
-                                                <i class="fas fa-minus"></i>
-                                            </span>
+                                                <span class="icon">
+                                                    <i class="fas fa-minus"></i>
+                                                </span>
                                         </button>
                                     </div>
                                     <input class="form-control incremental-input" type="number" name="renting_days" value="1" min="1"
-                                    max="99" data-item-id="{{ supply.id }}" data-type="days"
-                                    id="days-{{ supply.id }}" required>
+                                            max="99" data-item-id="{{ supply.id }}" data-type="days"
+                                            id="days-{{ supply.id }}" required>
                                     <div class="input-group-append">
                                         <button class="increment btn action-button-secondary"
                                                 data-item-id="{{ supply.id }}"
                                                 data-type="days"
+                                                aria-label="decrement days button"
                                                 id="increment-days-{{ supply.id }}">
-                                            <span class="icon">
-                                                <i class="fas fa-plus"></i>
-                                            </span>
+                                                    <span class="icon">
+                                                        <i class="fas fa-plus"></i>
+                                                    </span>
                                         </button>
                                     </div>
                                 </div>
                             </div>
                         </div>
                         <div class="col-12 mt-2 d-flex flex-column flex-md-row align-items-start justify-content-md-start">
-                            <a href="{% url 'supplies' %}" class="btn action-button-secondary mr-0 mr-md-2">
+                            <a href="{% url 'supplies' %}" aria-label="keep shopping button" class="btn action-button-secondary mr-0 mr-md-2">
                                 <span class="icon">
                                     <i class="fas fa-chevron-left"></i>
                                 </span>
                                 <span class="text-uppercase">Keep Shopping</span>
                             </a>
-                            <input type="submit" class="btn action-button mt-2 mt-md-0 px-5 px-md-2" value="Add to Bag">
+                            <input type="submit" class="btn action-button mt-2 mt-md-0 px-5 px-md-2" aria-label="add to bag button" value="Add to Bag">
                         </div>
                         <input type="hidden" name="redirect_url" value="{{ request.path }}">
                     </div>
