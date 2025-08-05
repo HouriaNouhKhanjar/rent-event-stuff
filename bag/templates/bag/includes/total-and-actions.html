@@ -1,12 +1,12 @@
 <div class="my-3">
     <div class="d-flex flex-column align-items-start align-items-lg-end">
-        <h6>
+        <h2 class="display-6">
             <strong>
                 Bag Total:
                 <span class="text-accent">${{ total|floatformat:2}}</span>
             </strong>
-        </h6>
-        <h6>Delivery: <span class="text-accent">${{ delivery|floatformat:2 }}</span></h6>
+        </h2>
+        <h3 class="display-6">Delivery: <span class="text-accent">${{ delivery|floatformat:2 }}</span></h3>
         <h4 class="my-3">
             <strong>
                 Grand Total:
@@ -20,13 +20,13 @@
         </p>
         {% endif %}
         <div class="bag-actions">
-            <a href="{% url 'supplies' %}" class="btn action-button-secondary">
+            <a href="{% url 'supplies' %}" class="btn action-button-secondary" aria-label="keep shoping button">
                 <span class="icon">
                     <i class="fas fa-chevron-left"></i>
                 </span>
                 <span class="text-uppercase">Keep Shopping</span>
             </a>
-            <a href="{% url 'checkout' %}" class="btn action-button mt-2 mt-lg-0">
+            <a href="{% url 'checkout' %}" class="btn action-button mt-2 mt-lg-0" aria-label="secure checkout button">
                 <span class="text-uppercase">Secure Checkout</span>
                 <span class="icon">
                     <i class="fas fa-lock"></i>

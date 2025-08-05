@@ -1,38 +1,42 @@
 <form class="form update-form pt-0 pt-lg-3" method="POST" action="{% url 'adjust_bag' item.item_id %}">
     {% csrf_token %}
-    <input type="hidden" name="renting_days" value="{{ item.renting_days }}">
-    <input type="hidden" name="start_renting_date" value="{{ item.start_renting_date }}">
+    <input type="hidden" name="renting_days" value="{{ item.renting_days }}" aria-label="renting days input for item with id {{ item.item_id }}">
+    <input type="hidden" name="start_renting_date" value="{{ item.start_renting_date }}" aria-label="renting date input for item with id {{ item.item_id }}">
     <div class="form-group mb-0">
         <div class="input-group">
             <div class="input-group-prepend">
                 <button class="decrement btn action-button-secondary btn-sm py-0 px-2"
-                    data-item-id="{{ item.item_id }}-{{ item.start_renting_date }}-{{ item.renting_days }}"
-                    data-type="qty"
-                    id="decrement-qty-{{ item.item_id }}-{{ item.start_renting_date }}-{{ item.renting_days }}">
-                    <i class="fas fa-minus"></i>
+                        data-item-id="{{ item.item_id }}-{{ item.start_renting_date }}-{{ item.renting_days }}"
+                        data-type="qty"
+                        aria-label="increment quantity button for item with id {{ item.item_id }}"
+                        id="decrement-qty-{{ item.item_id }}-{{ item.start_renting_date }}-{{ item.renting_days }}">
+                          <i class="fas fa-minus"></i>
                 </button>
             </div>
             <input class="form-control form-control-sm incremental-input" type="number" name="quantity"
-                value="{{ item.quantity }}" min="1" max="99"
-                data-item-id="{{ item.item_id }}-{{ item.start_renting_date }}-{{ item.renting_days }}"
-                id="qty-{{ item.item_id }}-{{ item.start_renting_date }}-{{ item.renting_days }}" data-type="qty">
+                    value="{{ item.quantity }}" min="1" max="99"
+                    aria-label="quantity input for item with id {{ item.item_id }}"
+                    data-item-id="{{ item.item_id }}-{{ item.start_renting_date }}-{{ item.renting_days }}"
+                    id="qty-{{ item.item_id }}-{{ item.start_renting_date }}-{{ item.renting_days }}" data-type="qty">
             <div class="input-group-append">
                 <button class="increment btn action-button-secondary btn-sm py-0 px-2"
-                    data-item-id="{{ item.item_id }}-{{ item.start_renting_date }}-{{ item.renting_days }}"
-                    data-type="qty"
-                    id="increment-qty-{{ item.item_id }}-{{ item.start_renting_date }}-{{ item.renting_days }}">
-                    <i class="fas fa-plus"></i>
+                        data-item-id="{{ item.item_id }}-{{ item.start_renting_date }}-{{ item.renting_days }}"
+                        data-type="qty"
+                        aria-label="decrement quantity button for item with id {{ item.item_id }}"
+                        id="increment-qty-{{ item.item_id }}-{{ item.start_renting_date }}-{{ item.renting_days }}">
+                          <i class="fas fa-plus"></i>
                 </button>
             </div>
         </div>
     </div>
     <div>
-        <a class="update-link float-right pl-2">
+        <button class="btn update-link float-right pl-2" aria-label="update button for item with {{ item.item_id }}">
             <small class="text-info">Update</small>
-        </a>
-        <a class="remove-item" id="remove-{{ item.item_id }}" data-renting-date="{{ item.start_renting_date }}"
-            data-renting-days="{{ item.renting_days }}">
-            <small class="text-accent"><i class="fa-solid fa-trash"></i></small>
-        </a>
+        </button>
+        <button class="btn remove-item" id="remove-{{ item.item_id }}" data-renting-date="{{ item.start_renting_date }}"
+                data-renting-days="{{ item.renting_days }}"
+                aria-label="delete button for item with {{ item.item_id }}">
+                <small class="text-accent"><i class="fa-solid fa-trash"></i></small>
+        </button>
     </div>
 </form>

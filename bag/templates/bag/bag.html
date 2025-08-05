@@ -33,7 +33,7 @@
                 <div class="row">
                     <div class="col text-center">
                         <p class="display-5 mb-5">Your bag is empty.</p>
-                        <a href="{% url 'supplies' %}" class="btn action-button-secondary">
+                        <a href="{% url 'supplies' %}" class="btn action-button-secondary" aria-label="keep shopping button">
                             <span class="icon">
                                 <i class="fas fa-chevron-left"></i>
                             </span>
@@ -47,9 +47,9 @@
     </div>
 </div>
 <div class="d-block d-lg-none top-button-container shadow-sm rounded-0">
-    <a class="btn-top d-flex h-100 bg-accent">
+    <button class="btn btn-top d-flex h-100 rounded-0 bg-accent" aria-label="go to top button">
         <i class="fas fa-arrow-up text-black mx-auto my-auto text-white"></i>
-    </a>
+    </button>
 </div>
 {% endblock %}
 
