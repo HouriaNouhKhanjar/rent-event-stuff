@@ -87,10 +87,6 @@ input:focus {
   font-size: medium;
   outline: none;
   border-radius: 0;
-  -webkit-border-radius: 0;
-  -moz-border-radius: 0;
-  -ms-border-radius: 0;
-  -o-border-radius: 0;
 }
 
 .action-button-secondary {
@@ -100,10 +96,7 @@ input:focus {
   outline: none;
   border-radius: 0;
   font-size: medium;
-  -webkit-border-radius: 0;
-  -moz-border-radius: 0;
-  -ms-border-radius: 0;
-  -o-border-radius: 0;
+  border-radius: 0;
 }
 
 .action-button:hover {
@@ -164,12 +157,7 @@ input:focus {
 
 .input-dark::placeholder {
   color: var(--highlight-color-light);
-  opacity: 1; /* Firefox */
-}
-
-.input-dark::-ms-input-placeholder {
-  /* Edge 12-18 */
-  color: var(--highlight-color-light);
+  opacity: 1; 
 }
 
 .underline {
@@ -203,10 +191,8 @@ input:focus {
 .ellipsis {
   overflow: hidden;
   text-overflow: ellipsis;
-  -o-text-overflow: ellipsis;
   display: -webkit-box;
-  -webkit-line-clamp: 2; /* number of lines to show */
-  line-clamp: 2;
+  -webkit-line-clamp: 2;
   -webkit-box-orient: vertical;
 }
 
@@ -324,8 +310,6 @@ input:focus {
   text-decoration-line: underline;
   text-decoration-color: var(--secondary-color);
   text-decoration-thickness: 4px;
-  -moz-text-decoration-line: underline;
-  -moz-text-decoration-color: var(--secondary-color);
 }
 
 #main-nav .nav-item .dropdown-menu {

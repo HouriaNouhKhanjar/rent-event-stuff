@@ -44,10 +44,8 @@ h4 {
 .ellipsis-4 {
   overflow: hidden;
   text-overflow: ellipsis;
-  -o-text-overflow: ellipsis;
   display: -webkit-box;
-  -webkit-line-clamp: 4; /* number of lines to show */
-  line-clamp: 4;
+  -webkit-line-clamp: 4;
   -webkit-box-orient: vertical;
 }
 
@@ -100,10 +98,6 @@ select,
 textarea {
     outline: none;
     border-radius: unset !important;
-    -webkit-border-radius: unset !important;
-    -moz-border-radius: unset !important;
-    -ms-border-radius: unset !important;
-    -o-border-radius: unset !important;
 }
 
 input:focus,
