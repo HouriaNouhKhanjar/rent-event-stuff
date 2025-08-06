@@ -44,7 +44,7 @@ class AddressForm(forms.ModelForm):
             else:
                 # If no id is set, set a new id with the random prefix
                 field_item.widget.attrs['id'] = f'{random_prefix}_{field}'
-                
+
             if field != 'country':
                 self.fields[field].widget.attrs['placeholder'] = placeholder
             self.fields[field].widget.attrs['aria-label'] = f"{placeholder} input"
