@@ -13,54 +13,52 @@ entities = {
     ],
     "Profile": [
         "id (PK, INT)", "user_id (FK, INT)",
-        "phone (VARCHAR)", "image_url (Filefield)",
-        "first_name (VARCHAR)", "last_name (VARCHAR)",
-        "created (DATETIME)"
+        "phone_number (VARCHAR)"
     ],
     "Address": [
         "id (PK, INT)", "user_id (FK, INT)", "street (VARCHAR)",
         "city (VARCHAR)", "postal_code (VARCHAR)",
-        "country (VARCHAR)", "is_default (INT)",
-        "type (INT)", "created (DATETIME)"
+        "town_or_city (VARCHAR)", "street_address1 (VARCHAR)",
+        "street_address2 (VARCHAR)", "county (VARCHAR)",
+        "country (COUNTRYFIELD)", "is_default (BOOL)",
+        "type (INT)", "created_on (DATETIME)"
     ],
     "Category": [
         "id (PK, INT)", "name (VARCHAR)", "parent_id (FK, INT)"
-        "slug (VARCHAR)", "created (DATETIME)"
+        "slug (VARCHAR)", "created_on (DATETIME)"
     ],
     "Supply": [
         "id (PK, INT)", "name (VARCHAR)", "sku (VARCHAR)",
         "category_id (FK, INT)", "description (VARCHAR)",
         "quantity_available (INT)", "price_per_day (DECIMAL)",
-        "created (DATETIME)"
+        "created_on (DATETIME)"
     ],
     "Supply Image": [
         "id (PK, INT)", "supply_id (FK, INT)",
-        "image_url (Urlfield)", "image (ImageField)", "created (DATETIME)"
+        "image_url (Urlfield)", "image (ImageField)", "created_on (DATETIME)"
     ],
     "Order": [
-        "id (PK, INT)", "user_id (FK, INT)",
+        "id (PK, INT)", "order_number (VARCHAR)", "profile_id (FK, INT)",
         "billing_address_id (FK, INT)", "delivery_address_id (FK, INT)",
-        "total_price (DECIMAL)", "status (INT)", "created (DATETIME)"
+        "full_name (VARCHAR)", "email (VARCHAR)",
+        "phone_number (VARCHAR)", "order_total (DECIMAL)",
+        "grand_total (DECIMAL)", "delivery_cost (DECIMAL)",
+        "original_bag (TEXT)", "stripe_pid (VARCHAR)"
+        "status (INT)", "created_on (DATETIME)"
     ],
     "Order Item": [
         "id (PK, INT)", "order_id (FK, INT)", "supply_id (FK, INT)",
         "quantity (INT)", "rental_start_date (DATETIME)",
-        "rental_end_date (DATETIME)", "price_per_day (DECIMAL)",
-        "subtotal (DECIMAL)", "created (DATETIME)"
-    ],
-    "Payment": [
-        "id (PK, INT)", "order_id (FK, INT)",
-        "stripe_payment_id (VARCHAR)", "amount (DECIMAL)",
-        "status (INT)", "paid_at (DATETIME)",
-        "created (DATETIME)"
+        "renting_days (INT)", "price_per_day (DECIMAL)",
+        "lineitem_total (DECIMAL)", "created_on (DATETIME)"
     ],
     "Saved Item": [
         "id (PK, INT)", "user_id (FK, INT)", "supply_id (FK, INT)",
-        "note (VARCHAR)", "created (DATETIME)"
+        "created (DATETIME)"
     ],
     "Review": [
         "id (PK, INT)", "user_id (FK, INT)", "supply_id (FK, INT)",
-        "rating (INT)", "comment (VARCHAR)", "created (DATETIME)"
+        "rating (INT)", "comment (VARCHAR)", "created_at (DATETIME)"
     ]
 }
 
@@ -86,12 +84,11 @@ relationships = [
     ("Supply", "Category"),
     ("Category", "Category"),
     ("Supply Image", "Supply"),
-    ("Order", "User"),
+    ("Order", "Profile"),
     ("Order", "Address"),  # billing
     ("Order", "Address"),  # delivery
     ("Order Item", "Order"),
     ("Order Item", "Supply"),
-    ("Payment", "Order"),
     ("Review", "User"),
     ("Review", "Supply")
 ]
