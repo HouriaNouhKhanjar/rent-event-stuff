@@ -8,7 +8,7 @@
 var stripePublic_key = $("#id_stripe_public_key").text().slice(1, -1);
 var clientSecret = $("#id_client_secret").text().slice(1, -1);
 
-function getStripeOneTime(containerClass) {
+function getStripeOneTime() {
   var stripe = Stripe(stripePublic_key);
   var elements = stripe.elements();
   var style = {
@@ -27,10 +27,10 @@ function getStripeOneTime(containerClass) {
     }
   };
   var card = elements.create("card", { style: style });
-  card.mount(`.${containerClass} .card-element`);
+  card.mount(`.card-element`);
   // Handle realtime validation errors on the card element
   card.addEventListener("change", function (event) {
-    var errorDiv = document.querySelector(`.${containerClass} .card-errors`);
+    var errorDiv = document.querySelector(`.card-errors`);
     if (event.error) {
       var html = `
                 <span class="icon" role="alert">
@@ -44,21 +44,21 @@ function getStripeOneTime(containerClass) {
   });
 
   // Handle form submit
-  var form = document.querySelector(`.${containerClass} .payment-form`);
+  var form = document.querySelector(`.payment-form`);
 
   form.addEventListener("submit", function (e) {
     e.preventDefault();
 
     card.update({ disabled: true });
 
-    $(`.${containerClass} .submit-payment-form`).attr("disabled", true);
-    $(`.${containerClass} .payment-form`).fadeToggle(100);
+    $(`.submit-payment-form`).attr("disabled", true);
+    $(`.payment-form`).fadeToggle(100);
 
     $("#loading-overlay").fadeToggle(100);
 
-    var saveInfo = Boolean($(`.${containerClass} .info-save`).prop('checked'));
+    var saveInfo = Boolean($(`.info-save`).prop("checked"));
     var csrfToken = $(
-      `.${containerClass}  input[name="csrfmiddlewaretoken"]`
+      `input[name="csrfmiddlewaretoken"]`
     ).val();
     var postData = {
       csrfmiddlewaretoken: csrfToken,
@@ -67,86 +67,95 @@ function getStripeOneTime(containerClass) {
     };
     var url = "/checkout/cache_checkout_data/";
 
-    $.post(url, postData).done(function () {
-      stripe
-        .confirmCardPayment(clientSecret, {
-          payment_method: {
-            card: card,
-            billing_details: {
+    $.post(url, postData)
+      .done(function () {
+        stripe
+          .confirmCardPayment(clientSecret, {
+            payment_method: {
+              card: card,
+              billing_details: {
+                name: $.trim(form.full_name.value),
+                phone: $.trim(form.phone_number.value),
+                email: $.trim(form.email.value),
+                address: {
+                  line1: $.trim(form.street_address1.value),
+                  line2: $.trim(form.street_address2.value),
+                  city: $.trim(form.town_or_city.value),
+                  country: $.trim(form.country.value),
+                  state: $.trim(form.county.value)
+                }
+              }
+            },
+            shipping: {
               name: $.trim(form.full_name.value),
               phone: $.trim(form.phone_number.value),
-              email: $.trim(form.email.value),
               address: {
                 line1: $.trim(form.street_address1.value),
                 line2: $.trim(form.street_address2.value),
                 city: $.trim(form.town_or_city.value),
                 country: $.trim(form.country.value),
+                postal_code: $.trim(form.postcode.value),
                 state: $.trim(form.county.value)
               }
             }
-          },
-          shipping: {
-            name: $.trim(form.full_name.value),
-            phone: $.trim(form.phone_number.value),
-            address: {
-              line1: $.trim(form.street_address1.value),
-              line2: $.trim(form.street_address2.value),
-              city: $.trim(form.town_or_city.value),
-              country: $.trim(form.country.value),
-              postal_code: $.trim(form.postcode.value),
-              state: $.trim(form.county.value)
-            }
-          }
-        })
-        .then(function (result) {
-          if (result.error) {
-            var errorDiv = document.querySelector(
-              `.${containerClass} .card-errors`
-            );
-            var html = `
+          })
+          .then(function (result) {
+            if (result.error) {
+              var errorDiv = document.querySelector(
+                `.card-errors`
+              );
+              var html = `
                 <span class="icon" role="alert">
                 <i class="fas fa-times"></i>
                 </span>
                 <span>${result.error.message}</span>`;
-            $(errorDiv).html(html);
-            $(`.${containerClass} .payment-form`).fadeToggle(100);
-            $("#loading-overlay").fadeToggle(100);
-            card.update({ disabled: false });
-            $(`.${containerClass} .submit-payment-form`).attr(
-              "disabled",
-              false
-            );
-          } else {
-            if (result.paymentIntent.status === "succeeded") {
-              form.submit();
+              $(errorDiv).html(html);
+              $(`.payment-form`).fadeToggle(100);
+              $("#loading-overlay").fadeToggle(100);
+              card.update({ disabled: false });
+              $(`.submit-payment-form`).attr(
+                "disabled",
+                false
+              );
+            } else {
+              if (result.paymentIntent.status === "succeeded") {
+                form.submit();
+              }
             }
-          }
-        });
-    }).fail(function () {
-        // just reload the page, the error will be in django messages
+          });
+      })
+      .fail(function () {
         location.reload();
-    });
+      });
   });
 }
 
-window.addEventListener("resize", function (event) {
-  if (document.body.clientWidth >= 992) {
-    if ($(".checkout-desktop .card-element").children().length == 0) {
-      getStripeOneTime("checkout-desktop");
-    }
-  } else {
-    if ($(".checkout-mobile .card-element").children().length == 0) {
-      getStripeOneTime("checkout-mobile");
-    }
-  }
-});
+document.addEventListener("DOMContentLoaded", function () {
+  var form = document.getElementById("checkout-form-container");
+  var mobileContainer = document.querySelector(".checkout-mobile #order-form-content .card-body");
+  var desktopContainer = document.querySelector(
+    ".checkout-desktop .form-container"
+  );
 
-if (document.body.clientWidth >= 992) {
-  if ($(".checkout-desktop .card-element").children().length == 0) {
-    getStripeOneTime("checkout-desktop");
+  function moveForm() {
+    const isMobile = window.innerWidth < 992;
+
+    if (isMobile) {
+      if (!mobileContainer.contains(form)) {
+        mobileContainer.appendChild(form);
+      }
+    } else {
+      if (!desktopContainer.contains(form)) {
+        desktopContainer.appendChild(form);
+      }
+    }
   }
-} else {
-  if ($(".checkout-mobile .card-element").children().length == 0) {
-    getStripeOneTime("checkout-mobile");
-  }
-}
+
+  // Move on load
+  moveForm();
+  // Get stripe element on load
+  getStripeOneTime(); 
+
+  // Move on resize
+  window.addEventListener("resize", moveForm);
+});
