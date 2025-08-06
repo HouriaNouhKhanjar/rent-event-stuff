@@ -36,7 +36,7 @@
                 <div class="text-right">
                     <button type="submit" class="btn action-button text-uppercase">Update</button>
                 </div>
-                <hr/>
+                <hr>
             </form>
             <form class="mt-3" action="{% url 'update_address' %}" method="POST">
                 {% csrf_token %}
@@ -48,13 +48,13 @@
                     {{ delivery_address_form.postcode | as_crispy_field }}
                     {{ delivery_address_form.county | as_crispy_field }}
                     {{ delivery_address_form.country | as_crispy_field }}
-                    <input type="hidden" name="type" value="1" />
-                    <input type="hidden" name="address_id" value="{{delivery_address.id}}" />
+                    <input type="hidden" name="type" value="1" >
+                    <input type="hidden" name="address_id" value="{{delivery_address.id}}">
                 </fieldset>
                 <div class="text-right">
                     <button type="submit" class="btn action-button text-uppercase">Update</button>
                 </div>
-                <hr/>
+                <hr>
             </form>
             <form class="mt-3" action="{% url 'update_address' %}" method="POST">
                 {% csrf_token %}
@@ -66,13 +66,13 @@
                     {{ billing_address_form.postcode | as_crispy_field }}
                     {{ billing_address_form.county | as_crispy_field }}
                     {{ billing_address_form.country | as_crispy_field }}
-                    <input type="hidden" name="type" value="0" />
-                    <input type="hidden" name="address_id" value="{{billing_address.id}}" />
+                    <input type="hidden" name="type" value="0">
+                    <input type="hidden" name="address_id" value="{{billing_address.id}}">
                 </fieldset>
                 <div class="text-right">
                     <button type="submit" class="btn action-button text-uppercase">Update</button>
                 </div>
-                <hr class="d-block d-md-none"/>
+                <hr class="d-block d-md-none">
             </form>
         </div>
         <div class="col-12 col-lg-6 pt-5 pt-md-0 px-0 px-md-3">
