@@ -94,6 +94,8 @@ An HTML validation error occurs on the profile page because the page includes tw
     {{ form.field_name|as_crispy_field }}
     ```
 which causes duplicate id attributes on the generated `<div>` wrappers for some fields.
+![HTML Validation Errors - Profile Page](../images/profile-html-validation-errors.png)
+![HTML div ids of delivery and shipping addresses on profile page](../images/profile-address-form-dom.png)
 
 #### CSS Validation
 | File | Result |
@@ -125,6 +127,7 @@ which causes duplicate id attributes on the generated `<div>` wrappers for some 
 [Code Institute Python Linter](https://pep8ci.herokuapp.com/) was used to validate the python files.
 
 *Just E501 line too long warnings was found*
+
 ---
 
 ### Lighthouse
@@ -438,3 +441,4 @@ Each device tested the site using the following browsers:
 | 2 | Homepage video, Supply images on supplies page and images on supply detail slowing load time. | Optimize image and video sizes to improve performance. |
 | 3 | Console warning during deployment indicates that one or more third-party services are not allowed to use cookies. | Add a cookie consent mechanism to the website to comply with browser and privacy requirements. |
 | 4 |  HTML validation errors appeared on the profile page due to using the same form for both delivery and shipping info, which caused duplicate div IDs. | Redesigned the delivery and shipping address update sections to avoid duplicated element IDs |
+| 5 |  Render-blocking resources | Optimize critical and non-critical JS/CSS files to enhance page load performance. |
